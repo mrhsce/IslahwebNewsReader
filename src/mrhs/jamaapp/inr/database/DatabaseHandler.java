@@ -1,7 +1,8 @@
 package mrhs.jamaapp.inr.database;
 
 
-import mrhs.jamaapp.inr.Commons;
+import ir.anamsoftware.persiandateultimate.ManamPDUltimate;
+import mrhs.jamaapp.inr.main.Commons;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,18 +12,19 @@ import android.util.Log;
 public class DatabaseHandler {
 	private static final boolean LOCAL_SHOW_LOG = true;
 	
-	private static final String TABLE_NEWS = "newsTable";
-	private static final String TABLE_INTERVIEW = "interviewTable";
-	private static final String TABLE_SELECTED = "selectedTable";
-	private static final String TABLE_ANNOUNCE = "announcementTable";
-	private static final String TABLE_BOOKS = "booksTable";
-	private static final String TABLE_MAG = "magazineTable";
-	private static final String TABLE_ARTICLE = "articleTable";
-	private static final String TABLE_FEQHI = "feqhiTable";
-	private static final String TABLE_GALLERY = "galleryTable";
+	public static final String TABLE_NEWS = "newsTable";
+	public static final String TABLE_INTERVIEW = "interviewTable";
+	public static final String TABLE_SELECTED = "selectedTable";
+	public static final String TABLE_ANNOUNCE = "announcementTable";
+	public static final String TABLE_BOOKS = "booksTable";
+	public static final String TABLE_MAG = "magazineTable";
+	public static final String TABLE_ARTICLE = "articleTable";
+	public static final String TABLE_FEQHI = "feqhiTable";
+	public static final String TABLE_GALLERY = "galleryTable";	
 	
+	public	ManamPDUltimate dateConvertor;	
 	private DbHelper dbHelper;
-	private  SQLiteDatabase db;
+	public  SQLiteDatabase db;
 	
 	// Necessary functions (DDL)
 	public DatabaseHandler(Context ctx){
@@ -49,8 +51,8 @@ public class DatabaseHandler {
 		public void onCreate(SQLiteDatabase db) {
 			// TODO Auto-generated method stub
 			String CREATE_NEWS="CREATE TABLE IF NOT EXISTS "+TABLE_NEWS+ 
-					" (id INTEGER PRIMARY KEY,title text not null,gdate DATE not null," +
-					" jdate text not null,indexImg text not null,source text not null," +
+					" (id INTEGER PRIMARY KEY,title text not null,gdate DATE not null,jdate text not null," +
+					" indexImg text not null,source text not null," +
 					"type text not null,bigImg text,pageLink text not null,mainText text)";					
 			db.execSQL(CREATE_NEWS);
 			
