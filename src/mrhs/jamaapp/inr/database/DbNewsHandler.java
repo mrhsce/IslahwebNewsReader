@@ -1,6 +1,7 @@
 package mrhs.jamaapp.inr.database;
 
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -19,26 +20,23 @@ public class DbNewsHandler {
 	public DbNewsHandler(DatabaseHandler parent){
 		this.parent = parent;
 	}
-	String CREATE_NEWS="CREATE TABLE IF NOT EXISTS "+ 
-			" (id INTEGER PRIMARY KEY,title text not null,date DATE not null," +
-			" jdate text not null,indexImg text not null,source text not null," +
-			"type text not null,bigImg text,pageLink text not null,mainText text)";	
+	
 	public boolean initialInsert(String title,String jDate,String indexImgAddr,String source,String type,String pageLink){
 		
 		String gdate = "";
 		try {
-			gdate = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault()).
-					format(new SimpleDateFormat("yyyy/MM/dd",Locale.getDefault()).
-					parse(parent.dateConvertor.PersianToGregorian(jDate)));
+			gdate = new SimpleDateFormat("yyyy-MM-dd").
+						format(new SimpleDateFormat("yyyy/MM/dd",Locale.getDefault()).
+						parse(parent.dateConvertor.PersianToGregorian(jDate)));
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}		
 		
 		ContentValues values=new ContentValues();
 		values.put("title",title);
-		values.put("gdate",gdate);
 		values.put("jdate",jDate);
+		values.put("gdate",gdate);
 		values.put("indexImg", indexImgAddr);
 		values.put("source",source);
 		values.put("type",type);
@@ -69,37 +67,80 @@ public class DbNewsHandler {
 	}
 	
 	public boolean exists(String title,String jdate){
-		
+			Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{"title","jdate"},
+					"title='"+title+"' and jdate='"+jdate+"'",null, null, null, null);
+			if(cursor != null){
+				return cursor.moveToFirst();
+				}
+			return false;
 	}
 	
 	public Cursor getAll(){
-		
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},null,null, null, null, null);
+		return cursor;
 	}
 	
-	public Cursor getAllByType(){
-		
+	public Cursor getAllByType(String type){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},"type='"+type+"'",null, null, null, "gdate desc");
+		return cursor;
 	}
 	
-	public Cursor getById(){
-		
+	public Cursor getById(Integer id){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},"id="+id,null, null, null, "gdate desc");
+		return cursor;
 	}
 	
 	public Cursor getThoseWithoutIndexImage(){
-		
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},"indexImg like 'http://%'"+null,null, null, null, "gdate desc");
+		return cursor;
 	}
 	
-	public Cursor getgetThoseWithoutMainText(){
-		
+	public Cursor getThoseWithoutMainText(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},"mainText="+null,null, null, null, "gdate desc");
+		return cursor;
 	}
 	
-	public Cursor getgetThoseWithoutBigImage(){
-		
+	public Cursor getThoseWithoutBigImage(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},"bigImg like 'http://%'"+null,null, null, null, "gdate desc");
+		return cursor;
+	}
+	
+	public int deleteEntry(Integer id){
+		return parent.db.delete(DatabaseHandler.TABLE_NEWS, "id = "+id, null);
+	}
+	
+	public int deleteEntry(String title,String jdate){
+		return parent.db.delete(DatabaseHandler.TABLE_NEWS, "title='"+title+"' and jdate='"+jdate+"'", null);
+	}
+	
+	public int deleteEntry(String type){
+		return parent.db.delete(DatabaseHandler.TABLE_NEWS, "type='"+type+"'", null);
+	}
+	
+	public void deleteEntryBefore(Date date){
+		String jdate = parent.dateConvertor.GregorianToPersian(new SimpleDateFormat("yyyy/MM/dd").format(date));
+		Cursor cursor = getAll();
+		do{
+			if(cursor.moveToFirst()){
+				if(cursor.getString(2) != null){
+					if(parent.dateConvertor.CalculateDaysBetween(jdate,cursor.getString(2))==0){
+						deleteEntry(cursor.getInt(0));
+					}
+				}
+			}
+		}while(cursor.moveToNext());
 	}
 	
 	
-	private static void log(String message){
+	private void log(String message){
 		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)
-			Log.d("DbNewsHandler",message);
+			Log.d(this.getClass().getSimpleName(),message);
 	}
 
 }
