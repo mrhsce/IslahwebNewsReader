@@ -26,9 +26,29 @@ public class DatabaseHandler {
 	private DbHelper dbHelper;
 	public  SQLiteDatabase db;
 	
+	public DbAnnouncementHandler anouncementHandler;
+	public DbArticleHandler articleHandler;
+	public DbBookHandler bookHandler;
+	public DbFeqhiHandler feqhiHandler;
+	public DbGalleryHandler galleryHandler;
+	public DbInterviewHandler interviewHandler;
+	public DbMagazineHandler magazineHandler;
+	public DbNewsHandler newsHandler;
+	public DbSelectedHandler selectedHander;
+	
+	
 	// Necessary functions (DDL)
 	public DatabaseHandler(Context ctx){
 		dbHelper=new DbHelper(ctx);
+		anouncementHandler = new DbAnnouncementHandler(this);
+		articleHandler = new DbArticleHandler(this);
+		bookHandler = new DbBookHandler(this);
+		feqhiHandler = new DbFeqhiHandler(this);
+		galleryHandler = new DbGalleryHandler(this);
+		interviewHandler = new DbInterviewHandler(this);
+		magazineHandler = new DbMagazineHandler(this);
+		newsHandler = new DbNewsHandler(this);
+		selectedHander = new DbSelectedHandler(this);		
 	}
 	
 	public DatabaseHandler open() throws SQLException{
@@ -96,7 +116,7 @@ public class DatabaseHandler {
 			String CREATE_GALLERY="CREATE TABLE IF NOT EXISTS "+TABLE_GALLERY+ 
 					" (id INTEGER PRIMARY KEY,title text not null,gdate DATE not null,jdate text not null," +
 					"type text not null,indexImg text not null,aboutText text not null,pageLink text not null," +
-					"morePhotosFolder text not null)";					
+					"imageAddresses text)";					
 			db.execSQL(CREATE_GALLERY);
 			
 			log("All the table schematics has been created");

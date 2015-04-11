@@ -11,8 +11,10 @@ Things to learn ->
 Things to do ->
 
 	First phase: ✔
-	- write the code for the database making class and all its handlers
-	- use composition for adding handlers to the database making class
+	- write the code for the database making class and all its handlers ✔
+	- use composition for adding handlers to the database making class ✔
 	- write the service for downloading the web content
+	- add the sdcard handler class to the main activity to make sure that all the necessary directories are existing
+	- add sdcard handler function to the databse handler classes
 	- add priority system to the downloader service to download needed content first
 	- when downloader tries to download the image if fails change the address of the image to imgAddress(1) and if the number of the failed tries 		reachs 5 then the downloader skips that address 

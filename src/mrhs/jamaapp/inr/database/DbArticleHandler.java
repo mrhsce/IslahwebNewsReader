@@ -11,7 +11,7 @@ import android.database.Cursor;
 import android.util.Log;
 
 public class DbArticleHandler {
-private static final boolean LOCAL_SHOW_LOG = true;
+	private static final boolean LOCAL_SHOW_LOG = true;
 	
 	private DatabaseHandler parent;
 	 	
