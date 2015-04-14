@@ -21,7 +21,8 @@ public class DbNewsHandler {
 		this.parent = parent;
 	}
 	
-	public boolean initialInsert(String title,String jDate,String indexImgAddr,String source,String type,String pageLink){
+	public boolean initialInsert(String title,String jDate,String indexImgAddr,String imgAddress,
+			String source,String type,String pageLink){
 		
 		String gdate = "";
 		try {
@@ -38,6 +39,7 @@ public class DbNewsHandler {
 		values.put("jdate",jDate);
 		values.put("gdate",gdate);
 		values.put("indexImg", indexImgAddr);
+		values.put("bigImg",imgAddress);
 		values.put("source",source);
 		values.put("type",type);
 		values.put("pageLink", pageLink);
@@ -50,10 +52,9 @@ public class DbNewsHandler {
 		}
 	}
 	
-	public boolean secondInsert(Integer id,String mainText,String imgAddress){
+	public boolean secondInsert(Integer id,String mainText){
 		ContentValues values=new ContentValues();
 		values.put("mainText",mainText);
-		values.put("bigImg",imgAddress);
 		return parent.db.update(DatabaseHandler.TABLE_NEWS, values, "id = "+id, null)>0;
 	}
 	
