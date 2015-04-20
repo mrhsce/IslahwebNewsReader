@@ -9,80 +9,174 @@ import org.jsoup.select.Elements;
 
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import android.util.Log;
+import android.webkit.WebView.FindListener;
 
 public class NewsScraper {
 	private static final boolean LOCAL_SHOW_LOG = true;
-	private static Integer JAMMA_PAGE_NUM = 0;
-	private static Integer ISLAH_PAGE_NUM = 0;
-	private static Integer SPORT_PAGE_NUM = 0;
 	
 	DownloaderService parent;
 	
 	public NewsScraper(DownloaderService parent) {
 		// TODO Auto-generated constructor stub
 		this.parent = parent;
-	}
+	}	
 	
-	public void resetPageNumber(){
-		JAMMA_PAGE_NUM = 0;
-		ISLAH_PAGE_NUM = 0;
-		SPORT_PAGE_NUM = 0;
-	}
-	
-	public void initialInsertJamaNews(final DatabaseHandler db){
-		log("Started initial insert");	
-		
+	public void initialInsertJamaNews(final DatabaseHandler db){		
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				log("Trying");
+				log("Trying JamaNews initial insert");
 				Document doc;
-				String url="http://m.islahweb.org/jamaat_news?page=";
-				String html=parent.getHtml(url+JAMMA_PAGE_NUM);
+				String html=parent.getHtml("http://m.islahweb.org/jamaat_news");
 				
 				doc=Jsoup.parse(html);
 				Elements links=doc.select("tbody tr");
-				try{for (Element link : links){
-					String title = link.select("td a").get(1).text();
-					String jDate = link.select("td").get(2).text();
+				try{for (int i=0;i<Commons.NEWS_ENTRY_COUNT;i++){
+					String title = links.get(i).select("td a").get(1).text();
+					String jDate = links.get(i).select("td").get(2).text();
 					
 					//if(db.newsHandler.exists(title, jdate)) continue;
-					String pageLink = "http://m.islahweb.org"+link.select("td a").get(1).attr("href");
-					String indexImgAddr = link.select("img").get(0).attr("src").replace("40x40crop", "200x200");
+					String pageLink = "http://m.islahweb.org"+links.get(i).select("td a").get(1).attr("href");
+					String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace("40x40crop", "200x200");
 					String imgAddress = indexImgAddr.replace("40x40", "700x700");
-					link.select("td a").get(1).remove();
-					String source = link.select("td").get(1).text();					
+					links.get(i).select("td a").get(1).remove();
+					String source = links.get(i).select("td").get(1).text();					
 					db.newsHandler.initialInsert(title, jDate, indexImgAddr, imgAddress, source, Commons.NEWS_TYPE_JAMAAT, pageLink);
-				
+					log("JamaNews Initial insert finished successfully");
 					}
-				}catch (IndexOutOfBoundsException e) {Log.i("realmadridparser", "Problem in webpage");}
+				}catch (IndexOutOfBoundsException e) {log("Problem in JamaNews initial insert");}
 			}
 		});
-		thread.start();			
-		JAMMA_PAGE_NUM++;
+		thread.start();	
 	}
 	
-	public void secondaryInsertJamaNews(DatabaseHandler db){
-		
+	public void secondaryInsertJamaNews(final DatabaseHandler db,final String url,final Integer id){
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				log("Trying JamaNews secondary insert");
+				Document doc;
+				String html=parent.getHtml(url);
+				
+				doc=Jsoup.parse(html);
+				Elements links=doc.select("div.inner p");
+				String mainText = "";
+				try{for(Element link:links){					
+					mainText += link.text();
+					db.newsHandler.secondInsert(id, mainText);
+					log("JamaNews Secondary insert finished successfully");
+				}
+				}catch (IndexOutOfBoundsException e) {log("Problem in JamaNews Secondary insert");}
+			}
+		});
+		thread.start();	
 	}
 	
-	public void initialInsertIslahNews(DatabaseHandler db){
-		
-		ISLAH_PAGE_NUM++;
+	public void initialInsertIslahNews(final DatabaseHandler db){
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				log("Trying IslahNews initial insert");
+				Document doc;
+				String html=parent.getHtml("http://m.islahweb.org/jamaat_news");
+				
+				doc=Jsoup.parse(html);
+				Elements links=doc.select("tbody tr");
+				try{for (int i=0;i<Commons.NEWS_ENTRY_COUNT;i++){
+					String title = links.get(i).select("td a").get(0).text();
+					String jDate = links.get(i).select("td").get(1).text();
+					
+					//if(db.newsHandler.exists(title, jdate)) continue;
+					String pageLink = "http://m.islahweb.org"+links.get(i).select("td a").get(0).attr("href");
+					String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace("75x75crop", "200x200");
+					String imgAddress = indexImgAddr.replace("40x40", "700x700");
+					links.get(i).select("td a").get(0).remove();
+					String source = links.get(i).select("td").get(0).text();					
+					db.newsHandler.initialInsert(title, jDate, indexImgAddr, imgAddress, source, Commons.NEWS_TYPE_JAMAAT, pageLink);
+					log("JamaNews Initial insert finished successfully");
+					}
+				}catch (IndexOutOfBoundsException e) {log("Problem in JamaNews initial insert");}
+			}
+		});
+		thread.start();	
 	}
 	
-	public void secondaryInsertIslahNews(DatabaseHandler db){
-		
+	public void secondaryInsertIslahNews(final DatabaseHandler db,final String url,final Integer id){
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				log("Trying IslahNews secondary insert");
+				Document doc;
+				String html=parent.getHtml(url);
+				
+				doc=Jsoup.parse(html);
+				Elements links=doc.select("div.inner p");
+				String mainText = "";
+				try{for(Element link:links){					
+					mainText += link.text();
+					db.newsHandler.secondInsert(id, mainText);
+					log("IslahNews Secondary insert finished successfully");
+				}
+				}catch (IndexOutOfBoundsException e) {log("Problem in Islahnews Secondary insert");}
+			}
+		});
+		thread.start();	
+	}
+	public void initialInsertSportNews(final DatabaseHandler db){
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				log("Trying SportNews initial insert");
+				Document doc;
+				String html=parent.getHtml("http://m.islahweb.org/sports");
+				
+				doc=Jsoup.parse(html);
+				Elements links=doc.select("tbody tr");
+				try{for (int i=0;i<Commons.NEWS_ENTRY_COUNT;i++){
+					String title = links.get(i).select("td a").get(1).text();
+					String jDate = links.get(i).select("td").get(2).text();
+					
+					//if(db.newsHandler.exists(title, jdate)) continue;
+					String pageLink = "http://m.islahweb.org"+links.get(i).select("td a").get(1).attr("href");
+					String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace("40x40crop", "200x200");
+					String imgAddress = indexImgAddr.replace("40x40", "700x700");
+					links.get(i).select("td a").get(1).remove();
+					String source = links.get(i).select("td").get(1).text();					
+					db.newsHandler.initialInsert(title, jDate, indexImgAddr, imgAddress, source, Commons.NEWS_TYPE_JAMAAT, pageLink);
+					log("JamaNews Initial insert finished successfully");
+					}
+				}catch (IndexOutOfBoundsException e) {log("Problem in JamaNews initial insert");}
+			}
+		});
+		thread.start();	
 	}
 	
-	public void initialInsertSportNews(DatabaseHandler db){
-		
-		SPORT_PAGE_NUM++;
-	}
-	
-	public void secondaryInsertSportNews(DatabaseHandler db){
-		
+	public void secondaryInsertSportNews(final DatabaseHandler db,final String url,final Integer id){
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				log("Trying SportNews secondary insert");
+				Document doc;
+				String html=parent.getHtml(url);
+				
+				doc=Jsoup.parse(html);
+				Elements links=doc.select("div.inner p");
+				String mainText = "";
+				try{for(Element link:links){					
+					mainText += link.text();
+					db.newsHandler.secondInsert(id, mainText);
+					log("SportNews Secondary insert finished successfully");
+				}
+				}catch (IndexOutOfBoundsException e) {log("Problem in SportNews Secondary insert");}
+			}
+		});
+		thread.start();	
 	}	
 	
 	

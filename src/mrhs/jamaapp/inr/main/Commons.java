@@ -13,6 +13,9 @@ public interface Commons {
 	final boolean BIG_IMAGE = false;
 	final boolean INDEX_IMAGE = true;
 	
+	// News entry limits
+	final Integer NEWS_ENTRY_COUNT = 20;
+	
 	// Data type
 	final String NEWS_TYPE_ISLAHWEB = "";
 	final String NEWS_TYPE_JAMAAT = "";

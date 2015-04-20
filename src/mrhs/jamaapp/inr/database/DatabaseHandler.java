@@ -73,7 +73,8 @@ public class DatabaseHandler {
 			String CREATE_NEWS="CREATE TABLE IF NOT EXISTS "+TABLE_NEWS+ 
 					" (id INTEGER PRIMARY KEY,title text not null,gdate DATE not null,jdate text not null," +
 					" indexImg text not null,source text not null," +
-					"type text not null,bigImg text,pageLink text not null,mainText text)";					
+					"type text not null,bigImg text,pageLink text not null,mainText text," +
+					"archived integer default 0,seen integer default 0)";					
 			db.execSQL(CREATE_NEWS);
 			
 			String CREATE_INTERVIEW="CREATE TABLE IF NOT EXISTS "+TABLE_INTERVIEW+ 

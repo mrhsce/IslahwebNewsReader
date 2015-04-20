@@ -23,6 +23,9 @@ public class DbNewsHandler {
 	
 	public boolean initialInsert(String title,String jDate,String indexImgAddr,String imgAddress,
 			String source,String type,String pageLink){
+		while(exceedsLimitation()){
+			deleteOldestNonArchived();
+		}
 		
 		String gdate = "";
 		try {
@@ -78,38 +81,63 @@ public class DbNewsHandler {
 	
 	public Cursor getAll(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},null,null, null, null, null);
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},null,null, null, null, null);
+		return cursor;
+	}
+	
+	public Cursor getAllArchived(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"archived = 1",null, null, null, null);
+		return cursor;
+	}
+	
+	public Cursor getAllNonArchived(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"archived = 0",null, null, null, null);
 		return cursor;
 	}
 	
 	public Cursor getAllByType(String type){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},"type='"+type+"'",null, null, null, "gdate desc");
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"type='"+type+"'",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getById(Integer id){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},"id="+id,null, null, null, "gdate desc");
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"id="+id,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getThoseWithoutIndexImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},"indexImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"indexImg like 'http://%'"+null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getThoseWithoutMainText(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},"mainText="+null,null, null, null, "gdate desc");
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"mainText="+null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getThoseWithoutBigImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText"},"bigImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"bigImg like 'http://%'"+null,null, null, null, "gdate desc");
 		return cursor;
+	}
+	
+	public boolean exceedsLimitation(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{"count(id)"},"archived = 0",null, null, null, null);
+		if(cursor.moveToFirst())
+			return cursor.getInt(0)>=Commons.NEWS_ENTRY_COUNT;
+		return false;
+	}
+	
+	public void deleteOldestNonArchived(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{"id"},"archived = 0",null, null, null, "gdate asc");
+		if(cursor.moveToFirst())
+			deleteEntry(cursor.getInt(0));
 	}
 	
 	public int deleteEntry(Integer id){
