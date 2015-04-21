@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
 
 import org.apache.http.HttpEntity;
@@ -31,10 +32,34 @@ public class DownloaderService extends Service {
 	NewsScraper newsScraper;
 	SelectedScraper selectedScraper;
 	
+	DatabaseHandler db;
+	
 	@Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public void onCreate() {
+		// TODO Auto-generated method stub
+		super.onCreate();
+		log("Service created");
+		db = new DatabaseHandler(this).open();
+		newsScraper = new NewsScraper(this);
+	}
+	
+
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		// TODO Auto-generated method stub
+		log("Service started");
+		newsScraper.initialInsertIslahNews(db);
+		newsScraper.initialInsertJamaNews(db);
+		newsScraper.initialInsertSportNews(db);
+		log("service finished");
+		
+		return super.onStartCommand(intent, flags, startId);
 	}
 	
 	public String getHtml(String url){

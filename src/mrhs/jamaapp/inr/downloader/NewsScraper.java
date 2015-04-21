@@ -9,7 +9,6 @@ import org.jsoup.select.Elements;
 
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import android.util.Log;
-import android.webkit.WebView.FindListener;
 
 public class NewsScraper {
 	private static final boolean LOCAL_SHOW_LOG = true;

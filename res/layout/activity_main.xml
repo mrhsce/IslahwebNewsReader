@@ -6,11 +6,7 @@
     
     tools:context=".MainActivity" >
     
-    <include layout="@layout/header" 
-        android:layout_weight="1"
-        android:layout_height="0dp"
-        android:layout_width="match_parent"/>
-	<LinearLayout 
+    <LinearLayout 
 	    android:layout_weight="8"
         android:layout_height="0dp"
         android:layout_width="fill_parent"

@@ -70,6 +70,7 @@ public class DatabaseHandler {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			// TODO Auto-generated method stub
+			log("Starting onCreate");
 			String CREATE_NEWS="CREATE TABLE IF NOT EXISTS "+TABLE_NEWS+ 
 					" (id INTEGER PRIMARY KEY,title text not null,gdate DATE not null,jdate text not null," +
 					" indexImg text not null,source text not null," +
@@ -126,6 +127,7 @@ public class DatabaseHandler {
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// TODO Auto-generated method stub
+			log("onUpgrade");
 			db.execSQL("DROP TABLE IF EXISTS "+TABLE_NEWS);
 			db.execSQL("DROP TABLE IF EXISTS "+TABLE_INTERVIEW);
 			db.execSQL("DROP TABLE IF EXISTS "+TABLE_SELECTED);

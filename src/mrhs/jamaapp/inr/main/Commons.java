@@ -7,7 +7,7 @@ public interface Commons {
 	
 	// Related to the database
 	final String DATABASE_NAME = "islahwebdb";
-	final Integer DATABASE_VERSION = 1;
+	final Integer DATABASE_VERSION = 2;
 	
 	// Image type
 	final boolean BIG_IMAGE = false;
