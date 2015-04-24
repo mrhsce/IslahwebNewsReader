@@ -6,9 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class TabPagerAdapter extends FragmentPagerAdapter {
+public class NewsTabPagerAdapter extends FragmentPagerAdapter {
 
-	public TabPagerAdapter(FragmentManager fm) {
+	public NewsTabPagerAdapter(FragmentManager fm) {
 		// TODO Auto-generated constructor stub
 		super(fm);
 	}

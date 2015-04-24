@@ -1,6 +1,7 @@
 package mrhs.jamaapp.inr.main;
 
 import mrhs.jamaapp.inr.R;
+import mrhs.jamaapp.inr.articles.ArticleMainActivity;
 import mrhs.jamaapp.inr.downloader.DownloaderService;
 import mrhs.jamaapp.inr.news.NewsMainActivity;
 import android.os.Bundle;
@@ -34,6 +35,24 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		
+		articleButton = (Button)findViewById(R.id.article_button);
+		articleButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this,ArticleMainActivity.class);
+				startActivity(intent);
+			}
+		});
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		stopService(new Intent(this,DownloaderService.class));
+		super.onDestroy();
 	}
 
 	@Override

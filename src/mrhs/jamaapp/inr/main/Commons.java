@@ -7,28 +7,29 @@ public interface Commons {
 	
 	// Related to the database
 	final String DATABASE_NAME = "islahwebdb";
-	final Integer DATABASE_VERSION = 2;
+	final Integer DATABASE_VERSION = 9;
 	
 	// Image type
 	final boolean BIG_IMAGE = false;
 	final boolean INDEX_IMAGE = true;
 	
-	// News entry limits
+	// Entry limits
 	final Integer NEWS_ENTRY_COUNT = 20;
+	final Integer ARTICLE_ENTRY_COUNT = 5;
 	
 	// Data type
-	final String NEWS_TYPE_ISLAHWEB = "";
-	final String NEWS_TYPE_JAMAAT = "";
-	final String NEWS_TYPE_SPORT = "";
+	final String NEWS_TYPE_ISLAHWEB = "0";
+	final String NEWS_TYPE_JAMAAT = "1";
+	final String NEWS_TYPE_SPORT = "2";
 	
-	final String ARTICLE_TYPE_DINODAVAT = "";
-	final String ARTICLE_TYPE_ANDISHE = "";
-	final String ARTICLE_TYPE_AHLESONNAT = "";
-	final String ARTICLE_TYPE_FARHANG = "";
-	final String ARTICLE_TYPE_SIASI = "";
-	final String ARTICLE_TYPE_EJTEMAEI = "";
-	final String ARTICLE_TYPE_TARIKH = "";
-	final String ARTICLE_TYPE_ADABOHONAR = "";
+	final String ARTICLE_TYPE_DINODAVAT = "0";
+	final String ARTICLE_TYPE_ANDISHE = "1";
+	final String ARTICLE_TYPE_AHLESONNAT = "2";
+	final String ARTICLE_TYPE_FARHANG = "3";
+	final String ARTICLE_TYPE_SIASI = "4";
+	final String ARTICLE_TYPE_EJTEMAEI = "5";
+	final String ARTICLE_TYPE_TARIKH = "6";
+	final String ARTICLE_TYPE_ADABOHONAR = "7";
 	
 	
 }

@@ -36,10 +36,9 @@
     android:textColor="#1b1b1b"    
     android:textSize="10sp" 
     android:gravity="right"
-    android:layout_weight="3"/>
+    android:layout_weight="5"/>
 
 </LinearLayout>
-
 
 
 <RelativeLayout 
@@ -60,8 +59,17 @@
     android:gravity="right"    
     android:textColor="#1b1b1b"
     android:text="اتفاق خوب برای اهل سنت ایران"    
-    android:textSize="15sp" />
+    android:textSize="17sp" />
 
 </RelativeLayout>
+<TextView
+    android:id="@+id/labelText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fontFamily="bold"
+    android:gravity="right"
+    android:textColor="#1b1b1b"
+    android:text="اتفاق خوب برای اهل سنت ایران "    
+    android:textSize="15sp" />
 
 </LinearLayout>

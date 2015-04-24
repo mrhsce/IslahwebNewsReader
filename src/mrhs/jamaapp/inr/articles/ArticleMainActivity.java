@@ -1,4 +1,4 @@
-package mrhs.jamaapp.inr.news;
+package mrhs.jamaapp.inr.articles;
 
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.main.Commons;
@@ -6,33 +6,30 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Window;
 
 @SuppressWarnings("deprecation")
-public class NewsMainActivity extends FragmentActivity implements ActionBar.TabListener{
+public class ArticleMainActivity extends FragmentActivity implements ActionBar.TabListener{
 	private static final boolean LOCAL_SHOW_LOG = true;
 
 	private ViewPager viewPager;
-    private NewsTabPagerAdapter mAdapter;
+    private ArticleTabPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
-    private String[] tabs = { "اخبار جماعت", "اخبار اصلاح", "اخبار ورزشی" };
+    private String[] tabs = { "دین و دعوت", "اندیشه","اهل سنت","فرهنگ","سیاسی","اجتماعی","تاریخ","ادب و هنر"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_news_main);
+		setContentView(R.layout.activity_article_main);
 		// Show the Up button in the action bar.
 		// Initilization
 		log("Started");
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.article_pager);
         setupActionBar();    
-        mAdapter = new NewsTabPagerAdapter(getSupportFragmentManager());
+        mAdapter = new ArticleTabPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mAdapter);       
        
         // Adding Tabs

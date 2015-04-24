@@ -48,7 +48,9 @@ public class DatabaseHandler {
 		interviewHandler = new DbInterviewHandler(this);
 		magazineHandler = new DbMagazineHandler(this);
 		newsHandler = new DbNewsHandler(this);
-		selectedHander = new DbSelectedHandler(this);		
+		selectedHander = new DbSelectedHandler(this);
+		
+		dateConvertor = new ManamPDUltimate();
 	}
 	
 	public DatabaseHandler open() throws SQLException{
@@ -106,8 +108,9 @@ public class DatabaseHandler {
 			
 			String CREATE_ARTICLE="CREATE TABLE IF NOT EXISTS "+TABLE_ARTICLE+ 
 					" (id INTEGER PRIMARY KEY,title text not null,gdate DATE not null,jdate text not null," +
-					"indexText text not null,indexImg text not null,writer text not null,type text not null," +
-					"pageLink text not null,bigImg text,mainText text)";					
+					" indexImg text not null,indexText text not null,writer text not null," +
+					"type text not null,bigImg text,pageLink text not null,mainText text," +
+					"archived integer default 0,seen integer default 0)";					
 			db.execSQL(CREATE_ARTICLE);
 			
 			String CREATE_FEQHI="CREATE TABLE IF NOT EXISTS "+TABLE_FEQHI+ 

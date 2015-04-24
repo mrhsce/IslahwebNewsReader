@@ -11,7 +11,7 @@ import android.database.Cursor;
 import android.util.Log;
 
 public class DbArticleHandler {
-	private static final boolean LOCAL_SHOW_LOG = true;
+private static final boolean LOCAL_SHOW_LOG = true;
 	
 	private DatabaseHandler parent;
 	 	
@@ -19,39 +19,48 @@ public class DbArticleHandler {
 	public DbArticleHandler(DatabaseHandler parent){
 		this.parent = parent;
 	}
-	public boolean initialInsert(String title,String jDate,String indexImgAddr,String writer,String type,String pageLink){
+	
+	public boolean initialInsert(String title,String jDate,String indexTxt,String indexImgAddr,String imgAddress,
+			String writer,String type,String pageLink){
+		while(exceedsLimitation(type)){
+			log("deleted");
+				deleteOldestNonArchived(type);
+			}
+			String gDate = "";
+			try {
+				gDate = new SimpleDateFormat("yyyy-MM-dd").
+							format(new SimpleDateFormat("yyyy/MM/dd",Locale.getDefault()).
+							parse(parent.dateConvertor.PersianToGregorian(jDate)));
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}		
+	
+			log("gdate is "+gDate);
+			
+			ContentValues values=new ContentValues();
+			values.put("title",title);
+			values.put("jdate",jDate);
+			values.put("gdate",gDate);
+			values.put("indexImg", indexImgAddr);
+			values.put("indexText", indexTxt);
+			values.put("bigImg",imgAddress);
+			values.put("writer",writer);
+			values.put("type",type);
+			values.put("pageLink", pageLink);
+			try{
+				return parent.db.insert(DatabaseHandler.TABLE_ARTICLE, null, values)>0;
+			}catch(Exception e){
+				e.printStackTrace();
+				log("Error inserting values to the "+DatabaseHandler.TABLE_ARTICLE+" table");
+				return false;
+			}
 		
-		String gdate = "";
-		try {
-			gdate = new SimpleDateFormat("yyyy-MM-dd").
-						format(new SimpleDateFormat("yyyy/MM/dd",Locale.getDefault()).
-						parse(parent.dateConvertor.PersianToGregorian(jDate)));
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}		
-		
-		ContentValues values=new ContentValues();
-		values.put("title",title);
-		values.put("jdate",jDate);
-		values.put("gdate",gdate);
-		values.put("indexImg", indexImgAddr);
-		values.put("writer",writer);
-		values.put("type",type);
-		values.put("pageLink", pageLink);
-		try{
-			return parent.db.insert(DatabaseHandler.TABLE_ARTICLE, null, values)>0;
-		}catch(Exception e){
-			e.printStackTrace();
-			log("Error inserting values to the "+DatabaseHandler.TABLE_ARTICLE+" table");
-			return false;
-		}
 	}
 	
-	public boolean secondInsert(Integer id,String mainText,String imgAddress){
+	public boolean secondInsert(Integer id,String mainText){
 		ContentValues values=new ContentValues();
 		values.put("mainText",mainText);
-		values.put("bigImg",imgAddress);
 		return parent.db.update(DatabaseHandler.TABLE_ARTICLE, values, "id = "+id, null)>0;
 	}
 	
@@ -64,49 +73,99 @@ public class DbArticleHandler {
 		return parent.db.update(DatabaseHandler.TABLE_ARTICLE, values, "id = "+id, null)>0;
 	}
 	
-	public boolean exists(String title,String jdate){
+	public boolean setSeen(Integer id){
+		ContentValues values=new ContentValues();
+		values.put("seen", 1);
+		try{
+			return parent.db.update(DatabaseHandler.TABLE_ARTICLE, values, "id = "+id, null)>0;
+		}catch(Exception e){
+			e.printStackTrace();
+			log("Error inserting values to the "+DatabaseHandler.TABLE_ARTICLE+" table");
+			return false;
+		}
+	}
+	
+	public boolean exists(String title,String jDate){
 			Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{"title","jdate"},
-					"title='"+title+"' and jdate='"+jdate+"'",null, null, null, null);
+					"title='"+title+"' and jdate='"+jDate+"'",null, null, null, null);
 			if(cursor != null){
 				return cursor.moveToFirst();
 				}
 			return false;
+	}	
+	
+	
+	public boolean chkSecondInsert(Integer id){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{"mainText","seen"},"id="+id,null, null, null, "gdate desc");
+		if(cursor.moveToFirst())
+			if(cursor.getString(0)!=null)
+				return true;
+			else
+				return false;
+		else
+			return false;
 	}
+	
 	
 	public Cursor getAll(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexImg","writer","type","pageLink","bigImg","mainText"},null,null, null, null, null);
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},null,null, null, null, null);
+		return cursor;
+	}
+	
+	public Cursor getAllArchived(String type){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 1 and type='"+type+"'",null, null, null, null);
+		return cursor;
+	}
+	
+	public Cursor getAllNonArchived(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 0",null, null, null, null);
 		return cursor;
 	}
 	
 	public Cursor getAllByType(String type){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexImg","writer","type","pageLink","bigImg","mainText"},"type='"+type+"'",null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"type='"+type+"'",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getById(Integer id){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexImg","writer","type","pageLink","bigImg","mainText"},"id="+id,null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","archived"},"id="+id,null, null, null, "gdate desc");
 		return cursor;
-	}
+	}	
 	
 	public Cursor getThoseWithoutIndexImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexImg","writer","type","pageLink","bigImg","mainText"},"indexImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"indexImg like 'http://%'"+null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getThoseWithoutMainText(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexImg","writer","type","pageLink","bigImg","mainText"},"mainText="+null,null, null, null, "gdate desc");
+				"id","pageLink"},"mainText is null",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getThoseWithoutBigImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexImg","writer","type","pageLink","bigImg","mainText"},"bigImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"bigImg like 'http://%'"+null,null, null, null, "gdate desc");
 		return cursor;
+	}
+	
+	public boolean exceedsLimitation(String type){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{"count(id)"},"type='"+type+"'",null, null, null, null);
+		if(cursor.moveToFirst())
+			return cursor.getInt(0)>=Commons.ARTICLE_ENTRY_COUNT;
+		return false;
+	}
+	
+	public void deleteOldestNonArchived(String type){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{"id"},"archived = 0 and type='"+type+"'",null, null, null, "gdate asc");
+		if(cursor.moveToFirst())
+			deleteEntry(cursor.getInt(0));
 	}
 	
 	public int deleteEntry(Integer id){
