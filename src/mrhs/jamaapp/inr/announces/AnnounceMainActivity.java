@@ -1,4 +1,4 @@
-package mrhs.jamaapp.inr.interviews;
+package mrhs.jamaapp.inr.announces;
 
 import java.util.ArrayList;
 
@@ -16,67 +16,65 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class InterviewMainActivity extends Activity {
-	private static final boolean LOCAL_SHOW_LOG = true;
+public class AnnounceMainActivity extends Activity {
+
+private static final boolean LOCAL_SHOW_LOG = true;
 	
-	public ArrayList<Integer> interviewIdList;
+	public ArrayList<Integer> announceIdList;
 	
 	public ListView listView;
-	public InterviewArrayAdaptor adapter; 
+	public AnnounceArrayAdaptor adapter; 
 	
 	public DatabaseHandler db;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_interview_main);
+		setContentView(R.layout.activity_announce_main);
 		db = new DatabaseHandler(this).open(); 
-		interviewIdList = getinterviewIdList();
-		log("The size of the list is "+interviewIdList.size());
+		announceIdList = getannounceIdList();
+		log("The size of the list is "+announceIdList.size());
 		
-		listView = (ListView) findViewById(R.id.interview_list);
-		adapter = new InterviewArrayAdaptor(this, interviewIdList);
+		listView = (ListView) findViewById(R.id.announce_list);
+		adapter = new AnnounceArrayAdaptor(this, announceIdList);
 		listView.setAdapter(adapter);
 		listView.setDividerHeight(8);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view,int position, long id){
 				// TODO Auto-generated method stub
-				if(db.interviewHandler.chkSecondInsert(interviewIdList.get(position))){
-					Cursor cursor = db.interviewHandler.getById(interviewIdList.get(position));
+				if(db.anouncementHandler.chkSecondInsert(announceIdList.get(position))){
+					Cursor cursor = db.anouncementHandler.getById(announceIdList.get(position));
 					Bundle bundle = new Bundle();
 					if(cursor.moveToFirst()){
 						
 						bundle.putString("title",cursor.getString(1));
 						bundle.putString("jDate", cursor.getString(2));
-						bundle.putString("writer",cursor.getString(5));
-						bundle.putString("pageLink",cursor.getString(7));
-						bundle.putString("text",cursor.getString(9));
-						bundle.putString("indexImgAddr", cursor.getString(4));
-						bundle.putString("bigImgAddr",cursor.getString(8));
-						if(cursor.getInt(10)==0)
+						bundle.putString("pageLink",cursor.getString(3));
+						bundle.putString("text",cursor.getString(4));
+						if(cursor.getInt(6)==0)
 							bundle.putBoolean("archived",false);
 						else
 							bundle.putBoolean("archived",true);
 						bundle.putInt("id",cursor.getInt(0));
 						
 					}
-					Intent intent = new Intent(InterviewMainActivity.this, InterviewActivity.class);
+					Intent intent = new Intent(AnnounceMainActivity.this, AnnounceActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
-					db.articleHandler.setSeen(interviewIdList.get(position));
+					db.anouncementHandler.setSeen(announceIdList.get(position));
 				}
 				else
-					Toast.makeText(InterviewMainActivity.this, "متن مصاحبه هنوز دانلود نشده است", Toast.LENGTH_SHORT).show();
+					Toast.makeText(AnnounceMainActivity.this, "متن بیانیه هنوز دانلود نشده است", Toast.LENGTH_SHORT).show();
 			}
 		}); 
 	}
 	
-	public ArrayList<Integer> getinterviewIdList(){
-		Cursor cursor = db.interviewHandler.getAllByType("");
+	public ArrayList<Integer> getannounceIdList(){
+		Cursor cursor = db.anouncementHandler.getAll();
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		if (cursor.moveToFirst()){
 			list.add(cursor.getInt(0));
-			for(int i=0;i<Commons.INTERVIEW_ENTRY_COUNT-1;i++){
+			for(int i=0;i<Commons.ANNOUNCE_ENTRY_COUNT-1;i++){
 				if(cursor.moveToNext())
 					list.add(cursor.getInt(0));
 				else

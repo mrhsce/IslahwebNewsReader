@@ -82,8 +82,9 @@ public class DatabaseHandler {
 			
 			String CREATE_INTERVIEW="CREATE TABLE IF NOT EXISTS "+TABLE_INTERVIEW+ 
 					" (id INTEGER PRIMARY KEY,title text not null,gdate DATE not null,jdate text not null," +
-					"indexText text not null,indexImg text not null,writer text not null," +
-					"bigImg text,pageLink text not null,mainText text)";					
+					" indexImg text not null,indexText text not null,writer text not null," +
+					"type text not null,bigImg text,pageLink text not null,mainText text," +
+					"archived integer default 0,seen integer default 0)";					
 			db.execSQL(CREATE_INTERVIEW);
 			
 			String CREATE_SELECTED="CREATE TABLE IF NOT EXISTS "+TABLE_SELECTED+ 
@@ -93,7 +94,7 @@ public class DatabaseHandler {
 			
 			String CREATE_ANNOUNCE="CREATE TABLE IF NOT EXISTS "+TABLE_ANNOUNCE+ 
 					" (id INTEGER PRIMARY KEY,title text not null,gdate DATE not null,jdate text not null," +
-					"pageLink text not null,mainText text)";					
+					"pageLink text not null,mainText text,archived integer default 0,seen integer default 0)";					
 			db.execSQL(CREATE_ANNOUNCE);
 			
 			String CREATE_BOOKS="CREATE TABLE IF NOT EXISTS "+TABLE_BOOKS+ 

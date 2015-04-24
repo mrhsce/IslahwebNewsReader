@@ -1,4 +1,4 @@
-package mrhs.jamaapp.inr.interviews;
+package mrhs.jamaapp.inr.announces;
 
 import java.util.ArrayList;
 
@@ -14,39 +14,33 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
+public class AnnounceArrayAdaptor extends ArrayAdapter<Integer>{
 
-	private static final boolean LOCAL_SHOW_LOG = true;
+private static final boolean LOCAL_SHOW_LOG = true;
 	
-	private InterviewMainActivity parent;
+	private AnnounceMainActivity parent;
 	
-	private ArrayList<String> titleList,writerList,dateList,textList;
+	private ArrayList<String> titleList,dateList;
 	
-	public InterviewArrayAdaptor(InterviewMainActivity ctx,ArrayList<Integer> articleIdList) {
+	public AnnounceArrayAdaptor(AnnounceMainActivity ctx,ArrayList<Integer> articleIdList) {
 		// TODO Auto-generated constructor stub
-		super(ctx, R.layout.interview_list_item, articleIdList);
+		super(ctx, R.layout.announce_list_item, articleIdList);
 		parent = ctx;
 		initializeLists();		
 	}
 	
 	public void initializeLists(){
 		titleList = new ArrayList<String>();
-		writerList = new ArrayList<String>();
 		dateList = new ArrayList<String>();
-		textList = new ArrayList<String>();
 		
-		Cursor cursor = parent.db.interviewHandler.getAllByType("");
+		Cursor cursor = parent.db.anouncementHandler.getAll();
 		if (cursor.moveToFirst()){
 			titleList.add(cursor.getString(1));
-			writerList.add(cursor.getString(5));
-			textList.add(cursor.getString(3));
 			dateList.add(cursor.getString(2));
-			for(int i=0;i<Commons.INTERVIEW_ENTRY_COUNT-1;i++){
+			for(int i=0;i<Commons.ANNOUNCE_ENTRY_COUNT-1;i++){
 				if(cursor.moveToNext())
 				{
 					titleList.add(cursor.getString(1));
-					writerList.add(cursor.getString(5));
-					textList.add(cursor.getString(3));
 					dateList.add(cursor.getString(2));
 				}
 				else
@@ -61,23 +55,15 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 		if(convertView==null){
 			LayoutInflater inflater = (LayoutInflater) this.parent
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.interview_list_item, parent, false);
+			convertView = inflater.inflate(R.layout.announce_list_item, parent, false);
 		}
 		
 		TextView titleView = (TextView) convertView.findViewById(R.id.labelTitle);
 		TextView dateView = (TextView) convertView.findViewById(R.id.labelDate);
-		TextView sourceView = (TextView) convertView.findViewById(R.id.labelSource);
-		TextView textView = (TextView) convertView.findViewById(R.id.labelText);
 		
-		ImageView indexImgView = (ImageView) convertView.findViewById(R.id.indexImgView);
 		
 		titleView.setText(titleList.get(position));
 		dateView.setText(dateList.get(position));
-		sourceView.setText(writerList.get(position));
-		if(!textList.get(position).equals(""))
-			textView.setText(textList.get(position));
-		else
-			textView.setVisibility(View.GONE);
 		
 		
 		return convertView;
@@ -87,5 +73,5 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)
 			Log.d("DatabaseHandler",message);
 	}
-	
+
 }

@@ -1,8 +1,11 @@
 package mrhs.jamaapp.inr.main;
 
 import mrhs.jamaapp.inr.R;
+import mrhs.jamaapp.inr.aboutj.AboutJamaatMainActivity;
+import mrhs.jamaapp.inr.announces.AnnounceMainActivity;
 import mrhs.jamaapp.inr.articles.ArticleMainActivity;
 import mrhs.jamaapp.inr.downloader.DownloaderService;
+import mrhs.jamaapp.inr.interviews.InterviewMainActivity;
 import mrhs.jamaapp.inr.news.NewsMainActivity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -44,6 +47,54 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(MainActivity.this,ArticleMainActivity.class);
 				startActivity(intent);
+			}
+		});
+		
+		interviewButton = (Button) findViewById(R.id.interview_button);
+		interviewButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this,InterviewMainActivity.class);
+				startActivity(intent);
+				
+			}
+		});
+		
+		announceButton = (Button) findViewById(R.id.announcement_button);
+		announceButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this,AnnounceMainActivity.class);
+				startActivity(intent);
+				
+			}
+		});
+		
+		aboutJButton = (Button) findViewById(R.id.about_jamaat_button);
+		aboutJButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this,AboutJamaatMainActivity.class);
+				startActivity(intent);
+				
+			}
+		});
+		
+		aboutUsButton = (Button) findViewById(R.id.about_us_button);
+		aboutUsButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this,AboutUsActivity.class);
+				startActivity(intent);
+				
 			}
 		});
 	}

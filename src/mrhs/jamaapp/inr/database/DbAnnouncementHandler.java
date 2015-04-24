@@ -21,6 +21,10 @@ public class DbAnnouncementHandler {
 	}
 	public boolean initialInsert(String title,String jdate,String pageLink){
 		
+		while(exceedsLimitation()){
+			deleteOldestNonArchived();
+		}
+		
 		String gdate = "";
 		try {
 			gdate = new SimpleDateFormat("yyyy-MM-dd").
@@ -45,12 +49,24 @@ public class DbAnnouncementHandler {
 		}
 	}
 	
-	public boolean secondInsert(Integer id,String mainText,String jDate){
+	public boolean secondInsert(Integer id,String mainText){
 		
 		ContentValues values=new ContentValues();
 		values.put("mainText",mainText);
 		
 		return parent.db.update(DatabaseHandler.TABLE_ANNOUNCE, values, "id = "+id, null)>0;
+	}
+	
+	public boolean setSeen(Integer id){
+		ContentValues values=new ContentValues();
+		values.put("seen", 1);
+		try{
+			return parent.db.update(DatabaseHandler.TABLE_ANNOUNCE, values, "id = "+id, null)>0;
+		}catch(Exception e){
+			e.printStackTrace();
+			log("Error inserting values to the "+DatabaseHandler.TABLE_ANNOUNCE+" table");
+			return false;
+		}
 	}
 	
 	public boolean exists(String title,String jdate){
@@ -62,22 +78,52 @@ public class DbAnnouncementHandler {
 			return false;
 	}
 	
+	public boolean chkSecondInsert(Integer id){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{"mainText","seen"},"id="+id,null, null, null, "gdate desc");
+		if(cursor.moveToFirst())
+			if(cursor.getString(0)!=null)
+				return true;
+			else
+				return false;
+		else
+			return false;
+	}
+	
 	public Cursor getAll(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{
-				"id","title","jdate","pageLink","mainText"},null,null, null, null, null);
+				"id","title","jdate","pageLink","mainText","seen","archived"},null,null, null, null, null);
+		return cursor;
+	}
+	
+	public Cursor getAllArchived(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{
+				"id","title","jdate","pageLink","mainText","seen","archived"},"archived = 1",null, null, null, null);
 		return cursor;
 	}
 		
 	public Cursor getById(Integer id){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{
-				"id","title","jdate","pageLink","mainText"},"id="+id,null, null, null, "gdate desc");
+				"id","title","jdate","pageLink","mainText","seen","archived"},"id="+id,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getThoseWithoutMainText(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{
-				"id","title","jdate","pageLink","mainText"},"mainText="+null,null, null, null, "gdate desc");
+				"id","pageLink"},"mainText is null",null, null, null, "gdate desc");
 		return cursor;
+	}
+	
+	public boolean exceedsLimitation(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{"count(id)"},null,null, null, null, null);
+		if(cursor.moveToFirst())
+			return cursor.getInt(0)>=Commons.ANNOUNCE_ENTRY_COUNT;
+		return false;
+	}
+	
+	public void deleteOldestNonArchived(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{"id"},"archived = 0",null, null, null, "gdate asc");
+		if(cursor.moveToFirst())
+			deleteEntry(cursor.getInt(0));
 	}
 	
 	public int deleteEntry(Integer id){

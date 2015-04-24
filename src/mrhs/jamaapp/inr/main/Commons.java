@@ -7,7 +7,7 @@ public interface Commons {
 	
 	// Related to the database
 	final String DATABASE_NAME = "islahwebdb";
-	final Integer DATABASE_VERSION = 9;
+	final Integer DATABASE_VERSION = 16;
 	
 	// Image type
 	final boolean BIG_IMAGE = false;
@@ -16,6 +16,8 @@ public interface Commons {
 	// Entry limits
 	final Integer NEWS_ENTRY_COUNT = 20;
 	final Integer ARTICLE_ENTRY_COUNT = 5;
+	final Integer INTERVIEW_ENTRY_COUNT = 10;
+	final Integer ANNOUNCE_ENTRY_COUNT = 20;
 	
 	// Data type
 	final String NEWS_TYPE_ISLAHWEB = "0";

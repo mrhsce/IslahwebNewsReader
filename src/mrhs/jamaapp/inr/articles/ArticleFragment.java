@@ -55,7 +55,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 						bundle.putString("text",cursor.getString(9));
 						bundle.putString("indexImgAddr", cursor.getString(4));
 						bundle.putString("bigImgAddr",cursor.getString(8));
-						if(cursor.getInt(9)==0)
+						if(cursor.getInt(10)==0)
 							bundle.putBoolean("archived",false);
 						else
 							bundle.putBoolean("archived",true);

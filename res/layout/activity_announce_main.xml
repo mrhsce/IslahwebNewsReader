@@ -8,7 +8,7 @@
     android:paddingRight="8dp"
     android:paddingTop="8dp" >
 <ListView 
-    android:id="@+id/interview_list"
+    android:id="@+id/announce_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent">    
 

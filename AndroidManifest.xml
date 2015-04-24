@@ -3,7 +3,7 @@
     package="mrhs.jamaapp.inr"
     android:installLocation="preferExternal"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="0.4" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -58,6 +58,22 @@
         <activity
             android:name="mrhs.jamaapp.inr.interviews.InterviewActivity"
             android:label="@string/title_activity_interview" >
+        </activity>
+        <activity
+            android:name="mrhs.jamaapp.inr.announces.AnnounceMainActivity"
+            android:label="@string/title_activity_announce_main" >
+        </activity>
+        <activity
+            android:name="mrhs.jamaapp.inr.announces.AnnounceActivity"
+            android:label="@string/title_activity_announce" >
+        </activity>
+        <activity
+            android:name="mrhs.jamaapp.inr.main.AboutUsActivity"
+            android:label="@string/title_activity_about_us" >
+        </activity>
+        <activity
+            android:name="mrhs.jamaapp.inr.aboutj.AboutJamaatMainActivity"
+            android:label="@string/title_activity_about_jamaat_main" >
         </activity>
     </application>
 

@@ -14,28 +14,25 @@
 	    tools:context=".NewsActivity" >
 
     
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/topView"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent">      
+            android:layout_width="wrap_content">
+            <TextView android:id="@+id/sourceTxtView"
+                android:text="بیانیه رسمی جماعت دعوت و اصلاح ایران"
+				android:layout_alignParentRight="true"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/> 
 
             <TextView android:id="@+id/dateTxtView"
-                android:layout_height="wrap_content"                
-                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true" 
                 android:text="1394/7/12"
                 android:textSize="14sp"
-                android:layout_weight="1"/>
-            <TextView android:id="@+id/writerTxtView"
-                android:layout_height="wrap_content"                
-                android:layout_width="wrap_content"
-                android:text="سایت عقیده"
-                android:textSize="14sp"
-                android:gravity="right"
-                android:layout_gravity="right"
-                android:layout_weight="2"/> 
+                android:layout_width="wrap_content"/>
             
-        </LinearLayout>
-        
+        </RelativeLayout>
         
         <TextView 
             android:id="@+id/titleTxtView"
@@ -45,21 +42,13 @@
             android:textSize="20sp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
-        <ImageView 
-            android:id="@+id/indexImgView"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/titleTxtView"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:src="@drawable/ic_launcher"
-            />
+
         <TextView 
             android:id="@+id/maintextTxtView"
-            android:layout_below="@id/indexImgView"
+            android:layout_below="@id/titleTxtView"
             android:layout_centerHorizontal="true"
             android:text="سایت عقیده"
             android:textSize="14sp"
-            android:textColor="#1b1b1b"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>  
             
