@@ -18,7 +18,7 @@ public class ArticleMainActivity extends FragmentActivity implements ActionBar.T
     private ArticleTabPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
-    private String[] tabs = { "دین و دعوت", "اندیشه","اهل سنت","فرهنگ","سیاسی","اجتماعی","تاریخ","ادب و هنر"};
+    private String[] tabs = { "جدیدترین مقالات","دین و دعوت", "اندیشه","اهل سنت","فرهنگ","سیاسی","اجتماعی","تاریخ","ادب و هنر"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

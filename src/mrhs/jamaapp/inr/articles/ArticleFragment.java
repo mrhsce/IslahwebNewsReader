@@ -35,7 +35,10 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		db = new DatabaseHandler(getActivity()).open(); 
 		articleIdList = getarticleIdList();
 		log("The size of the list is "+articleIdList.size());
-		adapter = new ArticleListArrayAdaptor(getActivity(), articleIdList, this);
+		if(type.equals(""))
+			adapter = new ArticleListArrayAdaptor(getActivity(), articleIdList,true, this);
+		else
+			adapter = new ArticleListArrayAdaptor(getActivity(), articleIdList,false, this);
 		listView.setAdapter(adapter);
 		listView.setDividerHeight(8);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -55,6 +58,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 						bundle.putString("text",cursor.getString(9));
 						bundle.putString("indexImgAddr", cursor.getString(4));
 						bundle.putString("bigImgAddr",cursor.getString(8));
+												
 						if(cursor.getInt(10)==0)
 							bundle.putBoolean("archived",false);
 						else
@@ -88,7 +92,11 @@ private static final boolean LOCAL_SHOW_LOG = true;
         return rootView;
     }
 	public ArrayList<Integer> getarticleIdList(){
-		Cursor cursor = db.articleHandler.getAllByType(type);
+		Cursor cursor;
+		if(!type.equals(""))
+			cursor = db.articleHandler.getAllByType(type);
+		else
+			cursor = db.articleHandler.getAll();
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		if (cursor.moveToFirst()){
 			list.add(cursor.getInt(0));

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Islahweb News Reader</string>
+    <string name="app_name">اصلاح خوان</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_news_main">همه ی اخبار</string>
-    <string name="title_activity_news">NewsActivity</string>
-    <string name="title_activity_article">ArticleActivity</string>
-    <string name="title_activity_article_main">ArticleMainActivity</string>
-    <string name="title_activity_interview_main">InterviewMainActivity</string>
-    <string name="title_activity_interview">InterviewActivity</string>
-    <string name="title_activity_announce_main">AnnounceMainActivity</string>
-    <string name="title_activity_announce">AnnounceActivity</string>
-    <string name="title_activity_about_us">AboutUsActivity</string>
-    <string name="title_activity_about_jamaat_main">AboutJamaatMainActivity</string>
+    <string name="title_activity_news">خبر</string>
+    <string name="title_activity_article">مقاله</string>
+    <string name="title_activity_article_main">مقالات اخیر</string>
+    <string name="title_activity_interview_main">مصاحبه های اخیر</string>
+    <string name="title_activity_interview">مصاحبه</string>
+    <string name="title_activity_announce_main">بیانیه های اخیر</string>
+    <string name="title_activity_announce">بیانیه</string>
+    <string name="title_activity_about_us">درباره ما</string>
+    <string name="title_activity_about_jamaat_main">درباره جماعت</string>
 
 </resources>

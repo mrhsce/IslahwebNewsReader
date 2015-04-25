@@ -1,8 +1,10 @@
 package mrhs.jamaapp.inr.news;
 
 import mrhs.jamaapp.inr.R;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +31,8 @@ public class NewsActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				
+				Intent browserIntent=new Intent(Intent.ACTION_VIEW,Uri.parse(pageLink));
+				startActivity(browserIntent);
 			}
 		});
 		

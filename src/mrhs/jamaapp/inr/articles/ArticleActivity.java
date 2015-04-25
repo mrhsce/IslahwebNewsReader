@@ -2,8 +2,10 @@ package mrhs.jamaapp.inr.articles;
 
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.main.Commons;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -33,7 +35,8 @@ public class ArticleActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				
+				Intent browserIntent=new Intent(Intent.ACTION_VIEW,Uri.parse(pageLink));
+				startActivity(browserIntent);
 			}
 		});
 		

@@ -86,6 +86,21 @@ public class MainActivity extends Activity {
 			}
 		});
 		
+		contactButton = (Button) findViewById(R.id.contact_jamaat_button);
+		contactButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this,AboutJamaatMainActivity.class);
+				startActivity(intent);
+				
+			}
+		});
+		
+		aboutJButton.setEnabled(false);
+		contactButton.setEnabled(false);
+		
 		aboutUsButton = (Button) findViewById(R.id.about_us_button);
 		aboutUsButton.setOnClickListener(new View.OnClickListener() {
 			

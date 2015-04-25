@@ -81,7 +81,7 @@ public class DbAnnouncementHandler {
 	public boolean chkSecondInsert(Integer id){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{"mainText","seen"},"id="+id,null, null, null, "gdate desc");
 		if(cursor.moveToFirst())
-			if(cursor.getString(0)!=null)
+			if(cursor.getString(0)!=null || cursor.getString(0).equals(""))
 				return true;
 			else
 				return false;
@@ -109,7 +109,7 @@ public class DbAnnouncementHandler {
 	
 	public Cursor getThoseWithoutMainText(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{
-				"id","pageLink"},"mainText is null",null, null, null, "gdate desc");
+				"id","pageLink"},"mainText is null or mainText=''",null, null, null, "gdate desc");
 		return cursor;
 	}
 	

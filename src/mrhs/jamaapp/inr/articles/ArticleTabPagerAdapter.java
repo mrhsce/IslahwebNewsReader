@@ -19,12 +19,19 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 		switch(index){
 		case 0:{
 			Bundle tmp = new Bundle();
+			tmp.putString("type", "");
+			ArticleFragment tmpFragment = new ArticleFragment();
+			tmpFragment.setArguments(tmp);
+			return tmpFragment;
+		}
+		case 1:{
+			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_DINODAVAT);
 			ArticleFragment tmpFragment = new ArticleFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
 		}			
-		case 1:
+		case 2:
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_ANDISHE);
@@ -32,7 +39,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
 		}	
-		case 2:
+		case 3:
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_AHLESONNAT);
@@ -40,7 +47,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
 		}
-		case 3:
+		case 4:
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_FARHANG);
@@ -48,7 +55,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
 		}	
-		case 4:
+		case 5:
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_SIASI);
@@ -56,7 +63,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
 		}	
-		case 5:
+		case 6:
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_EJTEMAEI);
@@ -64,7 +71,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
 		}	
-		case 6:
+		case 7:
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_TARIKH);
@@ -72,7 +79,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
 		}	
-		case 7:
+		case 8:
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_ADABOHONAR);
@@ -87,7 +94,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 8;
+		return 9;
 	}
 
 }

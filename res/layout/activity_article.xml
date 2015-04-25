@@ -11,9 +11,8 @@
 	    android:paddingRight="@dimen/activity_horizontal_margin"
 	    android:paddingTop="@dimen/activity_vertical_margin"
 	    android:scrollbars=""
-	    tools:context=".NewsActivity" >
-
-    
+	    tools:context=".NewsActivity" >		    
+        
         <LinearLayout
             android:id="@+id/topView"
             android:layout_height="wrap_content"
@@ -69,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content">
             <Button android:id="@+id/pageLinkButton"
-                android:text="مشاهده این خبر در وبسایت"
+                android:text="مشاهده این صفحه در وبسایت"
 				android:layout_alignParentRight="true"
                 android:textSize="12sp"
                 android:layout_height="wrap_content"

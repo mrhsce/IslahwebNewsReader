@@ -21,6 +21,7 @@
             <TextView android:id="@+id/sourceTxtView"
                 android:text="سایت عقیده"
 				android:layout_alignParentRight="true"
+				android:layout_toRightOf="@id/dateTxtView"
                 android:textSize="14sp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"/> 
@@ -65,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content">
             <Button android:id="@+id/pageLinkButton"
-                android:text="مشاهده این خبر در وبسایت"
+                android:text="مشاهده این صفحه در وبسایت"
 				android:layout_alignParentRight="true"
                 android:textSize="12sp"
                 android:layout_height="wrap_content"
