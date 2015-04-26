@@ -53,7 +53,7 @@ public class InterviewScraper {
 				//log("The writer is: "+writer);
 				String indexTxt = links.get(i).select("div[class=content clearfix] p").text();
 				//log("The indexTxt is: "+indexTxt);
-				if(db.interviewHandler.initialInsert(title, jDate, indexTxt, indexImgAddr, imgAddress, writer, "", pageLink))
+				if(db.interviewHandler.initialInsert(title, jDate, indexTxt, indexImgAddr, imgAddress, writer, pageLink))
 					log("Interview Initial insert finished successfully");
 				else
 					log("Interview was not successfully inserted");

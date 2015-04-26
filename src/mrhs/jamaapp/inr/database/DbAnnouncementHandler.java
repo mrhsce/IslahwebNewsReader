@@ -21,7 +21,7 @@ public class DbAnnouncementHandler {
 	}
 	public boolean initialInsert(String title,String jdate,String pageLink){
 		
-		while(exceedsLimitation()){
+		while(reachesLimitation()){
 			deleteOldestNonArchived();
 		}
 		
@@ -111,13 +111,13 @@ public class DbAnnouncementHandler {
 	
 	public Cursor getAll(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{
-				"id","title","jdate","pageLink","mainText","seen","archived"},null,null, null, null, null);
+				"id","title","jdate","pageLink","mainText","seen","archived"},null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getAllArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{
-				"id","title","jdate","pageLink","mainText","seen","archived"},"archived = 1",null, null, null, null);
+				"id","title","jdate","pageLink","mainText","seen","archived"},"archived = 1",null, null, null, "gdate desc");
 		return cursor;
 	}
 		
@@ -133,10 +133,22 @@ public class DbAnnouncementHandler {
 		return cursor;
 	}
 	
-	public boolean exceedsLimitation(){
+	public void cleanExtras(){
+		while(exceedsLimitation())
+				deleteOldestNonArchived();		
+	}
+	
+	public boolean reachesLimitation(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{"count(id)"},null,null, null, null, null);
 		if(cursor.moveToFirst())
 			return cursor.getInt(0)>=Commons.ANNOUNCE_ENTRY_COUNT;
+		return false;
+	}
+	
+	public boolean exceedsLimitation(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{"count(id)"},null,null, null, null, null);
+		if(cursor.moveToFirst())
+			return cursor.getInt(0)>Commons.ANNOUNCE_ENTRY_COUNT;
 		return false;
 	}
 	

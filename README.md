@@ -19,9 +19,11 @@ Things to do ->
 	- Make a tab view for archive containing News,Announcements,interview and article ✔
 	- When the tab is empty show the help to add a content to archive ✔
 	- Add button to remove from the archive when content is removed archived becomes false and if ten other newer contents exist it is removed ✔
-	- add function to clean the exceeding datas from the tables in the database handler
-	- when the program starts the service should remove the exceeding unarchived entries
 
+	- add function to clean the exceeding datas from the tables in the database handler ✔
+	- when the program starts the service should remove the exceeding unarchived entries ✔
+
+	- add the network check function and use it in the downloader loop
 	- change the downloader service to continue the work after closing the app until the connection was lost or completed then destroy itself
 	
 	- Find a good icon for tag "New"

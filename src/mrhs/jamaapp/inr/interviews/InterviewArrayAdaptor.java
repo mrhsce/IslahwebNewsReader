@@ -35,7 +35,7 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 		dateList = new ArrayList<String>();
 		textList = new ArrayList<String>();
 		
-		Cursor cursor = parent.db.interviewHandler.getAllByType("");
+		Cursor cursor = parent.db.interviewHandler.getAll();
 		if (cursor.moveToFirst()){
 			titleList.add(cursor.getString(1));
 			writerList.add(cursor.getString(5));

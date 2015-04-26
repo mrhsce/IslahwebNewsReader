@@ -22,7 +22,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public boolean initialInsert(String title,String jDate,String indexTxt,String indexImgAddr,String imgAddress,
 			String writer,String type,String pageLink){
-		while(exceedsLimitation(type)){
+		while(reachesLimitation(type)){
 			log("deleted");
 				deleteOldestNonArchived(type);
 			}
@@ -135,13 +135,13 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public Cursor getAllArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 1",null, null, null, null);
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 1",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getAllNonArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 0",null, null, null, null);
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 0",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
@@ -175,10 +175,28 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		return cursor;
 	}
 	
-	public boolean exceedsLimitation(String type){
+	public void cleanExtras(){
+		String[] list = new String[]{Commons.ARTICLE_TYPE_ADABOHONAR,Commons.ARTICLE_TYPE_AHLESONNAT,Commons.ARTICLE_TYPE_ANDISHE,
+				Commons.ARTICLE_TYPE_DINODAVAT,Commons.ARTICLE_TYPE_EJTEMAEI,Commons.ARTICLE_TYPE_FARHANG,
+				Commons.ARTICLE_TYPE_SIASI,Commons.ARTICLE_TYPE_TARIKH};
+		for(String type:list){
+			while(exceedsLimitation(type))
+				deleteOldestNonArchived(type);
+		}
+		
+	}
+	
+	public boolean reachesLimitation(String type){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{"count(id)"},"type='"+type+"'",null, null, null, null);
 		if(cursor.moveToFirst())
 			return cursor.getInt(0)>=Commons.ARTICLE_ENTRY_COUNT;
+		return false;
+	}
+	
+	public boolean exceedsLimitation(String type){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{"count(id)"},"type='"+type+"'",null, null, null, null);
+		if(cursor.moveToFirst())
+			return cursor.getInt(0)>Commons.ARTICLE_ENTRY_COUNT;
 		return false;
 	}
 	

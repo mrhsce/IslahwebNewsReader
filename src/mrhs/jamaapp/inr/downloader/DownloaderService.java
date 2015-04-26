@@ -44,6 +44,7 @@ public class DownloaderService extends Service {
 		finishedInitialDownloadCount = 0;
 		
 		db = new DatabaseHandler(this).open();
+		db.cleanExtras();
 		newsScraper = new NewsScraper();
 		articleScraper = new ArticleScraper();		
 		interviewScraper = new InterviewScraper();

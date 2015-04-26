@@ -21,10 +21,10 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	}
 	
 	public boolean initialInsert(String title,String jDate,String indexTxt,String indexImgAddr,String imgAddress,
-			String writer,String type,String pageLink){
-		while(exceedsLimitation(type)){
+			String writer,String pageLink){
+		while(reachesLimitation()){
 			log("deleted");
-				deleteOldestNonArchived(type);
+				deleteOldestNonArchived();
 			}
 			String gDate = "";
 			try {
@@ -46,7 +46,6 @@ private static final boolean LOCAL_SHOW_LOG = true;
 			values.put("indexText", indexTxt);
 			values.put("bigImg",imgAddress);
 			values.put("writer",writer);
-			values.put("type",type);
 			values.put("pageLink", pageLink);
 			try{
 				return parent.db.insert(DatabaseHandler.TABLE_INTERVIEW, null, values)>0;
@@ -129,37 +128,31 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public Cursor getAll(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},null,null, null, null, null);
+				"id","title","jdate","indexText","indexImg","writer","seen","pageLink","bigImg","mainText"},null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
-	public Cursor getAllArchived(String type){
+	public Cursor getAllArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 1 and type='"+type+"'",null, null, null, null);
+				"id","title","jdate","indexText","indexImg","writer","seen","pageLink","bigImg","mainText"},"archived = 1",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getAllNonArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 0",null, null, null, null);
+				"id","title","jdate","indexText","indexImg","writer","seen","pageLink","bigImg","mainText"},"archived = 0",null, null, null, "gdate desc");
 		return cursor;
-	}
-	
-	public Cursor getAllByType(String type){
-		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"type='"+type+"'",null, null, null, "gdate desc");
-		return cursor;
-	}
+	}	
 	
 	public Cursor getById(Integer id){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","archived"},"id="+id,null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","archived","pageLink","bigImg","mainText"},"id="+id,null, null, null, "gdate desc");
 		return cursor;
 	}	
 	
 	public Cursor getThoseWithoutIndexImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"indexImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","seen","pageLink","bigImg","mainText"},"indexImg like 'http://%'"+null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
@@ -171,19 +164,31 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public Cursor getThoseWithoutBigImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"bigImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","seen","pageLink","bigImg","mainText"},"bigImg like 'http://%'"+null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
-	public boolean exceedsLimitation(String type){
-		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{"count(id)"},"type='"+type+"'",null, null, null, null);
+	public void cleanExtras(){
+		while(exceedsLimitation())
+				deleteOldestNonArchived();		
+	}
+	
+	public boolean reachesLimitation(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{"count(id)"},null,null, null, null, null);
 		if(cursor.moveToFirst())
 			return cursor.getInt(0)>=Commons.INTERVIEW_ENTRY_COUNT;
 		return false;
 	}
 	
-	public void deleteOldestNonArchived(String type){
-		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{"id"},"archived = 0 and type='"+type+"'",null, null, null, "gdate asc");
+	public boolean exceedsLimitation(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{"count(id)"},null,null, null, null, null);
+		if(cursor.moveToFirst())
+			return cursor.getInt(0)>Commons.INTERVIEW_ENTRY_COUNT;
+		return false;
+	}
+	
+	public void deleteOldestNonArchived(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{"id"},"archived = 0",null, null, null, "gdate asc");
 		if(cursor.moveToFirst())
 			deleteEntry(cursor.getInt(0));
 	}
@@ -194,11 +199,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public int deleteEntry(String title,String jdate){
 		return parent.db.delete(DatabaseHandler.TABLE_INTERVIEW, "title='"+title+"' and jdate='"+jdate+"'", null);
-	}
-	
-	public int deleteEntry(String type){
-		return parent.db.delete(DatabaseHandler.TABLE_INTERVIEW, "type='"+type+"'", null);
-	}
+	}	
 	
 	public void deleteEntryBefore(Date date){
 		String jdate = parent.dateConvertor.GregorianToPersian(new SimpleDateFormat("yyyy/MM/dd").format(date));

@@ -23,7 +23,7 @@ public class DbNewsHandler {
 	
 	public boolean initialInsert(String title,String jDate,String indexImgAddr,String imgAddress,
 			String source,String type,String pageLink){
-		while(exceedsLimitation(type)){
+		while(reachesLimitation(type)){
 				deleteOldestNonArchived(type);
 			}
 			log("before gdate");
@@ -129,19 +129,19 @@ public class DbNewsHandler {
 	
 	public Cursor getAll(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},null,null, null, null, null);
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getAllArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"archived = 1",null, null, null, null);
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"archived = 1",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getAllNonArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"archived = 0",null, null, null, null);
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"archived = 0",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
@@ -175,10 +175,26 @@ public class DbNewsHandler {
 		return cursor;
 	}
 	
-	public boolean exceedsLimitation(String type){
+	public void cleanExtras(){
+		String[] list = new String[]{Commons.NEWS_TYPE_ISLAHWEB,Commons.NEWS_TYPE_JAMAAT,Commons.NEWS_TYPE_SPORT};
+		for(String type:list){
+			while(exceedsLimitation(type))
+				deleteOldestNonArchived(type);
+		}
+		
+	}
+	
+	public boolean reachesLimitation(String type){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{"count(id)"},"type='"+type+"'",null, null, null, null);
 		if(cursor.moveToFirst())
 			return cursor.getInt(0)>=Commons.NEWS_ENTRY_COUNT;
+		return false;
+	}
+	
+	public boolean exceedsLimitation(String type){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{"count(id)"},"type='"+type+"'",null, null, null, null);
+		if(cursor.moveToFirst())
+			return cursor.getInt(0)>Commons.NEWS_ENTRY_COUNT;
 		return false;
 	}
 	

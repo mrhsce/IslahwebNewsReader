@@ -72,7 +72,7 @@ public class InterviewMainActivity extends Activity {
 	}
 	
 	public ArrayList<Integer> getinterviewIdList(){
-		Cursor cursor = db.interviewHandler.getAllByType("");
+		Cursor cursor = db.interviewHandler.getAll();
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		if (cursor.moveToFirst()){
 			list.add(cursor.getInt(0));

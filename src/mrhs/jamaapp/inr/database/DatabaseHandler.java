@@ -2,6 +2,7 @@ package mrhs.jamaapp.inr.database;
 
 
 import ir.anamsoftware.persiandateultimate.ManamPDUltimate;
+import mrhs.jamaapp.inr.downloader.AnnouncementScraper;
 import mrhs.jamaapp.inr.main.Commons;
 import android.content.Context;
 import android.database.SQLException;
@@ -60,7 +61,14 @@ public class DatabaseHandler {
 	
 	public void close(){
 		dbHelper.close();
-	}	
+	}
+	
+	public void cleanExtras(){
+		newsHandler.cleanExtras();
+		articleHandler.cleanExtras();
+		anouncementHandler.cleanExtras();
+		interviewHandler.cleanExtras();
+	}
 	
 	private static class DbHelper extends SQLiteOpenHelper{
 		
@@ -83,7 +91,7 @@ public class DatabaseHandler {
 			String CREATE_INTERVIEW="CREATE TABLE IF NOT EXISTS "+TABLE_INTERVIEW+ 
 					" (id INTEGER PRIMARY KEY,title text not null,gdate DATE not null,jdate text not null," +
 					" indexImg text not null,indexText text not null,writer text not null," +
-					"type text not null,bigImg text,pageLink text not null,mainText text," +
+					"bigImg text,pageLink text not null,mainText text," +
 					"archived integer default 0,seen integer default 0)";					
 			db.execSQL(CREATE_INTERVIEW);
 			
