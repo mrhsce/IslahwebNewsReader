@@ -19,7 +19,7 @@ import mrhs.jamaapp.inr.main.Commons;
 import android.util.Log;
 
 public class AnnouncementScraper {
-	private static final boolean LOCAL_SHOW_LOG = true;
+	private static final boolean LOCAL_SHOW_LOG = false;
 		
 	public void initialInsert(final DatabaseHandler db){
 		log("Trying announce initial insert");
@@ -36,9 +36,9 @@ public class AnnouncementScraper {
 			
 			if(db.anouncementHandler.exists(title, jDate)) break;
 			String pageLink = "http://m.islahweb.org"+links.get(i).select("td a").get(0).attr("href");
-			log("The pageLink is: "+pageLink);
+			//log("The pageLink is: "+pageLink);
 			db.anouncementHandler.initialInsert(title, jDate, pageLink);
-			log("announce Initial insert finished successfully");
+			//log("announce Initial insert finished successfully");
 			}
 		}catch (IndexOutOfBoundsException e) {log("Problem in announce initial insert");}
 	}

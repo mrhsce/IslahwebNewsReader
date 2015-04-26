@@ -23,86 +23,38 @@ import android.util.Log;
 public class NewsScraper {
 	private static final boolean LOCAL_SHOW_LOG = false;
 	
-		
-	public void initialInsertJamaNews(final DatabaseHandler db){		
-		log("Trying JamaNews initial insert");
+	public void initialInsert(final DatabaseHandler db){
+		log("Trying news initial insert");
+		String[] typeList = new String[]{Commons.NEWS_TYPE_JAMAAT,Commons.NEWS_TYPE_ISLAHWEB,Commons.NEWS_TYPE_SPORT};
+		String[] addrList = new String[]{"http://m.islahweb.org/jamaat_news","http://m.islahweb.org/islahweb-news",
+				"http://m.islahweb.org/sports"};
+		Integer[] indexList = new Integer[]{1,0,1};
+		String[] imgDimList = new String[]{"40x40crop","75x75crop","40x40crop"};
+
 		Document doc;
-		String html=getHtml("http://m.islahweb.org/jamaat_news");
-		log("Html recieved start working on it");
-		doc=Jsoup.parse(html);
-		Elements links=doc.select("tbody tr");
-		try{for (int i=0;i<Commons.NEWS_ENTRY_COUNT;i++){
-			String title = links.get(i).select("td a").get(1).text();
-			//log("The title is: "+title);
-			String jDate = links.get(i).select("td").get(2).text();
-			//log("The jDate is: "+jDate);
-			if(db.newsHandler.exists(title, jDate)) break;
-			String pageLink = "http://m.islahweb.org"+links.get(i).select("td a").get(1).attr("href");
-			//log("The page link is: "+pageLink);
-			String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace("40x40crop", "200x200");
-			String imgAddress = indexImgAddr.replace("40x40", "700x700");
-			//log("The imgAddr is: "+imgAddress);
-			links.get(i).select("td a").get(1).remove();
-			String source = links.get(i).select("td").get(1).text();					
-			//log("The source is: "+source);
-			db.newsHandler.initialInsert(title, jDate, indexImgAddr, imgAddress, source, Commons.NEWS_TYPE_JAMAAT, pageLink);
-			log("JamaNews Initial insert finished successfully");
-			}
-		}catch (IndexOutOfBoundsException e) {log("Problem in JamaNews initial insert");}
-	}
-	
-	public void initialInsertIslahNews(final DatabaseHandler db){
-		log("Trying IslahNews initial insert");
-		Document doc;
-		String html=getHtml("http://m.islahweb.org/islahweb-news");
-		
-		doc=Jsoup.parse(html);
-		Elements links=doc.select("tbody tr");
-		try{for (int i=0;i<Commons.NEWS_ENTRY_COUNT;i++){
-			String title = links.get(i).select("td a").get(0).text();
-			//log("The title is: "+title);
-			String jDate = links.get(i).select("td").get(1).text();
-			//log("The jDate is: "+jDate);
-			if(db.newsHandler.exists(title, jDate)) break;
-			String pageLink = "http://m.islahweb.org"+links.get(i).select("td a").get(0).attr("href");
-			//log("The pageLink is: "+pageLink);
-			String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace("75x75crop", "200x200");
-			String imgAddress = indexImgAddr.replace("40x40", "700x700");
-			//log("The imgAddress is: "+imgAddress);
-			links.get(i).select("td a").get(0).remove();
-			String source = links.get(i).select("td").get(0).text();					
-			//log("The source is: "+source);
-			db.newsHandler.initialInsert(title, jDate, indexImgAddr, imgAddress, source, Commons.NEWS_TYPE_ISLAHWEB, pageLink);
-			log("JamaNews Initial insert finished successfully");
-			}
-		}catch (IndexOutOfBoundsException e) {log("Problem in JamaNews initial insert");}
-	}
-	
-	
-	public void initialInsertSportNews(final DatabaseHandler db){
-		log("Trying SportNews initial insert");
-		Document doc;
-		String html=getHtml("http://m.islahweb.org/sports");
-		
-		doc=Jsoup.parse(html);
-		Elements links=doc.select("tbody tr");
-		try{for (int i=0;i<Commons.NEWS_ENTRY_COUNT;i++){
-			String title = links.get(i).select("td a").get(1).text();
-			//log("The title is: "+title);
-			String jDate = links.get(i).select("td").get(2).text();
-			//log("The jDate is: "+jDate);
-			
-			if(db.newsHandler.exists(title, jDate)) break;
-			String pageLink = "http://m.islahweb.org"+links.get(i).select("td a").get(1).attr("href");
-			//log("The pageLink is: "+pageLink);
-			String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace("40x40crop", "200x200");
-			String imgAddress = indexImgAddr.replace("40x40", "700x700");
-			links.get(i).select("td a").get(1).remove();
-			String source = links.get(i).select("td").get(1).text();					
-			db.newsHandler.initialInsert(title, jDate, indexImgAddr, imgAddress, source, Commons.NEWS_TYPE_SPORT, pageLink);
-			log("JamaNews Initial insert finished successfully");
-			}
-		}catch (IndexOutOfBoundsException e) {log("Problem in JamaNews initial insert");}
+		for(int type=0;type<typeList.length;type++){
+			String html=getHtml(addrList[type]);
+			doc=Jsoup.parse(html);
+			Elements links=doc.select("tbody tr");
+			try{for (int i=0;i<Commons.NEWS_ENTRY_COUNT;i++){
+				String title = links.get(i).select("td a").get(indexList[type]).text();
+				log("The title is: "+title);
+				String jDate = links.get(i).select("td").get(indexList[type]+1).text();
+				log("The jDate is: "+jDate);
+				if(db.newsHandler.exists(title, jDate)) break;
+				String pageLink = "http://m.islahweb.org"+links.get(i).select("td a").get(indexList[type]).attr("href");
+				//log("The page link is: "+pageLink);
+				String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace(imgDimList[type], "200x200");
+				String imgAddress = indexImgAddr.replace("200x200", "700x700");
+				//log("The imgAddr is: "+imgAddress);
+				links.get(i).select("td a").get(indexList[type]).remove();
+				String source = links.get(i).select("td").get(indexList[type]).text();					
+				//log("The source is: "+source);
+				db.newsHandler.initialInsert(title, jDate, indexImgAddr, imgAddress, source, typeList[type], pageLink);
+				log("News "+typeList[type]+" Initial insert finished successfully");
+				}
+			}catch (IndexOutOfBoundsException e) {log("Problem in News News "+typeList[type]+" initial insert");}
+		}
 	}
 	
 	public void secondaryInsert(final DatabaseHandler db,final String url,final Integer id){

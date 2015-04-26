@@ -1,28 +1,32 @@
-package mrhs.jamaapp.inr.news;
-
+package mrhs.jamaapp.inr.archive;
 
 import mrhs.jamaapp.inr.R;
+import mrhs.jamaapp.inr.R.layout;
+import mrhs.jamaapp.inr.R.menu;
 import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.main.MainActivity;
+import mrhs.jamaapp.inr.news.NewsTabPagerAdapter;
 import android.os.Bundle;
 import android.app.ActionBar;
-import android.app.ActionBar.Tab;
+import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.app.ActionBar.Tab;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Window;
+import android.view.Menu;
+import android.view.MenuItem;
 
 @SuppressWarnings("deprecation")
-public class NewsMainActivity extends FragmentActivity implements ActionBar.TabListener{
+public class ArchiveMainActivity extends FragmentActivity implements ActionBar.TabListener {
 	private static final boolean LOCAL_SHOW_LOG = true;
 
 	private ViewPager viewPager;
-    private NewsTabPagerAdapter mAdapter;
+    private ArchiveTabPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
-    private String[] tabs = { "اخبار جماعت", "اخبار اصلاح", "اخبار ورزشی" };
+    private String[] tabs = { "آرشیو اخبار", "آرشیو مقالات", "آرشیو بیانیه ها","آرشیو مصاحبه ها" };
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,7 @@ public class NewsMainActivity extends FragmentActivity implements ActionBar.TabL
 		log("Started");
         viewPager = (ViewPager) findViewById(R.id.pager);
         setupActionBar();    
-        mAdapter = new NewsTabPagerAdapter(getSupportFragmentManager());
+        mAdapter = new ArchiveTabPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mAdapter);       
        
         // Adding Tabs
@@ -66,6 +70,7 @@ public class NewsMainActivity extends FragmentActivity implements ActionBar.TabL
 	private void setupActionBar(){
 
         actionBar = getActionBar(); 
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	}
 
@@ -85,6 +90,30 @@ public class NewsMainActivity extends FragmentActivity implements ActionBar.TabL
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()){
+		case android.R.id.home:
+			this.finish();
+			break;
+//		case R.id.action_refresh:
+//			refresh
+//			
+//			break;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		log("onCreateOptionMenu");
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.archive_main, menu);		
+		return true;
 	}
 	
 	private void log(String message){

@@ -12,7 +12,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 public class DownloaderService extends Service {
-	private static final boolean LOCAL_SHOW_LOG = true;
+	private static final boolean LOCAL_SHOW_LOG = false;
 	
 	ArticleScraper articleScraper;
 	AnnouncementScraper announcementScraper;
@@ -94,9 +94,7 @@ public class DownloaderService extends Service {
 			// TODO Auto-generated method stub
 			
 			if(run==0 || run==1){
-				newsScraper.initialInsertIslahNews(db);
-				newsScraper.initialInsertJamaNews(db);
-				newsScraper.initialInsertSportNews(db);
+				newsScraper.initialInsert(db);
 			}
 			log("Initial download finished");
 			if(run==0 || run == 2){

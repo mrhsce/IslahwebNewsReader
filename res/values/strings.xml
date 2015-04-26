@@ -14,5 +14,6 @@
     <string name="title_activity_announce">بیانیه</string>
     <string name="title_activity_about_us">درباره ما</string>
     <string name="title_activity_about_jamaat_main">درباره جماعت</string>
+    <string name="title_activity_archive_main">آرشیو</string>
 
 </resources>

@@ -75,6 +75,10 @@
             android:name="mrhs.jamaapp.inr.aboutj.AboutJamaatMainActivity"
             android:label="@string/title_activity_about_jamaat_main" >
         </activity>
+        <activity
+            android:name="mrhs.jamaapp.inr.archive.ArchiveMainActivity"
+            android:label="@string/title_activity_archive_main" >
+        </activity>
     </application>
 
 </manifest>

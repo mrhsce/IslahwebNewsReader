@@ -13,9 +13,10 @@ Things to do ->
 
 
 	Second phase: proposed for Tuesday 02/09
-	- Find a goot flat icon for filled and empty star for add to archive button
-	- Add archive button to the action bar and name it "Archive"
-	- Make a tab view for archive containing News,Announcements,interview and article
+	- Merge the three parsers for news in one ✔
+	- Find a goot flat icon for filled and empty star for add to archive button ✔
+	- Add archive button to the action bar and name it "Archive" ✔
+	- Make a tab view for archive containing News,Announcements,interview and article ✔
 	- When the tab is empty show the help to add a content to archive
 	- Add button to remove from the archive when a content is removed archived becomes false and if ten other newer contents exist it is removed
 
@@ -30,6 +31,9 @@ Things to do ->
 	- in downloader service after initial download there should be a composition of 2 secondary download and 1 image download until one finishes
 	- make a class for cropping the image  to have suitable aspect ratio for indexImg
 
+	- design a priority list in downloader and all the downloads are inserted inside it and in each loop one is executed
+		for example the priority of initial download is higher than secondary download and the priority of forced secondary download is highest
+
 	- Work on static contents of the About jamaat use assets if necessary for the strings 
 
 
@@ -42,6 +46,13 @@ Things to do ->
 	- use flat colors for the application
 	- make the activity appear and then fill the list views and use waiting animations if necessary
 	- when user clicks on the image of a news enters a loading screen and download the image and resumes the main download thread the image should have the ability to be stored in the sdcard when users prompts and should be able to zoom and move around
+
+	Fourth phase(Feedback taking):
+	- view the comments in a view like Akharin khabar
+	- take comment from the user in the same view
+	- allow the user to rate the post
+	- all these features are only available when the user is online
+
 	
 
 	First phase: ✔

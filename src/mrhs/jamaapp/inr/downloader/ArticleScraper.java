@@ -47,14 +47,14 @@ public class ArticleScraper {
 				
 				if(db.articleHandler.exists(title, jDate)) break;
 				String pageLink = "http://m.islahweb.org"+links.get(i).select("td a").get(1).attr("href");
-				log("The pageLink is: "+pageLink);
+				//log("The pageLink is: "+pageLink);
 				String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace("40x40crop", "200x200");
-				log("The indexImgAddr is: "+indexImgAddr);
+				//log("The indexImgAddr is: "+indexImgAddr);
 				String imgAddress = indexImgAddr.replace("200x200", "700x700");	
 				
 				links.get(i).select("td a").get(1).remove();
 				String writer = links.get(i).select("td").get(1).text();	
-				log("The writer is: "+writer);
+				//log("The writer is: "+writer);
 				String indexTxt = "";
 				if(j==0)
 					indexTxt = doc.select("div"+links.get(i).select("tr").get(0).attr("rel")+" span").get(0).text();

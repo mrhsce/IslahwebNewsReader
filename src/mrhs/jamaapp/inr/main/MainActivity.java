@@ -3,6 +3,7 @@ package mrhs.jamaapp.inr.main;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.aboutj.AboutJamaatMainActivity;
 import mrhs.jamaapp.inr.announces.AnnounceMainActivity;
+import mrhs.jamaapp.inr.archive.ArchiveMainActivity;
 import mrhs.jamaapp.inr.articles.ArticleMainActivity;
 import mrhs.jamaapp.inr.downloader.DownloaderService;
 import mrhs.jamaapp.inr.interviews.InterviewMainActivity;
@@ -10,11 +11,14 @@ import mrhs.jamaapp.inr.news.NewsMainActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
+	private static final boolean LOCAL_SHOW_LOG = true;
 	
 	Button newsButton,announceButton,interviewButton,articleButton,contactButton,aboutJButton,aboutUsButton;
 	
@@ -112,6 +116,23 @@ public class MainActivity extends Activity {
 				
 			}
 		});
+	}	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()){
+		case R.id.action_archive:			
+			Intent intent = new Intent(MainActivity.this,ArchiveMainActivity.class);
+			startActivity(intent);
+			break;
+//		case R.id.action_refresh:
+//			refresh
+//			
+//			break;
+		}
+		
+		return true;
 	}
 	
 	@Override
@@ -120,12 +141,18 @@ public class MainActivity extends Activity {
 		stopService(new Intent(this,DownloaderService.class));
 		super.onDestroy();
 	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	private void log(String message){
+		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)
+			Log.d(this.getClass().getSimpleName(),message);
 	}
 
 }

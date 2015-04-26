@@ -79,9 +79,9 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 		return convertView;
 	}
 	
-	private static void log(String message){
+	private void log(String message){
 		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)
-			Log.d("DatabaseHandler",message);
+			Log.d(this.getClass().getSimpleName(),message);
 	}
 
 }

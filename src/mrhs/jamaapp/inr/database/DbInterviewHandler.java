@@ -98,8 +98,13 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	public boolean chkSecondInsert(Integer id){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{"mainText","seen"},"id="+id,null, null, null, "gdate desc");
 		if(cursor.moveToFirst())
-			if(cursor.getString(0)!=null || cursor.getString(0).equals(""))
-				return true;
+			if(cursor.getString(0)!=null){
+				if(!cursor.getString(0).equals(""))
+					return true;
+				else
+					return false;
+			}
+				
 			else
 				return false;
 		else

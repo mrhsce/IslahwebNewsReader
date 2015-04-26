@@ -77,7 +77,22 @@ public class DbNewsHandler {
 		ContentValues values=new ContentValues();
 		values.put("seen", 1);
 		try{
-			return parent.db.update(DatabaseHandler.TABLE_ARTICLE, values, "id = "+id, null)>0;
+			return parent.db.update(DatabaseHandler.TABLE_NEWS, values, "id = "+id, null)>0;
+		}catch(Exception e){
+			e.printStackTrace();
+			log("Error inserting values to the "+DatabaseHandler.TABLE_NEWS+" table");
+			return false;
+		}
+	}
+	
+	public boolean setArchived(Integer id,boolean archived){
+		ContentValues values=new ContentValues();
+		if(archived)
+			values.put("archived", 1);
+		else
+			values.put("archived", 0);
+		try{
+			return parent.db.update(DatabaseHandler.TABLE_NEWS, values, "id = "+id, null)>0;
 		}catch(Exception e){
 			e.printStackTrace();
 			log("Error inserting values to the "+DatabaseHandler.TABLE_NEWS+" table");
@@ -98,8 +113,13 @@ public class DbNewsHandler {
 	public boolean chkSecondInsert(Integer id){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{"mainText","seen"},"id="+id,null, null, null, "gdate desc");
 		if(cursor.moveToFirst())
-			if(cursor.getString(0)!=null || cursor.getString(0).equals(""))
-				return true;
+			if(cursor.getString(0)!=null){
+				if(!cursor.getString(0).equals(""))
+					return true;
+				else
+					return false;
+			}
+				
 			else
 				return false;
 		else

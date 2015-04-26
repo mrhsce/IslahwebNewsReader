@@ -22,6 +22,7 @@ public class NewsFragment extends Fragment {
 	private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public String type;
+	public boolean archived;
 	public ArrayList<Integer> newsIdList;
 	
 	public ListView listView;
@@ -79,6 +80,7 @@ public class NewsFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.setArguments(args);
 		this.type = args.getString("type");
+		this.archived = args.getBoolean("archived");
 	}
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
