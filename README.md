@@ -17,12 +17,15 @@ Things to do ->
 	- Find a goot flat icon for filled and empty star for add to archive button ✔
 	- Add archive button to the action bar and name it "Archive" ✔
 	- Make a tab view for archive containing News,Announcements,interview and article ✔
-	- When the tab is empty show the help to add a content to archive
-	- Add button to remove from the archive when a content is removed archived becomes false and if ten other newer contents exist it is removed
+	- When the tab is empty show the help to add a content to archive ✔
+	- Add button to remove from the archive when content is removed archived becomes false and if ten other newer contents exist it is removed ✔
+	- add function to clean the exceeding datas from the tables in the database handler
+	- when the program starts the service should remove the exceeding unarchived entries
 
 	- change the downloader service to continue the work after closing the app until the connection was lost or completed then destroy itself
 	
 	- Find a good icon for tag "New"
+	- Add "Favourite" tag to the list views
 	- In all list adaptors if the element was not seen the new tag should be adhered
 
 	- add the sdcard handler class to the main activity to make sure that all the necessary directories are existing

@@ -85,6 +85,21 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		}
 	}
 	
+	public boolean setArchived(Integer id,boolean archived){
+		ContentValues values=new ContentValues();
+		if(archived)
+			values.put("archived", 1);
+		else
+			values.put("archived", 0);
+		try{
+			return parent.db.update(DatabaseHandler.TABLE_INTERVIEW, values, "id = "+id, null)>0;
+		}catch(Exception e){
+			e.printStackTrace();
+			log("Error inserting values to the "+DatabaseHandler.TABLE_INTERVIEW+" table");
+			return false;
+		}
+	}
+	
 	public boolean exists(String title,String jDate){
 			Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{"title","jdate"},
 					"title='"+title+"' and jdate='"+jDate+"'",null, null, null, null);

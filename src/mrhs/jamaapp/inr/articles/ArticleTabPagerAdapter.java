@@ -20,6 +20,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 		case 0:{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", "");
+			tmp.putBoolean("inArchive", false);
 			ArticleFragment tmpFragment = new ArticleFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
@@ -27,6 +28,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 		case 1:{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_DINODAVAT);
+			tmp.putBoolean("inArchive", false);
 			ArticleFragment tmpFragment = new ArticleFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
@@ -35,6 +37,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_ANDISHE);
+			tmp.putBoolean("inArchive", false);
 			ArticleFragment tmpFragment = new ArticleFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
@@ -43,6 +46,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_AHLESONNAT);
+			tmp.putBoolean("inArchive", false);
 			ArticleFragment tmpFragment = new ArticleFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
@@ -51,6 +55,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_FARHANG);
+			tmp.putBoolean("inArchive", false);
 			ArticleFragment tmpFragment = new ArticleFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
@@ -59,6 +64,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_SIASI);
+			tmp.putBoolean("inArchive", false);
 			ArticleFragment tmpFragment = new ArticleFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
@@ -67,6 +73,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_EJTEMAEI);
+			tmp.putBoolean("inArchive", false);
 			ArticleFragment tmpFragment = new ArticleFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
@@ -75,6 +82,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_TARIKH);
+			tmp.putBoolean("inArchive", false);
 			ArticleFragment tmpFragment = new ArticleFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
@@ -83,6 +91,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.ARTICLE_TYPE_ADABOHONAR);
+			tmp.putBoolean("inArchive", false);
 			ArticleFragment tmpFragment = new ArticleFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;

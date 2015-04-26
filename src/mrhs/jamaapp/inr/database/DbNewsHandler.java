@@ -133,9 +133,9 @@ public class DbNewsHandler {
 		return cursor;
 	}
 	
-	public Cursor getAllArchived(String type){
+	public Cursor getAllArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"archived = 1 and type='"+type+"'",null, null, null, null);
+				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"archived = 1",null, null, null, null);
 		return cursor;
 	}
 	

@@ -20,6 +20,7 @@ public class NewsTabPagerAdapter extends FragmentPagerAdapter {
 		case 0:{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.NEWS_TYPE_JAMAAT);
+			tmp.putBoolean("inArchive", false);
 			NewsFragment tmpFragment = new NewsFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
@@ -28,6 +29,7 @@ public class NewsTabPagerAdapter extends FragmentPagerAdapter {
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.NEWS_TYPE_ISLAHWEB);
+			tmp.putBoolean("inArchive", false);
 			NewsFragment tmpFragment = new NewsFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
@@ -36,6 +38,7 @@ public class NewsTabPagerAdapter extends FragmentPagerAdapter {
 		{
 			Bundle tmp = new Bundle();
 			tmp.putString("type", Commons.NEWS_TYPE_SPORT);
+			tmp.putBoolean("inArchive", false);
 			NewsFragment tmpFragment = new NewsFragment();
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;

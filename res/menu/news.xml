@@ -1,18 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="0"
-        android:showAsAction="always"
-        android:title="Settings">
-        
-    </item>
-    <item
         android:id="@+id/action_archive"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:icon="@drawable/crescent_false"
-        
+        android:icon="@drawable/crescent_false"        
         android:title="Archive"/>
 
 </menu>

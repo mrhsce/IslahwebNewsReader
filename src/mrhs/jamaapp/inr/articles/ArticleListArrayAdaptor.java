@@ -3,7 +3,6 @@ package mrhs.jamaapp.inr.articles;
 import java.util.ArrayList;
 
 import mrhs.jamaapp.inr.R;
-import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
 
 import android.content.Context;
@@ -25,17 +24,19 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	private ArticleFragment parent;
 	
 	private boolean showType;
+	private boolean inArchive;
 	
 	private String[] tabs = { "دین و دعوت", "اندیشه","اهل سنت","فرهنگ","سیاسی","اجتماعی","تاریخ","ادب و هنر"};
 	
 	private ArrayList<String> titleList,writerList,dateList,textList,typeList;
 	
-	public ArticleListArrayAdaptor(Context ctx,ArrayList<Integer> articleIdList,boolean showtype,ArticleFragment parent) {
+	public ArticleListArrayAdaptor(Context ctx,ArrayList<Integer> articleIdList,boolean showtype,boolean inArchive,ArticleFragment parent) {
 		// TODO Auto-generated constructor stub
 		super(ctx, R.layout.article_list_item, articleIdList);
 		this.parent = parent;
 		this.articleType = parent.type;
 		showType = showtype;
+		this.inArchive = inArchive;
 		context = ctx;
 		initializeLists();		
 	}
@@ -48,34 +49,51 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		if(showType)
 			typeList = new ArrayList<String>();
 		
-		Cursor cursor = null;
-		if(!showType){
-			cursor = parent.db.articleHandler.getAllByType(articleType);
-			log("article type is: "+articleType);
+		Cursor cursor;
+		if(!inArchive){
+			if(!showType)
+				cursor = parent.db.articleHandler.getAllByType(articleType);
+			else
+				cursor = parent.db.articleHandler.getAll();
 		}
-		else
-			cursor = parent.db.articleHandler.getAll();		
+		else{
+			cursor = parent.db.articleHandler.getAllArchived();
+		}
+		
 		
 		if (cursor.moveToFirst()){
 			titleList.add(cursor.getString(1));
 			writerList.add(cursor.getString(5));
-			textList.add(cursor.getString(3));
 			dateList.add(cursor.getString(2));
+			textList.add(cursor.getString(3));
 			if(showType)
 				typeList.add(cursor.getString(6));
-			for(int i=0;i<Commons.ARTICLE_ENTRY_COUNT-1;i++){
-				if(cursor.moveToNext())
-				{
+			
+			if(!inArchive){
+				for(int i=0;i<Commons.ARTICLE_ENTRY_COUNT-1;i++){
+					if(cursor.moveToNext()){
+						titleList.add(cursor.getString(1));
+						writerList.add(cursor.getString(5));
+						dateList.add(cursor.getString(2));
+						textList.add(cursor.getString(3));
+						if(showType)
+							typeList.add(cursor.getString(6));
+					}
+					else
+						break;
+				}
+			}
+			else{
+				while(cursor.moveToNext()){
 					titleList.add(cursor.getString(1));
 					writerList.add(cursor.getString(5));
-					textList.add(cursor.getString(3));
 					dateList.add(cursor.getString(2));
+					textList.add(cursor.getString(3));
 					if(showType)
 						typeList.add(cursor.getString(6));
 				}
-				else
-					break;
 			}
+			
 		}
 	}
 	
@@ -95,6 +113,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		TextView typeView = (TextView) convertView.findViewById(R.id.labelType);
 		
 		ImageView indexImgView = (ImageView) convertView.findViewById(R.id.indexImgView);
+		
 		
 		if(showType)
 			typeView.setText(tabs[Integer.parseInt(typeList.get(position))]);

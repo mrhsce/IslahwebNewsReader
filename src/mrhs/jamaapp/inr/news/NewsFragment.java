@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
-import android.R.bool;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -16,16 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class NewsFragment extends Fragment {
 	private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public String type;
-	public boolean archived;
+	public boolean inArchive;
 	public ArrayList<Integer> newsIdList;
 	
 	public ListView listView;
+	public TextView emptyHint;
 	public NewsListArrayAdapter adapter; 
 	
 	public DatabaseHandler db;
@@ -34,12 +35,9 @@ public class NewsFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		db = new DatabaseHandler(getActivity()).open(); 
-		newsIdList = getNewsIdList();
-		log("The size of the list is "+newsIdList.size());
-		adapter = new NewsListArrayAdapter(getActivity(), newsIdList, this);
-		listView.setAdapter(adapter);
-		listView.setDividerHeight(8);
+		db = new DatabaseHandler(getActivity()).open(); 		
+		setUpList();
+		listView.setDividerHeight(8);		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view,int position, long id){
@@ -62,6 +60,7 @@ public class NewsFragment extends Fragment {
 						else
 							bundle.putBoolean("archived",true);
 						bundle.putInt("id",cursor.getInt(0));
+						bundle.putBoolean("inArchive", inArchive);
 						
 					}
 					Intent intent = new Intent(getActivity(), NewsActivity.class);
@@ -76,31 +75,76 @@ public class NewsFragment extends Fragment {
 	}
 	
 	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		setUpList();
+	}
+	
+	
+	private void setUpList(){
+		newsIdList = getNewsIdList();
+		if(newsIdList.size()>0){
+			emptyHint.setVisibility(View.GONE);
+			listView.setVisibility(View.VISIBLE);
+			log("The size of the list is "+newsIdList.size());
+			if(type.equals(""))
+				adapter = new NewsListArrayAdapter(getActivity(), newsIdList,true,inArchive, this);
+			else
+				adapter = new NewsListArrayAdapter(getActivity(), newsIdList,false,inArchive, this);
+			listView.setAdapter(adapter);
+		}
+		else{
+			emptyHint.setVisibility(View.VISIBLE);
+			listView.setVisibility(View.GONE);
+		}
+	}
+	
+	@Override
 	public void setArguments(Bundle args) {
 		// TODO Auto-generated method stub
 		super.setArguments(args);
 		this.type = args.getString("type");
-		this.archived = args.getBoolean("archived");
+		this.inArchive = args.getBoolean("inArchive");
 	}
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.fragment_news, container, false);        
-        listView = (ListView)rootView.findViewById(R.id.news_list);        
+        listView = (ListView)rootView.findViewById(R.id.news_list);  
+        emptyHint = (TextView) rootView.findViewById(R.id.emptyHintTextView); 
         return rootView;
     }
 	public ArrayList<Integer> getNewsIdList(){
-		Cursor cursor = db.newsHandler.getAllByType(type);
+		Cursor cursor;
+		if(!inArchive){
+			if(!type.equals(""))
+				cursor = db.newsHandler.getAllByType(type);
+			else
+				cursor = db.newsHandler.getAll();
+		}
+		else{
+			cursor = db.newsHandler.getAllArchived();
+		}
+		
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		if (cursor.moveToFirst()){
 			list.add(cursor.getInt(0));
-			for(int i=0;i<Commons.NEWS_ENTRY_COUNT-1;i++){
-				if(cursor.moveToNext())
-					list.add(cursor.getInt(0));
-				else
-					break;
+			
+			if(!inArchive){
+				for(int i=0;i<Commons.NEWS_ENTRY_COUNT-1;i++){
+					if(cursor.moveToNext())
+						list.add(cursor.getInt(0));
+					else
+						break;
+				}
 			}
+			else{
+				while(cursor.moveToNext())
+					list.add(cursor.getInt(0));
+			}
+			
 		}
 		return list;		
 		

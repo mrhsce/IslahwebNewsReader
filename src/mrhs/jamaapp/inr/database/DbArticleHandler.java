@@ -85,6 +85,21 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		}
 	}
 	
+	public boolean setArchived(Integer id,boolean archived){
+		ContentValues values=new ContentValues();
+		if(archived)
+			values.put("archived", 1);
+		else
+			values.put("archived", 0);
+		try{
+			return parent.db.update(DatabaseHandler.TABLE_ARTICLE, values, "id = "+id, null)>0;
+		}catch(Exception e){
+			e.printStackTrace();
+			log("Error inserting values to the "+DatabaseHandler.TABLE_ARTICLE+" table");
+			return false;
+		}
+	}
+	
 	public boolean exists(String title,String jDate){
 			Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{"title","jdate"},
 					"title='"+title+"' and jdate='"+jDate+"'",null, null, null, null);
@@ -118,9 +133,9 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		return cursor;
 	}
 	
-	public Cursor getAllArchived(String type){
+	public Cursor getAllArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 1 and type='"+type+"'",null, null, null, null);
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 1",null, null, null, null);
 		return cursor;
 	}
 	

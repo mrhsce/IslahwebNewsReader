@@ -98,11 +98,7 @@ public class ArchiveMainActivity extends FragmentActivity implements ActionBar.T
 		switch(item.getItemId()){
 		case android.R.id.home:
 			this.finish();
-			break;
-//		case R.id.action_refresh:
-//			refresh
-//			
-//			break;
+			break;		
 		}
 		
 		return true;

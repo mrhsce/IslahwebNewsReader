@@ -15,5 +15,6 @@
     <string name="title_activity_about_us">درباره ما</string>
     <string name="title_activity_about_jamaat_main">درباره جماعت</string>
     <string name="title_activity_archive_main">آرشیو</string>
+    <string name="listview_empty_hint">آرشیو خالی است مطالب مورد علاقه خود را با لمس کردن آیکون ماه بالای صفحه به آرشیو بیافزایید</string>
 
 </resources>
