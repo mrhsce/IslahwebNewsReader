@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.main.SdCardHandler;
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,20 +26,22 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 	
 	private Context parent;
 	
+	private SdCardHandler sdHandler;
+	
 	DatabaseHandler db;
 	boolean inArchive;
 	
-	private ArrayList<String> titleList,writerList,dateList,textList;
+	private ArrayList<String> titleList,writerList,dateList,textList,indexImgAdr;
 	private ArrayList<Integer> seenList,favoriteList;
 	
-	public InterviewArrayAdaptor(Context ctx,ArrayList<Integer> articleIdList,boolean inArchive) {
+	public InterviewArrayAdaptor(Context ctx,ArrayList<Integer> articleIdList,boolean inArchive,SdCardHandler sd,DatabaseHandler db) {
 		// TODO Auto-generated constructor stub
 		super(ctx, R.layout.interview_list_item, articleIdList);
 		parent = ctx;
-		db = new DatabaseHandler(ctx).open();
+		sdHandler = sd;
+		this.db = db;
 		this.inArchive = inArchive;
 		initializeLists();
-		db.close();
 	}	
 	
 	
@@ -47,6 +52,7 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 		textList = new ArrayList<String>();
 		seenList = new ArrayList<Integer>();
 		favoriteList = new ArrayList<Integer>();
+		indexImgAdr = new ArrayList<String>();
 		
 		log("start initialize list");
 		Cursor cursor;		
@@ -62,6 +68,7 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 		if (cursor.moveToFirst()){
 			titleList.add(cursor.getString(1));
 			writerList.add(cursor.getString(5));
+			indexImgAdr.add(cursor.getString(3));
 			textList.add(cursor.getString(3));
 			dateList.add(cursor.getString(2));
 			seenList.add(cursor.getInt(10));
@@ -71,6 +78,7 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 				for(int i=0;i<Commons.INTERVIEW_ENTRY_COUNT-1;i++){
 					if(cursor.moveToNext()){
 						titleList.add(cursor.getString(1));
+						indexImgAdr.add(cursor.getString(3));
 						writerList.add(cursor.getString(5));
 						textList.add(cursor.getString(3));
 						dateList.add(cursor.getString(2));
@@ -84,6 +92,7 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 			else{
 				while(cursor.moveToNext()){
 					titleList.add(cursor.getString(1));
+					indexImgAdr.add(cursor.getString(3));
 					writerList.add(cursor.getString(5));
 					textList.add(cursor.getString(3));
 					dateList.add(cursor.getString(2));
@@ -114,6 +123,13 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 		ImageView indexImgView = (ImageView) convertView.findViewById(R.id.indexImgView);
 		
 		LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.linear_layout);
+		
+		Bitmap bitmap = sdHandler.getImageCenterCropped(indexImgAdr.get(position));
+		if(bitmap != null)
+			indexImgView.setImageBitmap(bitmap);
+		else{      
+			indexImgView.setImageResource(R.drawable.ic_launcher);
+		}
 		
 		titleView.setText(titleList.get(position));
 		dateView.setText(dateList.get(position));

@@ -1,3 +1,4 @@
+	
 	<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	    xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
@@ -70,12 +71,6 @@
 				android:layout_alignParentRight="true"
                 android:textSize="12sp"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/> 
-
-            <ImageView android:id="@+id/archivedImgView"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/ic_launcher"
                 android:layout_width="wrap_content"/>
             
         </RelativeLayout>

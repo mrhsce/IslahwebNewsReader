@@ -3,9 +3,12 @@ package mrhs.jamaapp.inr.news;
 import java.util.ArrayList;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.main.SdCardHandler;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,19 +26,22 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 	private Context context;
 	private NewsFragment parent;
 	
+	private SdCardHandler sdHandler;
+	
 	private String[] tabs = { "اخبار جماعت", "اخبار اصلاح", "اخبار ورزشی" };
 	
-	private ArrayList<String> titleList,sourceList,dateList,typeList;
+	private ArrayList<String> titleList,sourceList,dateList,typeList,indexImgAdr;
 	private ArrayList<Integer> seenList,favoriteList;
 	
 	private boolean showType;
 	private boolean inArchive;
 	
-	public NewsListArrayAdapter(Context ctx,ArrayList<Integer> newsIdList,boolean showtype,boolean inArchive,NewsFragment parent) {
+	public NewsListArrayAdapter(Context ctx,ArrayList<Integer> newsIdList,boolean showtype,boolean inArchive,NewsFragment parent,SdCardHandler sd) {
 		// TODO Auto-generated constructor stub
 		super(ctx, R.layout.news_list_item, newsIdList);
 		this.parent = parent;
 		this.newsType = parent.type;
+		sdHandler = sd;
 		context = ctx;
 		showType = showtype;
 		this.inArchive = inArchive;
@@ -50,6 +56,7 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 		dateList = new ArrayList<String>();
 		seenList = new ArrayList<Integer>();		
 		favoriteList = new ArrayList<Integer>();
+		indexImgAdr = new ArrayList<String>();
 		
 		if(showType){
 			typeList = new ArrayList<String>();
@@ -73,6 +80,7 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 			dateList.add(cursor.getString(2));
 			seenList.add(cursor.getInt(9));
 			favoriteList.add(cursor.getInt(10));
+			indexImgAdr.add(cursor.getString(3));
 			
 			if(showType){
 				typeList.add(cursor.getString(5));
@@ -87,6 +95,7 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 						dateList.add(cursor.getString(2));
 						seenList.add(cursor.getInt(9));
 						favoriteList.add(cursor.getInt(10));
+						indexImgAdr.add(cursor.getString(3));
 						
 						if(showType){
 							typeList.add(cursor.getString(5));							
@@ -103,6 +112,7 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 					dateList.add(cursor.getString(2));
 					seenList.add(cursor.getInt(9));
 					favoriteList.add(cursor.getInt(10));
+					indexImgAdr.add(cursor.getString(3));
 					
 					if(showType){
 						typeList.add(cursor.getString(5));
@@ -112,14 +122,7 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 			
 		}
 	}
-	
-	@Override
-	public void notifyDataSetChanged() {
-		// TODO Auto-generated method stub
-		initializeLists();
-		super.notifyDataSetChanged();
-	}
-	
+		
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
@@ -139,6 +142,13 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 		ImageView indexImgView = (ImageView) convertView.findViewById(R.id.indexImgView);
 		
 		LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.linear_layout);
+		
+		Bitmap bitmap = sdHandler.getImageCenterCropped(indexImgAdr.get(position));
+		if(bitmap != null)
+			indexImgView.setImageBitmap(bitmap);
+		else{
+			indexImgView.setImageResource(R.drawable.ic_launcher);
+		}
 		
 		if(showType)
 			typeView.setText(tabs[Integer.parseInt(typeList.get(position))]);			

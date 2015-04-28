@@ -159,7 +159,7 @@ public class DbNewsHandler {
 	
 	public Cursor getThoseWithoutIndexImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"indexImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","indexImg"},"indexImg like 'http://%'",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
@@ -171,7 +171,7 @@ public class DbNewsHandler {
 	
 	public Cursor getThoseWithoutBigImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
-				"id","title","jdate","indexImg","source","type","pageLink","bigImg","mainText","seen"},"bigImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","bigImg"},"bigImg like 'http://%'",null, null, null, "gdate desc");
 		return cursor;
 	}
 	

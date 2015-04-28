@@ -7,6 +7,7 @@ import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.interviews.InterviewActivity;
 import mrhs.jamaapp.inr.interviews.InterviewArrayAdaptor;
 import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.main.SdCardHandler;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	public InterviewArrayAdaptor adapter; 
 	
 	public DatabaseHandler db;
+	public SdCardHandler sd;
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -40,7 +42,8 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		if(savedInstanceState != null){
 			inArchive = savedInstanceState.getBoolean("inArchive");
 		}
-		db = new DatabaseHandler(getActivity()).open(); 		
+		db = new DatabaseHandler(getActivity()).open(); 	
+		sd = new SdCardHandler();
 		setUpList();
 		listView.setDividerHeight(8);		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,7 +103,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 			emptyHint.setVisibility(View.GONE);
 			listView.setVisibility(View.VISIBLE);
 			log("The size of the list is "+interviewIdList.size());
-			adapter = new InterviewArrayAdaptor(getActivity(), interviewIdList,inArchive);
+			adapter = new InterviewArrayAdaptor(getActivity(), interviewIdList,inArchive,sd,db);
 			listView.setAdapter(adapter);
 		}
 		else{

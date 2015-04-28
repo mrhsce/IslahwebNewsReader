@@ -25,7 +25,6 @@ public class AnnounceActivity extends Activity {
 	String title,jDate,pageLink,text;
 	TextView dateView,titleView,mainTextView;
 	Button pageLinkButton;
-	ImageView archivedImgView;
 	boolean archived;
 	Integer id;
 	
@@ -49,15 +48,6 @@ public class AnnounceActivity extends Activity {
 				startActivity(browserIntent);
 			}
 		});
-		
-		archivedImgView.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 						
 	}
 	
@@ -77,13 +67,7 @@ public class AnnounceActivity extends Activity {
 		mainTextView = (TextView)findViewById(R.id.maintextTxtView);
 		mainTextView.setText(Html.fromHtml(text));
 		
-		pageLinkButton = (Button)findViewById(R.id.pageLinkButton);
-		
-		archivedImgView = (ImageView)findViewById(R.id.archivedImgView);
-//		if(archived)
-//			archivedImgView.setImageDrawable(drawable);
-//		else
-//			archivedImgView.setImageDrawable(drawable);
+		pageLinkButton = (Button)findViewById(R.id.pageLinkButton);		
 		
 	}
 

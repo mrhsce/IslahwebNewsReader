@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.main.SdCardHandler;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class NewsFragment extends Fragment {
 	public NewsListArrayAdapter adapter; 
 	
 	public DatabaseHandler db;
+	public SdCardHandler sd;
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -40,7 +42,8 @@ public class NewsFragment extends Fragment {
 			type = savedInstanceState.getString("type");
 			inArchive = savedInstanceState.getBoolean("inArchive");
 		}
-		db = new DatabaseHandler(getActivity()).open(); 		
+		db = new DatabaseHandler(getActivity()).open(); 
+		sd = new SdCardHandler();
 		setUpList();
 		listView.setDividerHeight(8);		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,9 +106,9 @@ public class NewsFragment extends Fragment {
 			listView.setVisibility(View.VISIBLE);
 			log("The size of the list is "+newsIdList.size());
 			if(type.equals(""))
-				adapter = new NewsListArrayAdapter(getActivity(), newsIdList,true,inArchive, this);
+				adapter = new NewsListArrayAdapter(getActivity(), newsIdList,true,inArchive, this,sd);
 			else
-				adapter = new NewsListArrayAdapter(getActivity(), newsIdList,false,inArchive, this);
+				adapter = new NewsListArrayAdapter(getActivity(), newsIdList,false,inArchive, this,sd);
 			listView.setAdapter(adapter);
 		}
 		else if(inArchive){

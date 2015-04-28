@@ -3,10 +3,12 @@ package mrhs.jamaapp.inr.news;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.main.SdCardHandler;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -23,21 +25,23 @@ public class NewsActivity extends Activity {
 	String title,jDate,source,type,pageLink,text,indexImgAddr,bigImgAddr;
 	TextView dateView,sourceView,titleView,mainTextView;
 	Button pageLinkButton;
-	ImageView indexImgView,archivedImgView;
+	ImageView indexImgView;
 	boolean archived;
 	Integer id;
 	
 	DatabaseHandler db;
+	SdCardHandler sdHandler;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news);
 		log("onCreate");
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-	    
-		settingUpAttributes();
+		getActionBar().setDisplayHomeAsUpEnabled(true);	    
+		
 		db = new DatabaseHandler(this).open();
+		sdHandler = new SdCardHandler();
+		settingUpAttributes();
 		pageLinkButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -55,17 +59,7 @@ public class NewsActivity extends Activity {
 				// TODO Auto-generated method stub
 				
 			}
-		});
-		
-		archivedImgView.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
+		});	
 		
 	}
 	
@@ -94,13 +88,14 @@ public class NewsActivity extends Activity {
 		pageLinkButton = (Button)findViewById(R.id.pageLinkButton);
 		
 		indexImgView = (ImageView)findViewById(R.id.indexImgView);
-		//indexImgView.setImageDrawable(drawable);
-		//If image is not downloaded set it to invisible
-		archivedImgView = (ImageView)findViewById(R.id.archivedImgView);
-//		if(archived)
-//			archivedImgView.setImageDrawable(drawable);
-//		else
-//			archivedImgView.setImageDrawable(drawable);
+		
+		Bitmap bitmap = sdHandler.getImage(indexImgAddr);
+		if(bitmap != null)
+			indexImgView.setImageBitmap(bitmap);
+		else{  
+			indexImgView.setVisibility(View.GONE);
+		}
+		
 	}
 	
 	public void archiveSwitch(MenuItem item){

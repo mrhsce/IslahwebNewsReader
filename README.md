@@ -29,14 +29,17 @@ Things to do ->
 	- Find a good icon for tag "New" ✔
 	- Add "Favourite" tag to the list views ✔
 
-	- add the sdcard handler class to the main activity to make sure that all the necessary directories are existing
-	- Make the sdcard handler class to take a drawable and store it in the sdCard and vice versa and does the peripheral works
-	- design the image downloader class that takes a link and returns drawable
-	- in downloader service after initial download there should be a composition of 2 secondary download and 1 image download until one finishes
-	- make a class for cropping the image  to have suitable aspect ratio for indexImg
+	- add the sdcard handler class to the service to make sure that all the necessary directories are existing ✔
+	- Make the sdcard handler class to take a drawable and store it in the sdCard and vice versa and does the peripheral works ✔
+	- design the image downloader class that takes a link and returns drawable ✔
+	- in downloader service after initial download there should be a composition of 2 secondary download and 1 image download until one finishes✔
+	- make a class for cropping the image  to have suitable aspect ratio for indexImg ✔
 
 	- design a priority list in downloader and all the downloads are inserted inside it and in each loop one is executed
 		for example the priority of initial download is higher than secondary download and the priority of forced secondary download is highest
+	- make a pending intent in the service to look for network connection and start the download queue	
+
+	- solve archive time order problem
 
 	- Work on static contents of the About jamaat use assets if necessary for the strings 
 
@@ -52,6 +55,7 @@ Things to do ->
 	- when user clicks on the image of a news enters a loading screen and download the image and resumes the main download thread the image should have the ability to be stored in the sdcard when users prompts and should be able to zoom and move around
 
 	Fourth phase(Feedback taking):
+	- Handle the case when the sdcard is not available - use other storages
 	- view the comments in a view like Akharin khabar
 	- take comment from the user in the same view
 	- allow the user to rate the post

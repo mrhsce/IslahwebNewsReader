@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Jsoup;
@@ -19,7 +17,7 @@ import mrhs.jamaapp.inr.main.Commons;
 import android.util.Log;
 
 public class InterviewScraper {
-	private static final boolean LOCAL_SHOW_LOG = true;
+	private static final boolean LOCAL_SHOW_LOG = false;
 	
 	public void initialInsert(final DatabaseHandler db){
 		log("Trying Interview initial insert");

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.main.SdCardHandler;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class ArticleFragment extends Fragment {
 	public ArticleListArrayAdaptor adapter; 
 	
 	public DatabaseHandler db;
+	SdCardHandler sd;
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class ArticleFragment extends Fragment {
 		}
 		
 		db = new DatabaseHandler(getActivity()).open(); 
+		sd = new SdCardHandler();
 		setUpList();
 		listView.setDividerHeight(8);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,9 +109,9 @@ public class ArticleFragment extends Fragment {
 			listView.setVisibility(View.VISIBLE);
 			log("The size of the list is "+articleIdList.size());
 			if(type.equals(""))
-				adapter = new ArticleListArrayAdaptor(getActivity(), articleIdList,true,inArchive, this);
+				adapter = new ArticleListArrayAdaptor(getActivity(), articleIdList,true,inArchive, this,sd);
 			else
-				adapter = new ArticleListArrayAdaptor(getActivity(), articleIdList,false,inArchive, this);
+				adapter = new ArticleListArrayAdaptor(getActivity(), articleIdList,false,inArchive, this,sd);
 			listView.setAdapter(adapter);
 		}
 		else if(inArchive){

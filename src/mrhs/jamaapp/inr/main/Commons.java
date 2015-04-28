@@ -3,11 +3,14 @@ package mrhs.jamaapp.inr.main;
 public interface Commons {
 	
 	// Related to log
-	final boolean SHOW_LOG = true;
+	final boolean SHOW_LOG = true;	
 	
 	// Related to the database
 	final String DATABASE_NAME = "islahwebdb";
-	final Integer DATABASE_VERSION = 19;
+	final Integer DATABASE_VERSION = 20;
+	
+	// Related to sdcard
+	final String APP_ROOT_DIRECTORY = "INR";
 	
 	// Image type
 	final boolean BIG_IMAGE = false;
@@ -18,6 +21,12 @@ public interface Commons {
 	final Integer ARTICLE_ENTRY_COUNT = 10;
 	final Integer INTERVIEW_ENTRY_COUNT = 10;
 	final Integer ANNOUNCE_ENTRY_COUNT = 20;
+	
+	// Content type
+	final String NEWS = "(1)";
+	final String ARTICLE = "(2)";
+	final String INTERVIEW = "(3)";
+	final String ANNOUNCE = "(4)";
 	
 	// Data type
 	final String NEWS_TYPE_ISLAHWEB = "0";

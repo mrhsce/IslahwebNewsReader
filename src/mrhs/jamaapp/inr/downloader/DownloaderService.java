@@ -3,6 +3,7 @@ package mrhs.jamaapp.inr.downloader;
 
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.main.SdCardHandler;
 
 import android.app.Service;
 import android.content.Context;
@@ -23,6 +24,8 @@ public class DownloaderService extends Service {
 	InterviewScraper interviewScraper;
 	NewsScraper newsScraper;
 	
+	SdCardHandler sdHandler;
+	
 	DatabaseHandler db;
 	
 	Integer finishedInitialDownloadCount;
@@ -42,11 +45,16 @@ public class DownloaderService extends Service {
 		finishedInitialDownloadCount = 0;
 		
 		db = new DatabaseHandler(this).open();
+		
+		sdHandler = new SdCardHandler();
+		sdHandler.prepareSdCard(this);
+		
 		db.cleanExtras();
 		newsScraper = new NewsScraper();
 		articleScraper = new ArticleScraper();		
 		interviewScraper = new InterviewScraper();
 		announcementScraper = new AnnouncementScraper();
+		imageDownloader = new ImageDownloader();
 	}
 	
 
@@ -74,6 +82,11 @@ public class DownloaderService extends Service {
 	public void secondaryDownload(){
 		log("Secondary download started");
 		new SecondaryDownloadAsynckTask().execute();
+		tritieryDownload();
+	}
+	public void tritieryDownload(){
+		log("Tritiery download started");
+		new ImageDownloadAsynckTask().execute();		
 	}
 	
 	public boolean isConnectingToInternet(){
@@ -90,12 +103,7 @@ public class DownloaderService extends Service {
  
           }
           return false;
-    }
-	
-	private void log(String message){
-		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)
-			Log.d(this.getClass().getSimpleName(),message);
-	}
+    }	
 	
 	private class NewsAsynckTask extends AsyncTask<Void, Void, Void>{
 
@@ -325,6 +333,56 @@ public class DownloaderService extends Service {
 	        log("One secondary download round completed");
 	        //this method will be running on UI thread
 	    }
+	}
+	
+	private class ImageDownloadAsynckTask extends AsyncTask<Void, Void, Void>{
+
+		Boolean remains = false;		
+		
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			// TODO Auto-generated method stub
+			
+			Cursor cursor = db.newsHandler.getThoseWithoutIndexImage();
+			if(cursor.moveToFirst()){
+				remains = true;
+				imageDownloader.downloadImage(cursor.getInt(0), cursor.getString(1), Commons.NEWS, db, sdHandler);
+				log("Another news image successfully inserted");
+			}
+			cursor = db.articleHandler.getThoseWithoutMainText();
+			if(cursor.moveToFirst()){
+				remains = true;
+				imageDownloader.downloadImage(cursor.getInt(0), cursor.getString(1), Commons.ARTICLE, db, sdHandler);
+				log("Another article image successfully inserted");
+			}
+			cursor = db.interviewHandler.getThoseWithoutMainText();
+			if(cursor.moveToFirst()){
+				remains = true;
+				imageDownloader.downloadImage(cursor.getInt(0), cursor.getString(1), Commons.INTERVIEW, db, sdHandler);
+				log("Another interview image successfully inserted");
+			}
+				
+			return null;
+		}
+		
+		@Override
+	    protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+	        
+	        if(remains && isConnectingToInternet()){
+	        	new ImageDownloadAsynckTask().execute();
+	        }
+	        else
+	        	DownloaderService.this.stopSelf();
+	        log("One tritiery download round completed");
+	        //this method will be running on UI thread
+	    }
+	}
+	
+	
+	private void log(String message){
+		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)
+			Log.d(this.getClass().getSimpleName(),message);
 	}
 
 }

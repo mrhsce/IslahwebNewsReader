@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.main.SdCardHandler;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -25,11 +26,13 @@ public class InterviewMainActivity extends Activity {
 	public InterviewArrayAdaptor adapter; 
 	
 	public DatabaseHandler db;
+	SdCardHandler sd;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_interview_main);
 		db = new DatabaseHandler(this).open(); 
+		sd = new SdCardHandler();
 		setUpList();
 		listView.setDividerHeight(8);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,7 +61,7 @@ public class InterviewMainActivity extends Activity {
 					Intent intent = new Intent(InterviewMainActivity.this, InterviewActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
-					db.articleHandler.setSeen(interviewIdList.get(position));
+					db.interviewHandler.setSeen(interviewIdList.get(position));
 				}
 				else
 					Toast.makeText(InterviewMainActivity.this, "متن مصاحبه هنوز دانلود نشده است", Toast.LENGTH_SHORT).show();
@@ -78,7 +81,7 @@ public class InterviewMainActivity extends Activity {
 		log("The size of the list is "+interviewIdList.size());
 		
 		listView = (ListView) findViewById(R.id.interview_list);
-		adapter = new InterviewArrayAdaptor(this, interviewIdList,false);
+		adapter = new InterviewArrayAdaptor(this, interviewIdList,false,sd,db);
 		listView.setAdapter(adapter);
 	}
 	

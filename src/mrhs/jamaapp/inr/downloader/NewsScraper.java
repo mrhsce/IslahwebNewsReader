@@ -32,7 +32,7 @@ import mrhs.jamaapp.inr.database.DatabaseHandler;
 import android.util.Log;
 
 public class NewsScraper {
-	private static final boolean LOCAL_SHOW_LOG = true;
+	private static final boolean LOCAL_SHOW_LOG = false;
 	
 	public void initialInsert(final DatabaseHandler db){
 		log("Trying news initial insert");

@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.main.SdCardHandler;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,19 +28,23 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	private Context context;
 	private ArticleFragment parent;
 	
+	private SdCardHandler sdHandler;
+	
 	private boolean showType;
 	private boolean inArchive;
 	
 	private String[] tabs = { "دین و دعوت", "اندیشه","اهل سنت","فرهنگ","سیاسی","اجتماعی","تاریخ","ادب و هنر"};
 	
-	private ArrayList<String> titleList,writerList,dateList,textList,typeList;
+	private ArrayList<String> titleList,writerList,dateList,textList,typeList,indexImgAdr;
 	private ArrayList<Integer> seenList,favoriteList;
 	
-	public ArticleListArrayAdaptor(Context ctx,ArrayList<Integer> articleIdList,boolean showtype,boolean inArchive,ArticleFragment parent) {
+	public ArticleListArrayAdaptor(Context ctx,ArrayList<Integer> articleIdList,boolean showtype,
+			boolean inArchive,ArticleFragment parent,SdCardHandler sd) {
 		// TODO Auto-generated constructor stub
 		super(ctx, R.layout.article_list_item, articleIdList);
 		this.parent = parent;
 		this.articleType = parent.type;
+		sdHandler = sd;
 		showType = showtype;
 		this.inArchive = inArchive;
 		context = ctx;
@@ -51,6 +58,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		textList = new ArrayList<String>();
 		seenList = new ArrayList<Integer>();
 		favoriteList = new ArrayList<Integer>();
+		indexImgAdr = new ArrayList<String>();
 		
 		if(showType)
 			typeList = new ArrayList<String>();
@@ -74,6 +82,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 			textList.add(cursor.getString(3));
 			seenList.add(cursor.getInt(10));
 			favoriteList.add(cursor.getInt(11));
+			indexImgAdr.add(cursor.getString(4));
 			
 			if(showType)
 				typeList.add(cursor.getString(6));
@@ -87,6 +96,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 						textList.add(cursor.getString(3));
 						seenList.add(cursor.getInt(10));
 						favoriteList.add(cursor.getInt(11));
+						indexImgAdr.add(cursor.getString(4));
 						if(showType)
 							typeList.add(cursor.getString(6));
 					}
@@ -102,6 +112,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 					textList.add(cursor.getString(3));
 					seenList.add(cursor.getInt(10));
 					favoriteList.add(cursor.getInt(11));
+					indexImgAdr.add(cursor.getString(4));
 					if(showType)
 						typeList.add(cursor.getString(6));
 				}
@@ -131,6 +142,12 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		
 		LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.linear_layout);
 		
+		Bitmap bitmap = sdHandler.getImageCenterCropped(indexImgAdr.get(position));
+		if(bitmap != null)
+			indexImgView.setImageBitmap(bitmap);
+		else{
+			indexImgView.setImageResource(R.drawable.ic_launcher);
+		}
 		
 		if(showType)
 			typeView.setText(tabs[Integer.parseInt(typeList.get(position))]);
