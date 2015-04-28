@@ -23,12 +23,11 @@ Things to do ->
 	- add function to clean the exceeding datas from the tables in the database handler ✔
 	- when the program starts the service should remove the exceeding unarchived entries ✔
 
-	- add the network check function and use it in the downloader loop
-	- change the downloader service to continue the work after closing the app until the connection was lost or completed then destroy itself
+	- add the network check function and use it in the downloader loop ✔
+	- change the downloader service to continue the work after closing the app until the connection was lost or completed then destroy itself ✔
 	
-	- Find a good icon for tag "New"
-	- Add "Favourite" tag to the list views
-	- In all list adaptors if the element was not seen the new tag should be adhered
+	- Find a good icon for tag "New" ✔
+	- Add "Favourite" tag to the list views ✔
 
 	- add the sdcard handler class to the main activity to make sure that all the necessary directories are existing
 	- Make the sdcard handler class to take a drawable and store it in the sdCard and vice versa and does the peripheral works

@@ -5,6 +5,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.KeyStore;
+
+import javax.net.ssl.SSLSocketFactory;
 
 import mrhs.jamaapp.inr.main.Commons;
 
@@ -12,7 +15,15 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -21,7 +32,7 @@ import mrhs.jamaapp.inr.database.DatabaseHandler;
 import android.util.Log;
 
 public class NewsScraper {
-	private static final boolean LOCAL_SHOW_LOG = false;
+	private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public void initialInsert(final DatabaseHandler db){
 		log("Trying news initial insert");
@@ -73,24 +84,28 @@ public class NewsScraper {
 	}
 	
 	public String getHtml(String url){
-		try {			
-			HttpClient httpclient = new DefaultHttpClient(); // Create HTTP Client
-	        HttpGet httpget = new HttpGet(url); // Set the action you want to do
-	        HttpResponse response = httpclient.execute(httpget); // Executeit
-	        HttpEntity entity = response.getEntity(); 
-	        InputStream is = entity.getContent(); // Create an InputStream with the response
-	        BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
-	        StringBuilder sb = new StringBuilder();
-	        String line = null;
-	        while ((line = reader.readLine()) != null)
-	            sb.append(line);        			        
-	        is.close();
+		try {
+			String response = "";
+			DefaultHttpClient client = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet(url);
+            log("1");
+            HttpResponse execute = client.execute(httpGet);
+            log("2");
+            InputStream content = execute.getEntity().getContent();
+
+            BufferedReader buffer = new BufferedReader(
+                    new InputStreamReader(content));
+            String s = "";
+            while ((s = buffer.readLine()) != null) {
+                response += s;
+            }
+            content.close();
 	        log("Page recieved");
-	        return sb.toString();
+	        return response;
 		} catch(IOException e)
-		{log("unable to get page");return "";}
+		{  e.printStackTrace();
+			log("unable to get page");return "";}
 	}
-	
 	
 	private void log(String message){
 		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)

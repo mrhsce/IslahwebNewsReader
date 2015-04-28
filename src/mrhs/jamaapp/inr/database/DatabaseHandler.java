@@ -29,13 +29,8 @@ public class DatabaseHandler {
 	
 	public DbAnnouncementHandler anouncementHandler;
 	public DbArticleHandler articleHandler;
-	public DbBookHandler bookHandler;
-	public DbFeqhiHandler feqhiHandler;
-	public DbGalleryHandler galleryHandler;
 	public DbInterviewHandler interviewHandler;
-	public DbMagazineHandler magazineHandler;
 	public DbNewsHandler newsHandler;
-	public DbSelectedHandler selectedHander;
 	
 	
 	// Necessary functions (DDL)
@@ -43,13 +38,8 @@ public class DatabaseHandler {
 		dbHelper=new DbHelper(ctx);
 		anouncementHandler = new DbAnnouncementHandler(this);
 		articleHandler = new DbArticleHandler(this);
-		bookHandler = new DbBookHandler(this);
-		feqhiHandler = new DbFeqhiHandler(this);
-		galleryHandler = new DbGalleryHandler(this);
 		interviewHandler = new DbInterviewHandler(this);
-		magazineHandler = new DbMagazineHandler(this);
 		newsHandler = new DbNewsHandler(this);
-		selectedHander = new DbSelectedHandler(this);
 		
 		dateConvertor = new ManamPDUltimate();
 	}

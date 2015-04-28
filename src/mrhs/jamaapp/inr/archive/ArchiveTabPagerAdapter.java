@@ -1,7 +1,6 @@
 package mrhs.jamaapp.inr.archive;
 
 import mrhs.jamaapp.inr.articles.ArticleFragment;
-import mrhs.jamaapp.inr.main.Commons;
 import mrhs.jamaapp.inr.news.NewsFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,22 +36,22 @@ public class ArchiveTabPagerAdapter extends FragmentPagerAdapter {
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
 		}	
-//		case 2:
-//		{
-//			Bundle tmp = new Bundle();
-//			tmp.putBoolean("inArchive", false);
-//			
-////			tmpFragment.setArguments(tmp);
-////			return tmpFragment;
-//		}
-//		case 3:
-//		{
-//			Bundle tmp = new Bundle();
-//			tmp.putBoolean("inArchive", false);
-//			
-////			tmpFragment.setArguments(tmp);
-////			return tmpFragment;
-//		}
+		case 2:
+		{
+			Bundle tmp = new Bundle();
+			tmp.putBoolean("inArchive", true);
+			InterviewFragment tmpFragment = new InterviewFragment();
+			tmpFragment.setArguments(tmp);
+			return tmpFragment;
+		}
+		case 3:
+		{
+			Bundle tmp = new Bundle();
+			tmp.putBoolean("inArchive", true);
+			AnnounceFragment tmpFragment = new AnnounceFragment();
+			tmpFragment.setArguments(tmp);
+			return tmpFragment;
+		}
 		}
 		return null;
 	}
@@ -60,7 +59,7 @@ public class ArchiveTabPagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 2;
+		return 4;
 	}
 
 }

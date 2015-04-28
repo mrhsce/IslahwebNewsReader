@@ -35,6 +35,11 @@ public class NewsFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		
+		if(savedInstanceState != null){
+			type = savedInstanceState.getString("type");
+			inArchive = savedInstanceState.getBoolean("inArchive");
+		}
 		db = new DatabaseHandler(getActivity()).open(); 		
 		setUpList();
 		listView.setDividerHeight(8);		
@@ -55,7 +60,7 @@ public class NewsFragment extends Fragment {
 						bundle.putString("text",cursor.getString(8));
 						bundle.putString("indexImgAddr", cursor.getString(3));
 						bundle.putString("bigImgAddr",cursor.getString(7));
-						if(cursor.getInt(9)==0)
+						if(cursor.getInt(10)==0)
 							bundle.putBoolean("archived",false);
 						else
 							bundle.putBoolean("archived",true);
@@ -65,13 +70,22 @@ public class NewsFragment extends Fragment {
 					}
 					Intent intent = new Intent(getActivity(), NewsActivity.class);
 					intent.putExtras(bundle);
-					startActivity(intent);
-					db.newsHandler.setSeen(newsIdList.get(position));
+					startActivity(intent);					
+					db.newsHandler.setSeen(cursor.getInt(0));
 				}
 				else
 					Toast.makeText(getActivity(), "متن خبر هنوز دانلود نشده است", Toast.LENGTH_SHORT).show();
 			}
 		}); 
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		
+		outState.putString("type", type);
+		outState.putBoolean("inArchive", inArchive);
 	}
 	
 	@Override
@@ -94,7 +108,7 @@ public class NewsFragment extends Fragment {
 				adapter = new NewsListArrayAdapter(getActivity(), newsIdList,false,inArchive, this);
 			listView.setAdapter(adapter);
 		}
-		else{
+		else if(inArchive){
 			emptyHint.setVisibility(View.VISIBLE);
 			listView.setVisibility(View.GONE);
 		}
@@ -148,6 +162,13 @@ public class NewsFragment extends Fragment {
 		}
 		return list;		
 		
+	}
+	
+	@Override
+	public void onDestroyView() {
+			// TODO Auto-generated method stub
+		db.close();
+			super.onDestroyView();
 	}
 	
 	private void log(String message){

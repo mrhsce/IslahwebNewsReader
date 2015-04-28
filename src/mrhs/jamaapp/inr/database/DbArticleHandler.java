@@ -129,31 +129,31 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public Cursor getAll(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},null,null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen","archived"},null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getAllArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 1",null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen","archived"},"archived = 1",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getAllNonArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"archived = 0",null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen","archived"},"archived = 0",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getAllByType(String type){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen"},"type='"+type+"'",null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen","archived"},"type='"+type+"'",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getById(Integer id){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","archived"},"id="+id,null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","type","pageLink","bigImg","mainText","seen","archived"},"id="+id,null, null, null, "gdate desc");
 		return cursor;
 	}	
 	

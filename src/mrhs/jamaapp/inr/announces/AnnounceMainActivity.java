@@ -31,11 +31,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_announce_main);
 		db = new DatabaseHandler(this).open(); 
-		announceIdList = getannounceIdList();
-		log("The size of the list is "+announceIdList.size());
-		
-		listView = (ListView) findViewById(R.id.announce_list);
-		adapter = new AnnounceArrayAdaptor(this, announceIdList);
+		setUpList();
 		listView.setAdapter(adapter);
 		listView.setDividerHeight(8);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,6 +63,22 @@ private static final boolean LOCAL_SHOW_LOG = true;
 					Toast.makeText(AnnounceMainActivity.this, "متن بیانیه هنوز دانلود نشده است", Toast.LENGTH_SHORT).show();
 			}
 		}); 
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		setUpList();
+	}
+	
+	public void setUpList(){
+		announceIdList = getannounceIdList();
+		log("The size of the list is "+announceIdList.size());
+		
+		listView = (ListView) findViewById(R.id.announce_list);
+		adapter = new AnnounceArrayAdaptor(this, announceIdList,false);
+		listView.setAdapter(adapter);
 	}
 	
 	public ArrayList<Integer> getannounceIdList(){

@@ -3,6 +3,7 @@ package mrhs.jamaapp.inr.announces;
 import java.util.ArrayList;
 
 import mrhs.jamaapp.inr.R;
+import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,39 +13,71 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class AnnounceArrayAdaptor extends ArrayAdapter<Integer>{
 
 private static final boolean LOCAL_SHOW_LOG = true;
 	
-	private AnnounceMainActivity parent;
+	private Context parent;
 	
 	private ArrayList<String> titleList,dateList;
+	private ArrayList<Integer> seenList,favoriteList;
 	
-	public AnnounceArrayAdaptor(AnnounceMainActivity ctx,ArrayList<Integer> articleIdList) {
+	DatabaseHandler db;
+	
+	boolean inArchive;
+	
+	public AnnounceArrayAdaptor(Context ctx,ArrayList<Integer> articleIdList,boolean inArchive) {
 		// TODO Auto-generated constructor stub
 		super(ctx, R.layout.announce_list_item, articleIdList);
 		parent = ctx;
-		initializeLists();		
+		this.inArchive = inArchive;
+		db = new DatabaseHandler(ctx).open();
+		initializeLists();
+		db.close();
 	}
 	
 	public void initializeLists(){
 		titleList = new ArrayList<String>();
 		dateList = new ArrayList<String>();
+		seenList = new ArrayList<Integer>();
+		favoriteList = new ArrayList<Integer>();
 		
-		Cursor cursor = parent.db.anouncementHandler.getAll();
+		Cursor cursor;
+		if(!inArchive){
+			cursor = db.anouncementHandler.getAll();
+		}
+		else{
+			cursor = db.anouncementHandler.getAllArchived();
+		}
 		if (cursor.moveToFirst()){
 			titleList.add(cursor.getString(1));
 			dateList.add(cursor.getString(2));
-			for(int i=0;i<Commons.ANNOUNCE_ENTRY_COUNT-1;i++){
-				if(cursor.moveToNext())
-				{
+			seenList.add(cursor.getInt(5));
+			favoriteList.add(cursor.getInt(6));
+		
+			if(!inArchive){
+				for(int i=0;i<Commons.ANNOUNCE_ENTRY_COUNT-1;i++){
+					if(cursor.moveToNext()){
+						titleList.add(cursor.getString(1));
+						dateList.add(cursor.getString(2));
+						seenList.add(cursor.getInt(5));
+						favoriteList.add(cursor.getInt(6));
+					}
+					else
+						break;
+				}
+			}
+			else{
+				while(cursor.moveToNext()){
 					titleList.add(cursor.getString(1));
 					dateList.add(cursor.getString(2));
+					seenList.add(cursor.getInt(5));
+					favoriteList.add(cursor.getInt(6));
 				}
-				else
-					break;
 			}
 		}
 	}
@@ -61,9 +94,32 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		TextView titleView = (TextView) convertView.findViewById(R.id.labelTitle);
 		TextView dateView = (TextView) convertView.findViewById(R.id.labelDate);
 		
+		ImageView seenTag = (ImageView) convertView.findViewById(R.id.new_tag);
+		ImageView favoriteTag = (ImageView) convertView.findViewById(R.id.favorite_tag);
+		
+		LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.linear_layout);
+		
 		
 		titleView.setText(titleList.get(position));
 		dateView.setText(dateList.get(position));
+		
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)linearLayout.getLayoutParams();		   
+		if(seenList.get(position)==0){
+			seenTag.setVisibility(View.VISIBLE);
+			params.setMargins(7, 7, 0, 0);
+		}
+		else{
+			seenTag.setVisibility(View.GONE);
+			params.setMargins(0, 0, 0, 0);
+		}
+		linearLayout.setLayoutParams(params);
+		
+		if(!inArchive && favoriteList.get(position)==1){
+			favoriteTag.setVisibility(View.VISIBLE);
+		}
+		else{
+			favoriteTag.setVisibility(View.GONE);
+		}
 		
 		
 		return convertView;

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mrhs.jamaapp.inr"
     android:installLocation="preferExternal"
-    android:versionCode="2"
-    android:versionName="0.4.2" >
+    android:versionCode="3"
+    android:versionName="0.5.1" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -16,7 +16,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppBaseTheme" >
+        android:theme="@style/AppBaseTheme">
         <activity
             android:name="mrhs.jamaapp.inr.main.MainActivity"
             android:label="@string/app_name" >
@@ -29,7 +29,8 @@
         <activity
             android:name="mrhs.jamaapp.inr.news.NewsMainActivity"
             android:label="@string/title_activity_news_main"
-            android:parentActivityName="android.support.v4.app.FragmentActivity" >
+            android:parentActivityName="android.support.v4.app.FragmentActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.support.v4.app.FragmentActivity" />
@@ -49,11 +50,13 @@
         </activity>
         <activity
             android:name="mrhs.jamaapp.inr.articles.ArticleMainActivity"
-            android:label="@string/title_activity_article_main" >
+            android:label="@string/title_activity_article_main"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="mrhs.jamaapp.inr.interviews.InterviewMainActivity"
-            android:label="@string/title_activity_interview_main" >
+            android:label="@string/title_activity_interview_main"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="mrhs.jamaapp.inr.interviews.InterviewActivity"
@@ -61,7 +64,8 @@
         </activity>
         <activity
             android:name="mrhs.jamaapp.inr.announces.AnnounceMainActivity"
-            android:label="@string/title_activity_announce_main" >
+            android:label="@string/title_activity_announce_main"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="mrhs.jamaapp.inr.announces.AnnounceActivity"
@@ -77,7 +81,8 @@
         </activity>
         <activity
             android:name="mrhs.jamaapp.inr.archive.ArchiveMainActivity"
-            android:label="@string/title_activity_archive_main" >
+            android:label="@string/title_activity_archive_main"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

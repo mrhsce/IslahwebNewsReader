@@ -5,25 +5,23 @@ import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
 
 public class DownloaderService extends Service {
-	private static final boolean LOCAL_SHOW_LOG = false;
+	private static final boolean LOCAL_SHOW_LOG = true;
 	
 	ArticleScraper articleScraper;
 	AnnouncementScraper announcementScraper;
-	BooksScraper booksScraper;
-	FeqhiScraper feqhiScraper;
-	GalleryScraper galleryScraper;
 	ImageDownloader imageDownloader;
 	InterviewScraper interviewScraper;
-	MagazineScraper magazineScraper;
 	NewsScraper newsScraper;
-	SelectedScraper selectedScraper;
 	
 	DatabaseHandler db;
 	
@@ -65,16 +63,34 @@ public class DownloaderService extends Service {
 	public void primaryDownload(){
 		log("Primary download started");
 		finishedInitialDownloadCount = 0;
-		new NewsAsynckTask(1).execute();
-		new ArticleAsynckTask(1).execute();
-		new AnnounceAsynckTask(1).execute();
-		new InterviewAsynckTask(1).execute();
+		if(isConnectingToInternet()){
+			new NewsAsynckTask(1).execute();
+			new ArticleAsynckTask(1).execute();
+			new AnnounceAsynckTask(1).execute();
+			new InterviewAsynckTask(1).execute();
+		}
 	}
 	
 	public void secondaryDownload(){
 		log("Secondary download started");
 		new SecondaryDownloadAsynckTask().execute();
 	}
+	
+	public boolean isConnectingToInternet(){
+        ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+          if (connectivity != null)
+          {
+              NetworkInfo[] info = connectivity.getAllNetworkInfo();
+              if (info != null)
+                  for (int i = 0; i < info.length; i++)
+                      if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                      {
+                          return true;
+                      }
+ 
+          }
+          return false;
+    }
 	
 	private void log(String message){
 		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)
@@ -301,9 +317,11 @@ public class DownloaderService extends Service {
 	    protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 	        
-	        if(remains){
+	        if(remains && isConnectingToInternet()){
 	        	new SecondaryDownloadAsynckTask().execute();
 	        }
+	        else
+	        	DownloaderService.this.stopSelf();
 	        log("One secondary download round completed");
 	        //this method will be running on UI thread
 	    }

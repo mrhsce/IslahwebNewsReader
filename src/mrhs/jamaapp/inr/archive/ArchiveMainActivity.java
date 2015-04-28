@@ -26,7 +26,7 @@ public class ArchiveMainActivity extends FragmentActivity implements ActionBar.T
     private ArchiveTabPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
-    private String[] tabs = { "آرشیو اخبار", "آرشیو مقالات", "آرشیو بیانیه ها","آرشیو مصاحبه ها" };
+    private String[] tabs = { "آرشیو اخبار", "آرشیو مقالات","آرشیو مصاحبه ها", "آرشیو بیانیه ها" };
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

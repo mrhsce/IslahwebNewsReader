@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ArticleListArrayAdaptor extends ArrayAdapter<Integer> {
@@ -29,6 +31,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	private String[] tabs = { "دین و دعوت", "اندیشه","اهل سنت","فرهنگ","سیاسی","اجتماعی","تاریخ","ادب و هنر"};
 	
 	private ArrayList<String> titleList,writerList,dateList,textList,typeList;
+	private ArrayList<Integer> seenList,favoriteList;
 	
 	public ArticleListArrayAdaptor(Context ctx,ArrayList<Integer> articleIdList,boolean showtype,boolean inArchive,ArticleFragment parent) {
 		// TODO Auto-generated constructor stub
@@ -46,6 +49,9 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		writerList = new ArrayList<String>();
 		dateList = new ArrayList<String>();
 		textList = new ArrayList<String>();
+		seenList = new ArrayList<Integer>();
+		favoriteList = new ArrayList<Integer>();
+		
 		if(showType)
 			typeList = new ArrayList<String>();
 		
@@ -66,6 +72,9 @@ private static final boolean LOCAL_SHOW_LOG = true;
 			writerList.add(cursor.getString(5));
 			dateList.add(cursor.getString(2));
 			textList.add(cursor.getString(3));
+			seenList.add(cursor.getInt(10));
+			favoriteList.add(cursor.getInt(11));
+			
 			if(showType)
 				typeList.add(cursor.getString(6));
 			
@@ -76,6 +85,8 @@ private static final boolean LOCAL_SHOW_LOG = true;
 						writerList.add(cursor.getString(5));
 						dateList.add(cursor.getString(2));
 						textList.add(cursor.getString(3));
+						seenList.add(cursor.getInt(10));
+						favoriteList.add(cursor.getInt(11));
 						if(showType)
 							typeList.add(cursor.getString(6));
 					}
@@ -89,6 +100,8 @@ private static final boolean LOCAL_SHOW_LOG = true;
 					writerList.add(cursor.getString(5));
 					dateList.add(cursor.getString(2));
 					textList.add(cursor.getString(3));
+					seenList.add(cursor.getInt(10));
+					favoriteList.add(cursor.getInt(11));
 					if(showType)
 						typeList.add(cursor.getString(6));
 				}
@@ -112,7 +125,11 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		TextView textView = (TextView) convertView.findViewById(R.id.labelText);
 		TextView typeView = (TextView) convertView.findViewById(R.id.labelType);
 		
+		ImageView seenTag = (ImageView) convertView.findViewById(R.id.new_tag);
+		ImageView favoriteTag = (ImageView) convertView.findViewById(R.id.favorite_tag);
 		ImageView indexImgView = (ImageView) convertView.findViewById(R.id.indexImgView);
+		
+		LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.linear_layout);
 		
 		
 		if(showType)
@@ -127,6 +144,24 @@ private static final boolean LOCAL_SHOW_LOG = true;
 			textView.setText(textList.get(position));
 		else
 			textView.setVisibility(View.GONE);
+		
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)linearLayout.getLayoutParams();		   
+		if(seenList.get(position)==0){
+			seenTag.setVisibility(View.VISIBLE);
+			params.setMargins(7, 7, 0, 0);
+		}
+		else{
+			seenTag.setVisibility(View.GONE);
+			params.setMargins(0, 0, 0, 0);
+		}
+		linearLayout.setLayoutParams(params);
+		
+		if(!inArchive && favoriteList.get(position)==1){
+			favoriteTag.setVisibility(View.VISIBLE);
+		}
+		else{
+			favoriteTag.setVisibility(View.GONE);
+		}
 		
 		
 		return convertView;

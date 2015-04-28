@@ -19,7 +19,7 @@ import mrhs.jamaapp.inr.main.Commons;
 import android.util.Log;
 
 public class InterviewScraper {
-	private static final boolean LOCAL_SHOW_LOG = false;
+	private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public void initialInsert(final DatabaseHandler db){
 		log("Trying Interview initial insert");
@@ -30,9 +30,7 @@ public class InterviewScraper {
 		for(int j=0;j<addrList.length;j++){
 			if(downloaded)
 				break;
-			log("Before addres");
 			String html=getHtml("http://m.islahweb.org/topic/category/مصاحبه?page="+addrList[j]);
-			log("after address");
 			log("Interview page "+addrList[j]+" scraper has started");
 			doc=Jsoup.parse(html);
 			Elements links=doc.select("div.content-content div.inner");
@@ -80,19 +78,21 @@ public class InterviewScraper {
 	
 	public String getHtml(String url){
 		try {			
-			HttpClient httpclient = new DefaultHttpClient(); // Create HTTP Client
-	        HttpGet httpget = new HttpGet(url); // Set the action you want to do
-	        HttpResponse response = httpclient.execute(httpget); // Executeit
-	        HttpEntity entity = response.getEntity(); 
-	        InputStream is = entity.getContent(); // Create an InputStream with the response
-	        BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
-	        StringBuilder sb = new StringBuilder();
-	        String line = null;
-	        while ((line = reader.readLine()) != null)
-	            sb.append(line);        			        
-	        is.close();
+			String response = "";
+			DefaultHttpClient client = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet(url);
+            HttpResponse execute = client.execute(httpGet);
+            InputStream content = execute.getEntity().getContent();
+
+            BufferedReader buffer = new BufferedReader(
+                    new InputStreamReader(content));
+            String s = "";
+            while ((s = buffer.readLine()) != null) {
+                response += s;
+            }
+            content.close();
 	        log("Page recieved");
-	        return sb.toString();
+	        return response;
 		} catch(IOException e)
 		{log("unable to get page");return "";}
 	}

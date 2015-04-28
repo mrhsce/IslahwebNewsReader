@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.main.Commons;
-import mrhs.jamaapp.inr.news.NewsListArrayAdapter;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -20,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ArticleFragment extends Fragment {
-private static final boolean LOCAL_SHOW_LOG = true;
+	private static final boolean LOCAL_SHOW_LOG = false;
 	
 	public String type;
 	public boolean inArchive;
@@ -37,6 +36,12 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		
+		if(savedInstanceState != null){
+			type = savedInstanceState.getString("type");
+			inArchive = savedInstanceState.getBoolean("inArchive");
+		}
+		
 		db = new DatabaseHandler(getActivity()).open(); 
 		setUpList();
 		listView.setDividerHeight(8);
@@ -78,13 +83,23 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	}
 	
 	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		
+		outState.putString("type", type);
+		outState.putBoolean("inArchive", inArchive);
+	}
+
+	
+	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		setUpList();
 	}
 	
-	private void setUpList(){
+	private void setUpList(){		
 		articleIdList = getarticleIdList();
 		if(articleIdList.size()>0){
 			emptyHint.setVisibility(View.GONE);
@@ -96,7 +111,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 				adapter = new ArticleListArrayAdaptor(getActivity(), articleIdList,false,inArchive, this);
 			listView.setAdapter(adapter);
 		}
-		else{
+		else if(inArchive){
 			emptyHint.setVisibility(View.VISIBLE);
 			listView.setVisibility(View.GONE);
 		}
@@ -149,6 +164,13 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		}
 		return list;		
 		
+	}
+	
+	@Override
+	public void onDestroyView() {
+			// TODO Auto-generated method stub
+		db.close();
+			super.onDestroyView();
 	}
 	
 	private void log(String message){

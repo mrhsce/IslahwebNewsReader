@@ -30,12 +30,7 @@ public class InterviewMainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_interview_main);
 		db = new DatabaseHandler(this).open(); 
-		interviewIdList = getinterviewIdList();
-		log("The size of the list is "+interviewIdList.size());
-		
-		listView = (ListView) findViewById(R.id.interview_list);
-		adapter = new InterviewArrayAdaptor(this, interviewIdList);
-		listView.setAdapter(adapter);
+		setUpList();
 		listView.setDividerHeight(8);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -49,11 +44,11 @@ public class InterviewMainActivity extends Activity {
 						bundle.putString("title",cursor.getString(1));
 						bundle.putString("jDate", cursor.getString(2));
 						bundle.putString("writer",cursor.getString(5));
-						bundle.putString("pageLink",cursor.getString(7));
-						bundle.putString("text",cursor.getString(9));
+						bundle.putString("pageLink",cursor.getString(6));
+						bundle.putString("text",cursor.getString(8));
 						bundle.putString("indexImgAddr", cursor.getString(4));
-						bundle.putString("bigImgAddr",cursor.getString(8));
-						if(cursor.getInt(10)==0)
+						bundle.putString("bigImgAddr",cursor.getString(7));
+						if(cursor.getInt(9)==0)
 							bundle.putBoolean("archived",false);
 						else
 							bundle.putBoolean("archived",true);
@@ -69,6 +64,22 @@ public class InterviewMainActivity extends Activity {
 					Toast.makeText(InterviewMainActivity.this, "متن مصاحبه هنوز دانلود نشده است", Toast.LENGTH_SHORT).show();
 			}
 		}); 
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		setUpList();
+	}
+	
+	public void setUpList(){
+		interviewIdList = getinterviewIdList();
+		log("The size of the list is "+interviewIdList.size());
+		
+		listView = (ListView) findViewById(R.id.interview_list);
+		adapter = new InterviewArrayAdaptor(this, interviewIdList,false);
+		listView.setAdapter(adapter);
 	}
 	
 	public ArrayList<Integer> getinterviewIdList(){

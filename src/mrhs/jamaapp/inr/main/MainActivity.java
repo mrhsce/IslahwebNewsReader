@@ -138,7 +138,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		stopService(new Intent(this,DownloaderService.class));
+		//stopService(new Intent(this,DownloaderService.class));
 		super.onDestroy();
 	}
 	

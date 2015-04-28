@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
-
+	private static final boolean LOCAL_SHOW_LOG = true;
+	
 	public ArticleTabPagerAdapter(FragmentManager fm) {
 		// TODO Auto-generated constructor stub
 		super(fm);
@@ -22,6 +24,7 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 			tmp.putString("type", "");
 			tmp.putBoolean("inArchive", false);
 			ArticleFragment tmpFragment = new ArticleFragment();
+			log("set argument");
 			tmpFragment.setArguments(tmp);
 			return tmpFragment;
 		}
@@ -104,6 +107,11 @@ public class ArticleTabPagerAdapter extends FragmentPagerAdapter {
 	public int getCount() {
 		// TODO Auto-generated method stub
 		return 9;
+	}
+	
+	private void log(String message){
+		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)
+			Log.d(this.getClass().getSimpleName(),message);
 	}
 
 }

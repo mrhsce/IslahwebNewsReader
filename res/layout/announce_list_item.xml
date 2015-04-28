@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">    
+<LinearLayout
+    android:id="@+id/linear_layout" 
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="5sp"
+    android:layout_marginTop="5sp"
     android:layout_marginRight="5sp"
     android:paddingTop="5dp"
     android:background="#ffffff"
@@ -63,3 +68,16 @@
 </RelativeLayout>
 
 </LinearLayout>
+<ImageView android:id="@+id/new_tag"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:scaleType="fitXY"
+    android:src="@drawable/new_tag"
+    android:layout_alignParentTop="true"/>
+<ImageView android:id="@+id/favorite_tag"
+    android:layout_width="25dp"
+    android:layout_height="25dp"
+    android:scaleType="fitXY"
+    android:src="@drawable/crescent_true"
+    android:layout_alignParentBottom="true"/>
+</RelativeLayout>

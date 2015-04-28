@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
@@ -24,6 +26,7 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 	private String[] tabs = { "اخبار جماعت", "اخبار اصلاح", "اخبار ورزشی" };
 	
 	private ArrayList<String> titleList,sourceList,dateList,typeList;
+	private ArrayList<Integer> seenList,favoriteList;
 	
 	private boolean showType;
 	private boolean inArchive;
@@ -45,8 +48,13 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 		titleList = new ArrayList<String>();
 		sourceList = new ArrayList<String>();
 		dateList = new ArrayList<String>();
-		if(showType)
+		seenList = new ArrayList<Integer>();		
+		favoriteList = new ArrayList<Integer>();
+		
+		if(showType){
 			typeList = new ArrayList<String>();
+		}
+			
 		
 		Cursor cursor;
 		if(!inArchive){
@@ -63,8 +71,13 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 			titleList.add(cursor.getString(1));
 			sourceList.add(cursor.getString(4));
 			dateList.add(cursor.getString(2));
-			if(showType)
+			seenList.add(cursor.getInt(9));
+			favoriteList.add(cursor.getInt(10));
+			
+			if(showType){
 				typeList.add(cursor.getString(5));
+			}
+				
 			
 			if(!inArchive){
 				for(int i=0;i<Commons.NEWS_ENTRY_COUNT-1;i++){
@@ -72,8 +85,12 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 						titleList.add(cursor.getString(1));
 						sourceList.add(cursor.getString(4));
 						dateList.add(cursor.getString(2));
-						if(showType)
-							typeList.add(cursor.getString(5));
+						seenList.add(cursor.getInt(9));
+						favoriteList.add(cursor.getInt(10));
+						
+						if(showType){
+							typeList.add(cursor.getString(5));							
+						}
 					}
 					else
 						break;
@@ -84,8 +101,12 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 					titleList.add(cursor.getString(1));
 					sourceList.add(cursor.getString(4));
 					dateList.add(cursor.getString(2));
-					if(showType)
+					seenList.add(cursor.getInt(9));
+					favoriteList.add(cursor.getInt(10));
+					
+					if(showType){
 						typeList.add(cursor.getString(5));
+					}
 				}
 			}
 			
@@ -113,7 +134,11 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 		TextView sourceView = (TextView) convertView.findViewById(R.id.labelSource);
 		TextView typeView = (TextView) convertView.findViewById(R.id.labelType);
 		
+		ImageView seenTag = (ImageView) convertView.findViewById(R.id.new_tag);
+		ImageView favoriteTag = (ImageView) convertView.findViewById(R.id.favorite_tag);
 		ImageView indexImgView = (ImageView) convertView.findViewById(R.id.indexImgView);
+		
+		LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.linear_layout);
 		
 		if(showType)
 			typeView.setText(tabs[Integer.parseInt(typeList.get(position))]);			
@@ -123,6 +148,24 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 		titleView.setText(titleList.get(position));
 		dateView.setText(dateList.get(position));
 		sourceView.setText(sourceList.get(position));
+		
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)linearLayout.getLayoutParams();		   
+		if(seenList.get(position)==0){
+			seenTag.setVisibility(View.VISIBLE);
+			params.setMargins(7, 7, 0, 0);
+		}
+		else{
+			seenTag.setVisibility(View.GONE);
+			params.setMargins(0, 0, 0, 0);
+		}
+		linearLayout.setLayoutParams(params);
+		
+		if(!inArchive && favoriteList.get(position)==1){
+			favoriteTag.setVisibility(View.VISIBLE);
+		}
+		else{
+			favoriteTag.setVisibility(View.GONE);
+		}
 		
 		
 		return convertView;

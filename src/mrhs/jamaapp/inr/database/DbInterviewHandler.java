@@ -128,31 +128,31 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public Cursor getAll(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","seen","pageLink","bigImg","mainText"},null,null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","pageLink","bigImg","mainText","archived","seen","archived"},null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getAllArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","seen","pageLink","bigImg","mainText"},"archived = 1",null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","pageLink","bigImg","mainText","seen","archived"},"archived = 1",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
 	public Cursor getAllNonArchived(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","seen","pageLink","bigImg","mainText"},"archived = 0",null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","pageLink","bigImg","mainText","seen","archived"},"archived = 0",null, null, null, "gdate desc");
 		return cursor;
 	}	
 	
 	public Cursor getById(Integer id){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","archived","pageLink","bigImg","mainText"},"id="+id,null, null, null, "gdate desc");
+				"id","title","jdate","indexText","indexImg","writer","pageLink","bigImg","mainText","archived","seen"},"id="+id,null, null, null, "gdate desc");
 		return cursor;
 	}	
 	
 	public Cursor getThoseWithoutIndexImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","seen","pageLink","bigImg","mainText"},"indexImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","indexImg"},"indexImg like 'http://%'"+null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
@@ -164,7 +164,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public Cursor getThoseWithoutBigImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","title","jdate","indexText","indexImg","writer","seen","pageLink","bigImg","mainText"},"bigImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","bigImg"},"bigImg like 'http://%'"+null,null, null, null, "gdate desc");
 		return cursor;
 	}
 	
