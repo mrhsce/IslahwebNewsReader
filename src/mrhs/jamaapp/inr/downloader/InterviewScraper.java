@@ -17,7 +17,7 @@ import mrhs.jamaapp.inr.main.Commons;
 import android.util.Log;
 
 public class InterviewScraper {
-	private static final boolean LOCAL_SHOW_LOG = false;
+	private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public void initialInsert(final DatabaseHandler db){
 		log("Trying Interview initial insert");
@@ -41,9 +41,9 @@ public class InterviewScraper {
 				if(db.interviewHandler.exists(title, jDate)) {downloaded = true;break;}
 				String pageLink = "http://m.islahweb.org"+links.get(i).select("h2 a").get(0).attr("href");
 				//log("The pageLink is: "+pageLink);
-				String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace("150x150crop", "200x200");
+				String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace("/imagecache/"+"150x150crop", "");
 				log("The indexImgAddr is: "+indexImgAddr);
-				String imgAddress = indexImgAddr.replace("200x200", "700x700");	
+				String imgAddress = indexImgAddr;	
 				
 				String writer = links.get(i).select("div[class=content clearfix] a").text();	
 				//log("The writer is: "+writer);

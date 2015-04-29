@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -30,6 +31,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_announce_main);
+		getActionBar().setDisplayHomeAsUpEnabled(true);	
 		db = new DatabaseHandler(this).open(); 
 		setUpList();
 		listView.setAdapter(adapter);
@@ -101,6 +103,18 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.interview_main, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()){
+		case android.R.id.home:
+			this.finish();
+			break;		
+		}
+		
 		return true;
 	}
 	

@@ -32,6 +32,7 @@ public class ArchiveMainActivity extends FragmentActivity implements ActionBar.T
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news_main);
+		getActionBar().setDisplayHomeAsUpEnabled(true);	
 		// Show the Up button in the action bar.
 		// Initilization
 		log("Started");
@@ -111,6 +112,8 @@ public class ArchiveMainActivity extends FragmentActivity implements ActionBar.T
 		getMenuInflater().inflate(R.menu.archive_main, menu);		
 		return true;
 	}
+	
+	
 	
 	private void log(String message){
 		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)

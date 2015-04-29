@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -85,11 +86,16 @@ public class ArticleActivity extends Activity {
 		mainTextView = (TextView)findViewById(R.id.maintextTxtView);		
 		mainTextView.setText(Html.fromHtml(text));
 		
+		Typeface mitraFont = Typeface.createFromAsset(getAssets(),"fonts/mitra.ttf");
+		Typeface titrFont = Typeface.createFromAsset(getAssets(),"fonts/TitrBold.ttf");
+		titleView.setTypeface(titrFont);
+		mainTextView.setTypeface(mitraFont);
+		
 		pageLinkButton = (Button)findViewById(R.id.pageLinkButton);
 		
 		indexImgView = (ImageView)findViewById(R.id.indexImgView);
 		
-		Bitmap bitmap = sdHandler.getImage(indexImgAddr);
+		Bitmap bitmap = sdHandler.getImage(bigImgAddr);
 		if(bitmap != null)
 			indexImgView.setImageBitmap(bitmap);
 		else{  

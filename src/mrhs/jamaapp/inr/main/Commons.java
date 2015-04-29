@@ -7,12 +7,16 @@ public interface Commons {
 	
 	// Related to the database
 	final String DATABASE_NAME = "islahwebdb";
-	final Integer DATABASE_VERSION = 20;
+	final Integer DATABASE_VERSION = 26;	
+		
 	
 	// Related to sdcard
 	final String APP_ROOT_DIRECTORY = "INR";
+	final String INDEX_PREFIX = "-index";
 	
 	// Image type
+	final Integer DIMENTION_INDEX = 60;
+	final Integer MAX_IMG_SIZE = 0;
 	final boolean BIG_IMAGE = false;
 	final boolean INDEX_IMAGE = true;
 	

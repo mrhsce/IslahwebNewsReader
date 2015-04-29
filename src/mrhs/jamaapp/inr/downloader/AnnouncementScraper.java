@@ -19,7 +19,7 @@ import mrhs.jamaapp.inr.main.Commons;
 import android.util.Log;
 
 public class AnnouncementScraper {
-	private static final boolean LOCAL_SHOW_LOG = false;
+	private static final boolean LOCAL_SHOW_LOG = true;
 		
 	public void initialInsert(final DatabaseHandler db){
 		log("Trying announce initial insert");

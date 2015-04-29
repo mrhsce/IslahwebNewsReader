@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.Window;
 
 @SuppressWarnings("deprecation")
@@ -28,6 +29,7 @@ public class NewsMainActivity extends FragmentActivity implements ActionBar.TabL
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news_main);
+		getActionBar().setDisplayHomeAsUpEnabled(true);	
 		// Show the Up button in the action bar.
 		// Initilization
 		log("Started");
@@ -85,6 +87,20 @@ public class NewsMainActivity extends FragmentActivity implements ActionBar.TabL
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()){
+		
+		case android.R.id.home:
+			this.finish();
+			
+			break;
+		}
+		
+		return true;
 	}
 	
 	private void log(String message){

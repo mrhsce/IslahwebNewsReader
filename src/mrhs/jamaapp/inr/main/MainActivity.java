@@ -11,6 +11,7 @@ import mrhs.jamaapp.inr.news.NewsMainActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +32,7 @@ public class MainActivity extends Activity {
 		startService(intent);
 	}
 	
-	private void buttonInitializer(){
+	private void buttonInitializer(){		
 		newsButton = (Button)findViewById(R.id.news_button);
 		newsButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -41,7 +42,7 @@ public class MainActivity extends Activity {
 				Intent intent = new Intent(MainActivity.this,NewsMainActivity.class);
 				startActivity(intent);
 			}
-		});
+		});		
 		
 		articleButton = (Button)findViewById(R.id.article_button);
 		articleButton.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +117,24 @@ public class MainActivity extends Activity {
 				
 			}
 		});
+		aboutUsButton.setEnabled(false);
+		
+		Typeface titrFont = Typeface.createFromAsset(getAssets(),"fonts/TitrBold.ttf");
+		newsButton.setTypeface(titrFont);
+		articleButton.setTypeface(titrFont);
+		announceButton.setTypeface(titrFont);
+		interviewButton.setTypeface(titrFont);
+		aboutJButton.setTypeface(titrFont);
+		contactButton.setTypeface(titrFont);
+		aboutUsButton.setTypeface(titrFont);
+		
+		newsButton.setTextSize(22);
+		articleButton.setTextSize(22);
+		announceButton.setTextSize(22);
+		interviewButton.setTextSize(22);
+		aboutJButton.setTextSize(22);
+		contactButton.setTextSize(22);
+		aboutUsButton.setTextSize(22);
 	}	
 	
 	@Override

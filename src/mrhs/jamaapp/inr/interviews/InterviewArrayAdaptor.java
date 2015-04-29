@@ -68,7 +68,7 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 		if (cursor.moveToFirst()){
 			titleList.add(cursor.getString(1));
 			writerList.add(cursor.getString(5));
-			indexImgAdr.add(cursor.getString(3));
+			indexImgAdr.add(cursor.getString(4));
 			textList.add(cursor.getString(3));
 			dateList.add(cursor.getString(2));
 			seenList.add(cursor.getInt(10));
@@ -78,7 +78,7 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 				for(int i=0;i<Commons.INTERVIEW_ENTRY_COUNT-1;i++){
 					if(cursor.moveToNext()){
 						titleList.add(cursor.getString(1));
-						indexImgAdr.add(cursor.getString(3));
+						indexImgAdr.add(cursor.getString(4));
 						writerList.add(cursor.getString(5));
 						textList.add(cursor.getString(3));
 						dateList.add(cursor.getString(2));
@@ -92,7 +92,7 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 			else{
 				while(cursor.moveToNext()){
 					titleList.add(cursor.getString(1));
-					indexImgAdr.add(cursor.getString(3));
+					indexImgAdr.add(cursor.getString(4));
 					writerList.add(cursor.getString(5));
 					textList.add(cursor.getString(3));
 					dateList.add(cursor.getString(2));
@@ -124,7 +124,8 @@ public class InterviewArrayAdaptor extends ArrayAdapter<Integer>{
 		
 		LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.linear_layout);
 		
-		Bitmap bitmap = sdHandler.getImageCenterCropped(indexImgAdr.get(position));
+		Bitmap bitmap = sdHandler.getImage(indexImgAdr.get(position));
+		
 		if(bitmap != null)
 			indexImgView.setImageBitmap(bitmap);
 		else{      

@@ -16,7 +16,10 @@ import android.os.IBinder;
 import android.util.Log;
 
 public class DownloaderService extends Service {
-	private static final boolean LOCAL_SHOW_LOG = true;
+	private static final boolean LOCAL_SHOW_LOG = false;
+	
+	public boolean secondaryRemains = true;
+	public boolean imageRemains = true;
 	
 	ArticleScraper articleScraper;
 	AnnouncementScraper announcementScraper;
@@ -63,15 +66,15 @@ public class DownloaderService extends Service {
 		// TODO Auto-generated method stub
 		log("Service started");
 		
-		primaryDownload();		
+		primaryDownload();
+		//tritieryDownload();
 		
-		return super.onStartCommand(intent, flags, startId);
+		return Service.START_NOT_STICKY;
 	}	
 	
 	public void primaryDownload(){
 		log("Primary download started");
-		finishedInitialDownloadCount = 0;
-		if(isConnectingToInternet()){
+		if(isConnectingToInternet() ){
 			new NewsAsynckTask(1).execute();
 			new ArticleAsynckTask(1).execute();
 			new AnnounceAsynckTask(1).execute();
@@ -325,11 +328,14 @@ public class DownloaderService extends Service {
 	    protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 	        
-	        if(remains && isConnectingToInternet()){
+	        if(remains && isConnectingToInternet()){	        	
 	        	new SecondaryDownloadAsynckTask().execute();
 	        }
-	        else
-	        	DownloaderService.this.stopSelf();
+	        else{
+	        	secondaryRemains = false;
+	        	if(!imageRemains)
+	        		DownloaderService.this.stopSelf();
+	        }
 	        log("One secondary download round completed");
 	        //this method will be running on UI thread
 	    }
@@ -344,19 +350,24 @@ public class DownloaderService extends Service {
 			// TODO Auto-generated method stub
 			
 			Cursor cursor = db.newsHandler.getThoseWithoutIndexImage();
+			log("The image downloader started");
 			if(cursor.moveToFirst()){
+				log("The news address is "+cursor.getString(1));
 				remains = true;
 				imageDownloader.downloadImage(cursor.getInt(0), cursor.getString(1), Commons.NEWS, db, sdHandler);
 				log("Another news image successfully inserted");
 			}
-			cursor = db.articleHandler.getThoseWithoutMainText();
+			
+			cursor = db.articleHandler.getThoseWithoutIndexImage();
 			if(cursor.moveToFirst()){
+				log("The article address is "+cursor.getString(1));
 				remains = true;
 				imageDownloader.downloadImage(cursor.getInt(0), cursor.getString(1), Commons.ARTICLE, db, sdHandler);
 				log("Another article image successfully inserted");
 			}
-			cursor = db.interviewHandler.getThoseWithoutMainText();
+			cursor = db.interviewHandler.getThoseWithoutIndexImage();
 			if(cursor.moveToFirst()){
+				log("The interview address is "+cursor.getString(1));
 				remains = true;
 				imageDownloader.downloadImage(cursor.getInt(0), cursor.getString(1), Commons.INTERVIEW, db, sdHandler);
 				log("Another interview image successfully inserted");
@@ -372,8 +383,12 @@ public class DownloaderService extends Service {
 	        if(remains && isConnectingToInternet()){
 	        	new ImageDownloadAsynckTask().execute();
 	        }
-	        else
-	        	DownloaderService.this.stopSelf();
+	        else{
+	        	imageRemains = false;
+	        	if(!secondaryRemains)
+	        		DownloaderService.this.stopSelf();
+	        }
+	        	
 	        log("One tritiery download round completed");
 	        //this method will be running on UI thread
 	    }

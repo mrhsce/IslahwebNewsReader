@@ -152,7 +152,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public Cursor getThoseWithoutIndexImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","indexImg"},"indexImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","indexImg"},"indexImg like 'http://%'",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
@@ -164,7 +164,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public Cursor getThoseWithoutBigImage(){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
-				"id","bigImg"},"bigImg like 'http://%'"+null,null, null, null, "gdate desc");
+				"id","bigImg"},"bigImg like 'http://%'",null, null, null, "gdate desc");
 		return cursor;
 	}
 	
@@ -215,6 +215,11 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		}while(cursor.moveToNext());
 	}
 	
+	public boolean isEmpty(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_INTERVIEW, new String[]{
+				"id"},null,null, null, null, null);
+		return cursor.moveToFirst();
+	}
 	
 	private void log(String message){
 		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)

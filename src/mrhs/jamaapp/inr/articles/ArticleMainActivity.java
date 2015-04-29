@@ -9,6 +9,8 @@ import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 @SuppressWarnings("deprecation")
 public class ArticleMainActivity extends FragmentActivity implements ActionBar.TabListener{
@@ -24,6 +26,7 @@ public class ArticleMainActivity extends FragmentActivity implements ActionBar.T
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_article_main);
+		getActionBar().setDisplayHomeAsUpEnabled(true);	
 		// Show the Up button in the action bar.
 		// Initilization
 		log("Started");
@@ -82,6 +85,27 @@ public class ArticleMainActivity extends FragmentActivity implements ActionBar.T
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		log("onCreateOptionMenu");
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.article_main, menu);		
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()){
+		
+		case android.R.id.home:
+			this.finish();
+			
+			break;
+		}
+		
+		return true;
 	}
 	
 	private void log(String message){

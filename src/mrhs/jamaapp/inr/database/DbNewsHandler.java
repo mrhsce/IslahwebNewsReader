@@ -230,6 +230,11 @@ public class DbNewsHandler {
 		}while(cursor.moveToNext());
 	}
 	
+	public boolean isEmpty(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{
+				"id"},null,null, null, null, null);
+		return cursor.moveToFirst();
+	}
 	
 	private void log(String message){
 		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)

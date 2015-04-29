@@ -143,7 +143,7 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 		
 		LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.linear_layout);
 		
-		Bitmap bitmap = sdHandler.getImageCenterCropped(indexImgAdr.get(position));
+		Bitmap bitmap = sdHandler.getImage(indexImgAdr.get(position));
 		if(bitmap != null)
 			indexImgView.setImageBitmap(bitmap);
 		else{

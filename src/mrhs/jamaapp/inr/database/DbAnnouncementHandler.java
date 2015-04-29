@@ -119,7 +119,7 @@ public class DbAnnouncementHandler {
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{
 				"id","title","jdate","pageLink","mainText","seen","archived"},"archived = 1",null, null, null, "gdate desc");
 		return cursor;
-	}
+	}	
 		
 	public Cursor getById(Integer id){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{
@@ -179,6 +179,12 @@ public class DbAnnouncementHandler {
 			}
 		}while(cursor.moveToNext());
 	}	
+	
+	public boolean isEmpty(){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ANNOUNCE, new String[]{
+				"id"},null,null, null, null, null);
+		return cursor.moveToFirst();
+	}
 	
 	private void log(String message){
 		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)

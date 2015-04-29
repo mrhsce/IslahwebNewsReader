@@ -35,9 +35,11 @@ Things to do ->
 	- in downloader service after initial download there should be a composition of 2 secondary download and 1 image download until one finishes✔
 	- make a class for cropping the image  to have suitable aspect ratio for indexImg ✔
 
+	- change the schematics of the article and use m.islahweb.org/all?items_per_page=50 for getting articles
+
 	- design a priority list in downloader and all the downloads are inserted inside it and in each loop one is executed
 		for example the priority of initial download is higher than secondary download and the priority of forced secondary download is highest
-	- make a pending intent in the service to look for network connection and start the download queue	
+	- make a pending thread to run every 20 seconds when app is running in the service to look for network connection and start the download queue when the app stops there should be a variable in the service called running  that should be set to false and also a variable isConnected that shows the internet connection
 
 	- solve archive time order problem
 
@@ -55,8 +57,10 @@ Things to do ->
 	- when user clicks on the image of a news enters a loading screen and download the image and resumes the main download thread the image should have the ability to be stored in the sdcard when users prompts and should be able to zoom and move around
 
 	Fourth phase(Feedback taking):
+	- Use the site header and draw 9 patch for background of the header
 	- Handle the case when the sdcard is not available - use other storages
 	- view the comments in a view like Akharin khabar
+	- Add a counter to the main screen buttons to show the number of new contents
 	- take comment from the user in the same view
 	- allow the user to rate the post
 	- all these features are only available when the user is online

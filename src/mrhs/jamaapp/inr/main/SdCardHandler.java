@@ -46,7 +46,6 @@ public class SdCardHandler {
 	}
 	
 	public boolean storeImage(String addr,Bitmap bitmap){
-		
 		if(!addr.contains("http://")){
 			File file = new File(sdcard+addr) ;		
 		    if (file.exists())
@@ -82,16 +81,19 @@ public class SdCardHandler {
 	    }
 	}
 	
-	public Bitmap getImageCenterCropped(String addr){
-		Bitmap bitmap = getImage(addr);
+	public Bitmap getImageCenterCropped(Bitmap bitmap){
 		if(bitmap!=null){
 
-			if(bitmap.getHeight()>=bitmap.getWidth())
-				return Bitmap.createBitmap(bitmap,0,(bitmap.getHeight()-bitmap.getWidth())/2,
+			if(bitmap.getHeight()>=bitmap.getWidth()){
+				bitmap = Bitmap.createBitmap(bitmap,0,(bitmap.getHeight()-bitmap.getWidth())/2,
 						bitmap.getWidth(),bitmap.getWidth());
-			else
-				return Bitmap.createBitmap(bitmap,(bitmap.getWidth()-bitmap.getHeight())/2,0,
+				return Bitmap.createScaledBitmap(bitmap,60,60,false);
+			}
+			else{
+				bitmap = Bitmap.createBitmap(bitmap,(bitmap.getWidth()-bitmap.getHeight())/2,0,
 						bitmap.getHeight(),bitmap.getHeight());
+				return Bitmap.createScaledBitmap(bitmap,60,60,false);
+			}
 		}
 		return null;
 	}

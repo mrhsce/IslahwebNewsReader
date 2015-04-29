@@ -32,7 +32,7 @@ import mrhs.jamaapp.inr.database.DatabaseHandler;
 import android.util.Log;
 
 public class NewsScraper {
-	private static final boolean LOCAL_SHOW_LOG = false;
+	private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public void initialInsert(final DatabaseHandler db){
 		log("Trying news initial insert");
@@ -55,8 +55,16 @@ public class NewsScraper {
 				if(db.newsHandler.exists(title, jDate)) break;
 				String pageLink = "http://m.islahweb.org"+links.get(i).select("td a").get(indexList[type]).attr("href");
 				//log("The page link is: "+pageLink);
-				String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace(imgDimList[type], "200x200");
-				String imgAddress = indexImgAddr.replace("200x200", "700x700");
+				String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace("/imagecache/"+imgDimList[type], "");
+				String imgAddress = indexImgAddr;
+				
+				// This is for handling the f$^&ng big image!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				if(indexImgAddr.equals("http://m.islahweb.org/sites/default/files/img_2686.jpg")){
+					indexImgAddr = "Fuck";
+					imgAddress = "Fuck";
+				}	
+				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				
 				//log("The imgAddr is: "+imgAddress);
 				links.get(i).select("td a").get(indexList[type]).remove();
 				String source = links.get(i).select("td").get(indexList[type]).text();					
