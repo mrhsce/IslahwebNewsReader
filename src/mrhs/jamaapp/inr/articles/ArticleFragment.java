@@ -2,10 +2,10 @@ package mrhs.jamaapp.inr.articles;
 
 import java.util.ArrayList;
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
+import mrhs.jamaapp.inr.SdCardHandler;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
-import mrhs.jamaapp.inr.main.Commons;
-import mrhs.jamaapp.inr.main.SdCardHandler;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -66,7 +66,7 @@ public class ArticleFragment extends Fragment {
 						bundle.putString("indexImgAddr", cursor.getString(4));
 						bundle.putString("bigImgAddr",cursor.getString(8));
 												
-						if(cursor.getInt(10)==0)
+						if(cursor.getInt(11)==0)
 							bundle.putBoolean("archived",false);
 						else
 							bundle.putBoolean("archived",true);

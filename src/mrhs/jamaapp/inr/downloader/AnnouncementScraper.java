@@ -14,8 +14,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
-import mrhs.jamaapp.inr.main.Commons;
 import android.util.Log;
 
 public class AnnouncementScraper {
@@ -41,6 +41,7 @@ public class AnnouncementScraper {
 			//log("announce Initial insert finished successfully");
 			}
 		}catch (IndexOutOfBoundsException e) {log("Problem in announce initial insert");}
+		catch (NumberFormatException e) {log("Problem in announce initial insert");}
 	}
 	
 	public void secondaryInsert(final DatabaseHandler db,final String url,final Integer id){

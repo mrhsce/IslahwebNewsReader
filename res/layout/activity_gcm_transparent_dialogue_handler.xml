@@ -6,14 +6,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".AboutUsActivity" >
-
-    <TextView
-        android:layout_centerInParent="true"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="تهیه شده در معاونت دانشجویی\nجماعت دعوت و اصلاح ایران\nشهر تهران\n\nversion: 0.6.9" />
+    tools:context=".GcmTransparentDialogueHandler" >    
 
 </RelativeLayout>

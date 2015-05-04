@@ -2,11 +2,11 @@ package mrhs.jamaapp.inr.archive;
 
 import java.util.ArrayList;
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.announces.AnnounceActivity;
 import mrhs.jamaapp.inr.announces.AnnounceArrayAdaptor;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
-import mrhs.jamaapp.inr.main.Commons;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;

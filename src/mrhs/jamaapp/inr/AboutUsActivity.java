@@ -1,4 +1,4 @@
-package mrhs.jamaapp.inr.main;
+package mrhs.jamaapp.inr;
 
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.R.layout;

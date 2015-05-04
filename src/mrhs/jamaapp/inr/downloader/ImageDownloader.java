@@ -6,15 +6,15 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import mrhs.jamaapp.inr.Commons;
+import mrhs.jamaapp.inr.SdCardHandler;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
-import mrhs.jamaapp.inr.main.Commons;
-import mrhs.jamaapp.inr.main.SdCardHandler;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
 public class ImageDownloader {
-	private static final boolean LOCAL_SHOW_LOG = false;
+	private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public boolean downloadImage(Integer id,String link,String type,DatabaseHandler db,SdCardHandler sd){				
 		

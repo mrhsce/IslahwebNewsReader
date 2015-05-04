@@ -2,12 +2,12 @@ package mrhs.jamaapp.inr.archive;
 
 import java.util.ArrayList;
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
+import mrhs.jamaapp.inr.SdCardHandler;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import mrhs.jamaapp.inr.interviews.InterviewActivity;
 import mrhs.jamaapp.inr.interviews.InterviewArrayAdaptor;
-import mrhs.jamaapp.inr.main.Commons;
-import mrhs.jamaapp.inr.main.SdCardHandler;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;

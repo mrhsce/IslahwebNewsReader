@@ -12,8 +12,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
-import mrhs.jamaapp.inr.main.Commons;
 import android.util.Log;
 
 public class InterviewScraper {
@@ -55,6 +55,7 @@ public class InterviewScraper {
 					log("Interview was not successfully inserted");
 				}
 			}catch (IndexOutOfBoundsException e) {log("Problem in interview initial insert");}
+			catch (NumberFormatException e) {log("Problem in interview initial insert");}
 		}
 	}
 	

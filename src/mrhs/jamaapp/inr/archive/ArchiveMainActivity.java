@@ -1,10 +1,10 @@
 package mrhs.jamaapp.inr.archive;
 
+import mrhs.jamaapp.inr.Commons;
+import mrhs.jamaapp.inr.MainActivity;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.R.layout;
 import mrhs.jamaapp.inr.R.menu;
-import mrhs.jamaapp.inr.main.Commons;
-import mrhs.jamaapp.inr.main.MainActivity;
 import mrhs.jamaapp.inr.news.NewsTabPagerAdapter;
 import android.os.Bundle;
 import android.app.ActionBar;

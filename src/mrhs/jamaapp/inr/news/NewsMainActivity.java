@@ -1,19 +1,16 @@
 package mrhs.jamaapp.inr.news;
 
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
-import mrhs.jamaapp.inr.main.Commons;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.Window;
 
 @SuppressWarnings("deprecation")
 public class NewsMainActivity extends FragmentActivity implements ActionBar.TabListener{
@@ -29,7 +26,6 @@ public class NewsMainActivity extends FragmentActivity implements ActionBar.TabL
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news_main);
-		getActionBar().setDisplayHomeAsUpEnabled(true);	
 		// Show the Up button in the action bar.
 		// Initilization
 		log("Started");
@@ -69,6 +65,7 @@ public class NewsMainActivity extends FragmentActivity implements ActionBar.TabL
 
         actionBar = getActionBar(); 
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setDisplayHomeAsUpEnabled(true);	
 	}
 
 	@Override

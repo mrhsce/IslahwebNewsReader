@@ -1,7 +1,7 @@
 package mrhs.jamaapp.inr.articles;
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
-import mrhs.jamaapp.inr.main.Commons;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -9,7 +9,6 @@ import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
 @SuppressWarnings("deprecation")
@@ -65,7 +64,7 @@ public class ArticleMainActivity extends FragmentActivity implements ActionBar.T
 	private void setupActionBar(){
 
         actionBar = getActionBar(); 
-        actionBar.setHomeButtonEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);	
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	}
 
@@ -85,14 +84,7 @@ public class ArticleMainActivity extends FragmentActivity implements ActionBar.T
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
-	}
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		log("onCreateOptionMenu");
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.article_main, menu);		
-		return true;
-	}
+	}	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

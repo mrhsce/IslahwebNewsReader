@@ -1,6 +1,6 @@
 package mrhs.jamaapp.inr.news;
 
-import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.Commons;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

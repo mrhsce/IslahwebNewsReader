@@ -1,9 +1,9 @@
 package mrhs.jamaapp.inr.downloader;
 
 
+import mrhs.jamaapp.inr.Commons;
+import mrhs.jamaapp.inr.SdCardHandler;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
-import mrhs.jamaapp.inr.main.Commons;
-import mrhs.jamaapp.inr.main.SdCardHandler;
 
 import android.app.Service;
 import android.content.Context;

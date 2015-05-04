@@ -1,9 +1,9 @@
 package mrhs.jamaapp.inr.articles;
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
+import mrhs.jamaapp.inr.SdCardHandler;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
-import mrhs.jamaapp.inr.main.Commons;
-import mrhs.jamaapp.inr.main.SdCardHandler;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
@@ -74,7 +74,7 @@ public class ArticleActivity extends Activity {
 		text = getIntent().getExtras().getString("text");
 		indexImgAddr = getIntent().getExtras().getString("indexImgAddr");
 		bigImgAddr = getIntent().getExtras().getString("bigImgAddr");
-		archived = getIntent().getExtras().getBoolean("archived");
+		archived = getIntent().getExtras().getBoolean("archived");		
 		id = getIntent().getExtras().getInt("id");
 		
 		dateView = (TextView)findViewById(R.id.dateTxtView);

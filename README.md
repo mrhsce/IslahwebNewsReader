@@ -35,11 +35,18 @@ Things to do ->
 	- in downloader service after initial download there should be a composition of 2 secondary download and 1 image download until one finishes✔
 	- make a class for cropping the image  to have suitable aspect ratio for indexImg ✔
 
+	- move the dateview to the bottom of the element and group it with titleView ✔
+	
+	- make all the scraper functions return boolean to assure the success of the operation
+	- use sharedpreferences to store the last time of the successful insert for each content and do not repeat download
+		in a specific time around it
 	- change the schematics of the article and use m.islahweb.org/all?items_per_page=50 for getting articles
 
 	- design a priority list in downloader and all the downloads are inserted inside it and in each loop one is executed
 		for example the priority of initial download is higher than secondary download and the priority of forced secondary download is highest
 	- make a pending thread to run every 20 seconds when app is running in the service to look for network connection and start the download queue when the app stops there should be a variable in the service called running  that should be set to false and also a variable isConnected that shows the internet connection
+
+	
 
 	- solve archive time order problem
 

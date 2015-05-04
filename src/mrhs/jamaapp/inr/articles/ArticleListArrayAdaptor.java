@@ -2,9 +2,9 @@ package mrhs.jamaapp.inr.articles;
 
 import java.util.ArrayList;
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
-import mrhs.jamaapp.inr.main.Commons;
-import mrhs.jamaapp.inr.main.SdCardHandler;
+import mrhs.jamaapp.inr.SdCardHandler;
 
 import android.app.Activity;
 import android.content.Context;
@@ -149,8 +149,10 @@ private static final boolean LOCAL_SHOW_LOG = true;
 			indexImgView.setImageResource(R.drawable.ic_launcher);
 		}
 		
-		if(showType)
+		if(showType){
+			typeView.setVisibility(View.VISIBLE);
 			typeView.setText(tabs[Integer.parseInt(typeList.get(position))]);
+		}
 		else
 			typeView.setVisibility(View.GONE);
 			

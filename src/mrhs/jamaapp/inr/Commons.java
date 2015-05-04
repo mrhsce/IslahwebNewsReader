@@ -1,4 +1,4 @@
-package mrhs.jamaapp.inr.main;
+package mrhs.jamaapp.inr;
 
 public interface Commons {
 	

@@ -1,10 +1,10 @@
 package mrhs.jamaapp.inr.announces;
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.R.layout;
 import mrhs.jamaapp.inr.R.menu;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
-import mrhs.jamaapp.inr.main.Commons;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;

@@ -2,8 +2,9 @@ package mrhs.jamaapp.inr.database;
 
 
 import ir.anamsoftware.persiandateultimate.ManamPDUltimate;
+import mrhs.jamaapp.inr.Commons;
+import mrhs.jamaapp.inr.SdCardHandler;
 import mrhs.jamaapp.inr.downloader.AnnouncementScraper;
-import mrhs.jamaapp.inr.main.Commons;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,6 +27,7 @@ public class DatabaseHandler {
 	public	ManamPDUltimate dateConvertor;	
 	private DbHelper dbHelper;
 	public  SQLiteDatabase db;
+	public 	SdCardHandler sdHandler;
 	
 	public DbAnnouncementHandler anouncementHandler;
 	public DbArticleHandler articleHandler;
@@ -36,6 +38,7 @@ public class DatabaseHandler {
 	// Necessary functions (DDL)
 	public DatabaseHandler(Context ctx){
 		dbHelper=new DbHelper(ctx);
+		sdHandler = new SdCardHandler();
 		anouncementHandler = new DbAnnouncementHandler(this);
 		articleHandler = new DbArticleHandler(this);
 		interviewHandler = new DbInterviewHandler(this);

@@ -1,4 +1,10 @@
-package mrhs.jamaapp.inr.main;
+package mrhs.jamaapp.inr;
+
+import static gcm.Config.SENDER_ID;
+import gcm.Config;
+import gcm.ServerUtilities;
+
+import com.google.android.gcm.GCMRegistrar;
 
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.aboutj.AboutJamaatMainActivity;
@@ -8,8 +14,12 @@ import mrhs.jamaapp.inr.articles.ArticleMainActivity;
 import mrhs.jamaapp.inr.downloader.DownloaderService;
 import mrhs.jamaapp.inr.interviews.InterviewMainActivity;
 import mrhs.jamaapp.inr.news.NewsMainActivity;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -21,6 +31,9 @@ import android.widget.Button;
 public class MainActivity extends Activity {
 	private static final boolean LOCAL_SHOW_LOG = true;
 	
+	// Asyntask for GCM
+	 	AsyncTask<Void, Void, Void> mRegisterTask;
+	
 	Button newsButton,announceButton,interviewButton,articleButton,contactButton,aboutJButton,aboutUsButton;
 	
 	@Override
@@ -28,8 +41,11 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		buttonInitializer();
+		setUpGCM();
 		Intent intent = new Intent(this,DownloaderService.class);
 		startService(intent);
+		
+				
 	}
 	
 	private void buttonInitializer(){		
@@ -117,7 +133,7 @@ public class MainActivity extends Activity {
 				
 			}
 		});
-		aboutUsButton.setEnabled(false);
+		//aboutUsButton.setEnabled(false);
 		
 		Typeface titrFont = Typeface.createFromAsset(getAssets(),"fonts/TitrBold.ttf");
 		newsButton.setTypeface(titrFont);
@@ -136,6 +152,75 @@ public class MainActivity extends Activity {
 		contactButton.setTextSize(22);
 		aboutUsButton.setTextSize(22);
 	}	
+	
+	public void setUpGCM(){
+		// GCM Related parts		
+		if (!isConnectingToInternet()) {
+			
+			// stop executing code by return
+			return;
+		}
+		// Make sure the device has the proper dependencies.
+		//GCMRegistrar.checkDevice(this);
+		
+		
+		// Make sure the manifest was properly set - comment out this line
+		// while developing the app, then uncomment it when it's ready.
+		GCMRegistrar.checkManifest(this);
+			
+		// Get GCM registration id
+		final String regId = GCMRegistrar.getRegistrationId(this);
+		
+		// Check if regid already presents
+		if (regId.equals("")) {
+			// Registration is not present, register now with GCM			
+			GCMRegistrar.register(this, SENDER_ID);
+		} else {
+			// Device is already registered on GCM
+			if (GCMRegistrar.isRegisteredOnServer(this)) {
+				// Skips registration.				
+				//Toast.makeText(getApplicationContext(), "Already registered with GCM", Toast.LENGTH_LONG).show();
+			} else {
+				// Try to register again, but not in the UI thread.
+				// It's also necessary to cancel the thread onDestroy(),
+								// hence the use of AsyncTask instead of a raw thread.
+				final Context context = this;
+				mRegisterTask = new AsyncTask<Void, Void, Void>() {
+					
+					@Override
+					protected Void doInBackground(Void... params) {
+						// Register on our server
+						// On server creates a new user
+						ServerUtilities.register(context, Config.APP_NAME, regId);
+						return null;
+					}
+					
+					@Override
+					protected void onPostExecute(Void result) {
+						mRegisterTask = null;
+					}
+					
+				};
+				mRegisterTask.execute(null, null, null);
+			}
+		}
+	}
+	
+	public boolean isConnectingToInternet(){
+        ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+          if (connectivity != null)
+          {
+              NetworkInfo[] info = connectivity.getAllNetworkInfo();
+              if (info != null)
+                  for (int i = 0; i < info.length; i++)
+                      if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                      {
+                          return true;
+                      }
+ 
+          }
+          return false;
+    }
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

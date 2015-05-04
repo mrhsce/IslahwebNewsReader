@@ -1,8 +1,8 @@
 package mrhs.jamaapp.inr.aboutj;
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.articles.ArticleTabPagerAdapter;
-import mrhs.jamaapp.inr.main.Commons;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;

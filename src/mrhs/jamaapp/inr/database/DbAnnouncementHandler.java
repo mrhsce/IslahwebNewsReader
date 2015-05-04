@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.Commons;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;

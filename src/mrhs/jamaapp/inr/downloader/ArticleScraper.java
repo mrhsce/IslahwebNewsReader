@@ -14,8 +14,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
-import mrhs.jamaapp.inr.main.Commons;
 import android.util.Log;
 
 public class ArticleScraper {
@@ -81,7 +81,8 @@ public class ArticleScraper {
 			mainText = doc.select("div[class=inner] p").text();		
 			db.articleHandler.secondInsert(id, mainText);
 			log("Secondary insert finished successfully");
-		}catch (IndexOutOfBoundsException e) {log("Problem in article Secondary insert");}		
+		}catch (IndexOutOfBoundsException e) {log("Problem in article Secondary insert");}	
+		catch (NumberFormatException e) {log("Problem in article initial insert");}
 	}
 	
 	public String getHtml(String url){

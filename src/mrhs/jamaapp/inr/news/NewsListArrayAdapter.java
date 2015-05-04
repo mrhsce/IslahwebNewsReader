@@ -1,9 +1,10 @@
 package mrhs.jamaapp.inr.news;
 
 import java.util.ArrayList;
+
+import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
-import mrhs.jamaapp.inr.main.Commons;
-import mrhs.jamaapp.inr.main.SdCardHandler;
+import mrhs.jamaapp.inr.SdCardHandler;
 
 import android.app.Activity;
 import android.content.Context;
@@ -135,7 +136,7 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 		TextView titleView = (TextView) convertView.findViewById(R.id.labelTitle);
 		TextView dateView = (TextView) convertView.findViewById(R.id.labelDate);
 		TextView sourceView = (TextView) convertView.findViewById(R.id.labelSource);
-		TextView typeView = (TextView) convertView.findViewById(R.id.labelType);
+		TextView typeView = (TextView) convertView.findViewById(R.id.labeltype);
 		
 		ImageView seenTag = (ImageView) convertView.findViewById(R.id.new_tag);
 		ImageView favoriteTag = (ImageView) convertView.findViewById(R.id.favorite_tag);
@@ -150,8 +151,10 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 			indexImgView.setImageResource(R.drawable.ic_launcher);
 		}
 		
-		if(showType)
-			typeView.setText(tabs[Integer.parseInt(typeList.get(position))]);			
+		if(showType){
+			typeView.setVisibility(View.VISIBLE);
+			typeView.setText(tabs[Integer.parseInt(typeList.get(position))]);
+		}
 		else
 			typeView.setVisibility(View.GONE);
 		

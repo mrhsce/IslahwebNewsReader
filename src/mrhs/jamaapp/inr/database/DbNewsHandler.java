@@ -6,7 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.Commons;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;
@@ -205,15 +205,20 @@ public class DbNewsHandler {
 	}
 	
 	public int deleteEntry(Integer id){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS,
+				new String[]{"bigImg","indexImg"},"id ="+id,null, null, null, null);
+		parent.sdHandler.deleteImage(cursor.getString(0));
+		parent.sdHandler.deleteImage(cursor.getString(1));
+		
 		return parent.db.delete(DatabaseHandler.TABLE_NEWS, "id = "+id, null);
 	}
 	
 	public int deleteEntry(String title,String jdate){
+		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS,
+				new String[]{"bigImg","indexImg"},"title='"+title+"' and jdate='"+jdate+"'",null, null, null, null);
+		parent.sdHandler.deleteImage(cursor.getString(0));
+		parent.sdHandler.deleteImage(cursor.getString(1));
 		return parent.db.delete(DatabaseHandler.TABLE_NEWS, "title='"+title+"' and jdate='"+jdate+"'", null);
-	}
-	
-	public int deleteEntry(String type){
-		return parent.db.delete(DatabaseHandler.TABLE_NEWS, "type='"+type+"'", null);
 	}
 	
 	public void deleteEntryBefore(Date date){

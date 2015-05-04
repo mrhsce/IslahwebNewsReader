@@ -3,7 +3,7 @@
     package="mrhs.jamaapp.inr"
     android:installLocation="preferExternal"
     android:versionCode="3"
-    android:versionName="0.6.5" >
+    android:versionName="0.6.9" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -11,8 +11,33 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- GCM connects to Internet Services. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- Creates a custom permission so only this app can receive its messages. -->
+    <permission
+        android:name="mrhs.jamaapp.inr.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="mrhs.jamaapp.inr.permission.C2D_MESSAGE" />
+
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <!-- Network State Permissions to detect Internet status -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Permission to vibrate -->
+    <uses-permission android:name="android.permission.VIBRATE" />  
+      
 
     <application
         android:allowBackup="true"
@@ -20,7 +45,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme">
         <activity
-            android:name="mrhs.jamaapp.inr.main.MainActivity"
+            android:name="mrhs.jamaapp.inr.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -74,7 +99,7 @@
             android:label="@string/title_activity_announce" >
         </activity>
         <activity
-            android:name="mrhs.jamaapp.inr.main.AboutUsActivity"
+            android:name="mrhs.jamaapp.inr.AboutUsActivity"         
             android:label="@string/title_activity_about_us" >
         </activity>
         <activity
@@ -85,6 +110,34 @@
             android:name="mrhs.jamaapp.inr.archive.ArchiveMainActivity"
             android:label="@string/title_activity_archive_main"
             android:screenOrientation="portrait" >
+        </activity>
+        
+        <!-- ********************************GCM****************************** -->
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+
+                <!-- Receives the actual messages. -->	
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="mrhs.jamaapp.inr" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="mrhs.jamaapp.inr.GCMIntentService" />
+
+        <activity
+            android:name="gcm.GcmTransparentDialogHandler"
+            android:launchMode="singleTop" 
+            android:label="@string/title_activity_gcm_transparent_dialogue_handler"
+            android:theme="@style/Theme.Transparent" >
+        </activity>
+        <activity
+            android:name="gcm.GCMForceUpdateActivity"
+            android:label="@string/title_activity_gcmforce_update" >
         </activity>
     </application>
 

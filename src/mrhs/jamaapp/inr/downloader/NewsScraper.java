@@ -9,7 +9,7 @@ import java.security.KeyStore;
 
 import javax.net.ssl.SSLSocketFactory;
 
-import mrhs.jamaapp.inr.main.Commons;
+import mrhs.jamaapp.inr.Commons;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -73,6 +73,7 @@ public class NewsScraper {
 				log("News "+typeList[type]+" Initial insert finished successfully");
 				}
 			}catch (IndexOutOfBoundsException e) {log("Problem in News News "+typeList[type]+" initial insert");}
+			catch (NumberFormatException e) {log("Problem in news initial insert");}
 		}
 	}
 	
