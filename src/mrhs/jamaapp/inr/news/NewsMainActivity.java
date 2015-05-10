@@ -36,8 +36,9 @@ public class NewsMainActivity extends FragmentActivity implements ActionBar.TabL
        
         // Adding Tabs
         for (String tab_name : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this)); // tab name is not visible
+            actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this)); // tab name is not visible            
         }
+        
         /**
          * on swiping the viewpager make respective tab selected
          * */

@@ -73,7 +73,8 @@ public class NewsFragment extends Fragment {
 					}
 					Intent intent = new Intent(getActivity(), NewsActivity.class);
 					intent.putExtras(bundle);
-					startActivity(intent);					
+					startActivity(intent);			
+					getActivity().overridePendingTransition(R.anim.pull_in_left, R.anim.push_main_out);
 					db.newsHandler.setSeen(cursor.getInt(0));
 				}
 				else

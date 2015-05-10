@@ -15,6 +15,6 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="تهیه شده در معاونت دانشجویی\nجماعت دعوت و اصلاح ایران\nشهر تهران\n\nversion: 0.6.9" />
+        android:text="تهیه شده در معاونت دانشجویی\nجماعت دعوت و اصلاح ایران\nشهر تهران\n\nversion: 0.7.5" />
 
 </RelativeLayout>

@@ -59,6 +59,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 					Intent intent = new Intent(AnnounceMainActivity.this, AnnounceActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
+					overridePendingTransition(R.anim.pull_in_left, R.anim.push_main_out);
 					db.anouncementHandler.setSeen(announceIdList.get(position));
 				}
 				else

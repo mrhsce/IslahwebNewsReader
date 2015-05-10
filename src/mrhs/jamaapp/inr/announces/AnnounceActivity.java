@@ -2,21 +2,19 @@ package mrhs.jamaapp.inr.announces;
 
 import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
-import mrhs.jamaapp.inr.R.layout;
-import mrhs.jamaapp.inr.R.menu;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +33,13 @@ public class AnnounceActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_announce);
+		
+		RelativeLayout mainLayout = (RelativeLayout)findViewById(R.id.mainLayout);
+		TranslateAnimation slide = new TranslateAnimation(500, 0, 0, 0);    	    
+		slide.setDuration(1000);
+		slide.setInterpolator(this,android.R.anim.decelerate_interpolator);
+	    slide.setFillAfter(true);   
+	    mainLayout.startAnimation(slide); 
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	    
@@ -116,7 +121,7 @@ public class AnnounceActivity extends Activity {
 			
 			break;
 		case android.R.id.home:
-			this.finish();
+			onBackPressed();
 			
 			break;
 		}
@@ -125,10 +130,11 @@ public class AnnounceActivity extends Activity {
 	}
 	
 	@Override
-	protected void onDestroy() {
+	public void onBackPressed() {
 		// TODO Auto-generated method stub
+		super.onBackPressed();
 		db.close();
-		super.onDestroy();
+		overridePendingTransition(R.anim.push_main_in,R.anim.pull_out_right);
 	}
 	
 	private void log(String message){

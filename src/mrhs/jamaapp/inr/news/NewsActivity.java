@@ -15,8 +15,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +38,15 @@ public class NewsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_news);
+		setContentView(R.layout.activity_news);		
+		
+		RelativeLayout mainLayout = (RelativeLayout)findViewById(R.id.mainLayout);
+		TranslateAnimation slide = new TranslateAnimation(500, 0, 0, 0);    	    
+		slide.setDuration(1000);
+		slide.setInterpolator(this,android.R.anim.decelerate_interpolator);
+	    slide.setFillAfter(true);   
+	    mainLayout.startAnimation(slide); 
+	    
 		log("onCreate");
 		getActionBar().setDisplayHomeAsUpEnabled(true);	    
 		
@@ -60,9 +70,8 @@ public class NewsActivity extends Activity {
 				// TODO Auto-generated method stub
 				
 			}
-		});	
-		
-	}
+		});			
+	}	
 	
 	private void settingUpAttributes(){		
 		
@@ -143,7 +152,7 @@ public class NewsActivity extends Activity {
 			
 			break;
 		case android.R.id.home:
-			this.finish();
+			onBackPressed();
 			
 			break;
 		}
@@ -152,10 +161,11 @@ public class NewsActivity extends Activity {
 	}
 	
 	@Override
-	protected void onDestroy() {
+	public void onBackPressed() {
 		// TODO Auto-generated method stub
+		super.onBackPressed();
 		db.close();
-		super.onDestroy();
+		overridePendingTransition(R.anim.push_main_in,R.anim.pull_out_right);
 	}
 	
 	private void log(String message){

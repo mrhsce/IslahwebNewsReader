@@ -64,6 +64,7 @@ public class InterviewMainActivity extends Activity {
 					Intent intent = new Intent(InterviewMainActivity.this, InterviewActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
+					overridePendingTransition(R.anim.pull_in_left, R.anim.push_main_out);
 					db.interviewHandler.setSeen(interviewIdList.get(position));
 				}
 				else

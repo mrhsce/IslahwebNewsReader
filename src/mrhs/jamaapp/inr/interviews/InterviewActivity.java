@@ -15,8 +15,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,13 @@ public class InterviewActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_interview);
+		
+		RelativeLayout mainLayout = (RelativeLayout)findViewById(R.id.mainLayout);
+		TranslateAnimation slide = new TranslateAnimation(500, 0, 0, 0);    	    
+		slide.setDuration(1000);
+		slide.setInterpolator(this,android.R.anim.decelerate_interpolator);
+	    slide.setFillAfter(true);   
+	    mainLayout.startAnimation(slide); 
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);	    
 		
@@ -143,7 +152,7 @@ public class InterviewActivity extends Activity {
 			
 			break;
 		case android.R.id.home:
-			this.finish();
+			onBackPressed();
 			
 			break;
 		}
@@ -152,10 +161,11 @@ public class InterviewActivity extends Activity {
 	}
 	
 	@Override
-	protected void onDestroy() {
+	public void onBackPressed() {
 		// TODO Auto-generated method stub
+		super.onBackPressed();
 		db.close();
-		super.onDestroy();
+		overridePendingTransition(R.anim.push_main_in,R.anim.pull_out_right);
 	}
 	
 	private void log(String message){

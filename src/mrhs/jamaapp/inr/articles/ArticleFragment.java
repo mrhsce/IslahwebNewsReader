@@ -77,6 +77,7 @@ public class ArticleFragment extends Fragment {
 					Intent intent = new Intent(getActivity(), ArticleActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
+					getActivity().overridePendingTransition(R.anim.pull_in_left, R.anim.push_main_out);
 					db.articleHandler.setSeen(articleIdList.get(position));
 				}
 				else

@@ -11,7 +11,7 @@
     android:layout_marginTop="5sp"
     android:layout_marginRight="5sp"
     android:paddingTop="5dp"
-    android:background="#ffffff"
+    android:background="@drawable/round_edges"
     android:paddingBottom="5dp"
     android:orientation="vertical"
     android:paddingLeft="5dp"
@@ -81,6 +81,8 @@
     android:layout_height="25dp"
     android:scaleType="fitXY"
     android:src="@drawable/crescent_true"
+    android:paddingTop="5dp"
+    android:paddingLeft="5dp"
     android:layout_alignParentTop="true"/>
 <TextView
     android:id="@+id/labelDate"
@@ -90,5 +92,6 @@
     android:text="1393/4/27"
     android:textColor="#654321"
     android:layout_marginLeft="10dp"
+    android:paddingBottom="5dp"
     android:textSize="10sp"/>
 </RelativeLayout>
