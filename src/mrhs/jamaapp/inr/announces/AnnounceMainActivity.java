@@ -111,11 +111,18 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		// TODO Auto-generated method stub
 		switch(item.getItemId()){
 		case android.R.id.home:
-			this.finish();
+			onBackPressed();
 			break;		
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		overridePendingTransition(R.anim.push_main_in,R.anim.pull_out_right);
 	}
 	
 	private void log(String message){

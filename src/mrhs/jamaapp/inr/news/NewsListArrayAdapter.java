@@ -6,7 +6,6 @@ import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.SdCardHandler;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -14,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,6 +36,8 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 	
 	private boolean showType;
 	private boolean inArchive;
+	
+	private Integer maxShownPosition = -1; // Used to indicate the last shown element in the list
 	
 	public NewsListArrayAdapter(Context ctx,ArrayList<Integer> newsIdList,boolean showtype,boolean inArchive,NewsFragment parent,SdCardHandler sd) {
 		// TODO Auto-generated constructor stub
@@ -180,6 +182,14 @@ public class NewsListArrayAdapter extends ArrayAdapter<Integer> {
 			favoriteTag.setVisibility(View.GONE);
 		}
 		
+		if(position > maxShownPosition){
+			maxShownPosition = position;
+			TranslateAnimation slide = new TranslateAnimation(0, 0,	400, 0);    	    
+			slide.setDuration(400);
+			slide.setInterpolator(context,android.R.anim.decelerate_interpolator);
+		    slide.setFillAfter(true);   
+		    convertView.startAnimation(slide); 
+		}
 		
 		return convertView;
 	}

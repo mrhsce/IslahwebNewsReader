@@ -83,8 +83,8 @@ public class InterviewActivity extends Activity {
 		writerView.setText(writer);
 		titleView = (TextView)findViewById(R.id.titleTxtView);
 		titleView.setText(title);
-		mainTextView = (TextView)findViewById(R.id.maintextTxtView);		
-		mainTextView.setText(Html.fromHtml(text));
+		mainTextView = (TextView)findViewById(R.id.maintextTxtView);
+		mainTextView.setText(text);
 		
 		Typeface mitraFont = Typeface.createFromAsset(getAssets(),"fonts/mitra.ttf");
 		Typeface titrFont = Typeface.createFromAsset(getAssets(),"fonts/TitrBold.ttf");

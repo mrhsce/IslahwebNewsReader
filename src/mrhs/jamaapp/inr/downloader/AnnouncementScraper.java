@@ -5,17 +5,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
+import android.text.Html;
 import android.util.Log;
 
 public class AnnouncementScraper {
@@ -53,7 +53,10 @@ public class AnnouncementScraper {
 		
 		String mainText = "";
 		try{
-			mainText = doc.select("div[class=inner] p").text();	
+			Elements elements = doc.select("div[class=inner] p");
+			for(Element element : elements){
+				mainText += Html.fromHtml(element.select("p").text())+"\n";
+			}
 			db.anouncementHandler.secondInsert(id, mainText);
 			log("Secondary insert finished successfully");
 		}catch (IndexOutOfBoundsException e) {log("Problem in announce Secondary insert");}

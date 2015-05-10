@@ -57,6 +57,7 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(MainActivity.this,NewsMainActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.pull_in_left, R.anim.push_main_out);
 			}
 		});		
 		
@@ -68,6 +69,7 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(MainActivity.this,ArticleMainActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.pull_in_left, R.anim.push_main_out);
 			}
 		});
 		
@@ -79,6 +81,7 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(MainActivity.this,InterviewMainActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.pull_in_left, R.anim.push_main_out);
 				
 			}
 		});
@@ -91,6 +94,7 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(MainActivity.this,AnnounceMainActivity.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.pull_in_left, R.anim.push_main_out);
 				
 			}
 		});
@@ -229,6 +233,7 @@ public class MainActivity extends Activity {
 		case R.id.action_archive:			
 			Intent intent = new Intent(MainActivity.this,ArchiveMainActivity.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.pull_in_down, R.anim.push_main_out);
 			break;
 //		case R.id.action_refresh:
 //			refresh

@@ -2,6 +2,7 @@ package mrhs.jamaapp.inr.articles;
 
 import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
+import mrhs.jamaapp.inr.news.NewsMainActivity;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -92,12 +93,19 @@ public class ArticleMainActivity extends FragmentActivity implements ActionBar.T
 		switch(item.getItemId()){
 		
 		case android.R.id.home:
-			this.finish();
+			onBackPressed();
 			
 			break;
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		overridePendingTransition(R.anim.push_main_in,R.anim.pull_out_right);
 	}
 	
 	private void log(String message){

@@ -1,17 +1,11 @@
 package mrhs.jamaapp.inr.archive;
 
 import mrhs.jamaapp.inr.Commons;
-import mrhs.jamaapp.inr.MainActivity;
 import mrhs.jamaapp.inr.R;
-import mrhs.jamaapp.inr.R.layout;
-import mrhs.jamaapp.inr.R.menu;
-import mrhs.jamaapp.inr.news.NewsTabPagerAdapter;
 import android.os.Bundle;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
-import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -98,7 +92,7 @@ public class ArchiveMainActivity extends FragmentActivity implements ActionBar.T
 		// TODO Auto-generated method stub
 		switch(item.getItemId()){
 		case android.R.id.home:
-			this.finish();
+			onBackPressed();
 			break;		
 		}
 		
@@ -113,7 +107,12 @@ public class ArchiveMainActivity extends FragmentActivity implements ActionBar.T
 		return true;
 	}
 	
-	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		overridePendingTransition(R.anim.push_main_in,R.anim.pull_out_up);
+	}
 	
 	private void log(String message){
 		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)

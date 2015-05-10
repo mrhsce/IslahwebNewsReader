@@ -92,13 +92,21 @@ public class NewsMainActivity extends FragmentActivity implements ActionBar.TabL
 		switch(item.getItemId()){
 		
 		case android.R.id.home:
-			this.finish();
+			onBackPressed();
 			
 			break;
 		}
 		
 		return true;
 	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		overridePendingTransition(R.anim.push_main_in,R.anim.pull_out_right);
+	}
+	
 	
 	private void log(String message){
 		if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)

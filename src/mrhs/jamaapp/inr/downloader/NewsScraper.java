@@ -26,9 +26,11 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import mrhs.jamaapp.inr.database.DatabaseHandler;
+import android.text.Html;
 import android.util.Log;
 
 public class NewsScraper {
@@ -85,7 +87,10 @@ public class NewsScraper {
 		
 		String mainText = "";
 		try{					
-			mainText = doc.select("div[class=inner] p").text();		
+			Elements elements = doc.select("div[class=inner] p");
+			for(Element element : elements){
+				mainText += Html.fromHtml(element.select("p").text())+"\n";
+			}		
 			db.newsHandler.secondInsert(id, mainText);
 			log("Secondary insert finished successfully");
 		}catch (IndexOutOfBoundsException e) {log("Problem in Islahnews Secondary insert");}

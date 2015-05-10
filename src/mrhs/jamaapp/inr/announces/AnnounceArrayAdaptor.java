@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +30,8 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	DatabaseHandler db;
 	
 	boolean inArchive;
+	
+	private Integer maxShownPosition = -1; // Used to indicate the last shown element in the list
 	
 	public AnnounceArrayAdaptor(Context ctx,ArrayList<Integer> articleIdList,boolean inArchive) {
 		// TODO Auto-generated constructor stub
@@ -121,6 +124,14 @@ private static final boolean LOCAL_SHOW_LOG = true;
 			favoriteTag.setVisibility(View.GONE);
 		}
 		
+		if(position > maxShownPosition){
+			maxShownPosition = position;
+			TranslateAnimation slide = new TranslateAnimation(0, 0,	400, 0);    	    
+			slide.setDuration(400);
+			slide.setInterpolator(this.parent,android.R.anim.decelerate_interpolator);
+		    slide.setFillAfter(true);   
+		    convertView.startAnimation(slide); 
+		}
 		
 		return convertView;
 	}

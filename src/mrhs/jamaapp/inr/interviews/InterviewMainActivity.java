@@ -6,6 +6,7 @@ import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.SdCardHandler;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
+import mrhs.jamaapp.inr.news.NewsMainActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -116,12 +117,19 @@ public class InterviewMainActivity extends Activity {
 		switch(item.getItemId()){
 		
 		case android.R.id.home:
-			this.finish();
+			onBackPressed();
 			
 			break;
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		overridePendingTransition(R.anim.push_main_in,R.anim.pull_out_right);
 	}
 	
 	private void log(String message){

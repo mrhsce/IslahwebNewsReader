@@ -31,39 +31,36 @@ public class ImageDownloader {
 	        	log("The bitmap is  null");
 
 			if(type.equals(Commons.NEWS)){
-				if(sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.NEWS+File.separator+Integer.toString(id)+
-						".jpg", img) && sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.NEWS+File.separator+
-						Integer.toString(id)+Commons.INDEX_PREFIX+".jpg", sd.getImageCenterCropped(img))){
+				if(sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.NEWS+File.separator+Integer.toString(id), img) && sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.NEWS+File.separator+
+						Integer.toString(id)+Commons.INDEX_PREFIX, sd.getImageCenterCropped(img))){
 					db.newsHandler.imgUpdate(id, Commons.APP_ROOT_DIRECTORY+File.separator+Commons.NEWS+
-							File.separator+Integer.toString(id)+Commons.INDEX_PREFIX+".jpg",
+							File.separator+Integer.toString(id)+Commons.INDEX_PREFIX,
 							Commons.INDEX_IMAGE);
 					db.newsHandler.imgUpdate(id, Commons.APP_ROOT_DIRECTORY+File.separator+Commons.NEWS+
-							File.separator+Integer.toString(id)+".jpg",
+							File.separator+Integer.toString(id),
 							Commons.BIG_IMAGE);
 				}
 			}
 			if(type.equals(Commons.ARTICLE)){
-				if(sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.ARTICLE+File.separator+Integer.toString(id)+
-						".jpg", img) && sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.ARTICLE+File.separator+
-						Integer.toString(id)+Commons.INDEX_PREFIX+".jpg", sd.getImageCenterCropped(img))){
+				if(sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.ARTICLE+File.separator+Integer.toString(id), img) && sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.ARTICLE+File.separator+
+						Integer.toString(id)+Commons.INDEX_PREFIX, sd.getImageCenterCropped(img))){
 					db.articleHandler.imgUpdate(id, Commons.APP_ROOT_DIRECTORY+File.separator+Commons.ARTICLE+
-							File.separator+Integer.toString(id)+Commons.INDEX_PREFIX+".jpg",
+							File.separator+Integer.toString(id)+Commons.INDEX_PREFIX,
 							Commons.INDEX_IMAGE);
 					db.articleHandler.imgUpdate(id, Commons.APP_ROOT_DIRECTORY+File.separator+Commons.ARTICLE+
-							File.separator+Integer.toString(id)+".jpg",
+							File.separator+Integer.toString(id),
 							Commons.BIG_IMAGE);
 				}
 				
 			}
 			if(type.equals(Commons.INTERVIEW)){
-				if(sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.INTERVIEW+File.separator+Integer.toString(id)+
-						".jpg", img) && sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.INTERVIEW+File.separator+
-						Integer.toString(id)+Commons.INDEX_PREFIX+".jpg", sd.getImageCenterCropped(img))){
+				if(sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.INTERVIEW+File.separator+Integer.toString(id), img) && sd.storeImage(Commons.APP_ROOT_DIRECTORY+File.separator+Commons.INTERVIEW+File.separator+
+						Integer.toString(id)+Commons.INDEX_PREFIX, sd.getImageCenterCropped(img))){
 					db.interviewHandler.imgUpdate(id, Commons.APP_ROOT_DIRECTORY+File.separator+Commons.INTERVIEW+
-							File.separator+Integer.toString(id)+Commons.INDEX_PREFIX+".jpg",
+							File.separator+Integer.toString(id)+Commons.INDEX_PREFIX,
 							Commons.INDEX_IMAGE);
 					db.interviewHandler.imgUpdate(id, Commons.APP_ROOT_DIRECTORY+File.separator+Commons.INTERVIEW+
-							File.separator+Integer.toString(id)+".jpg",
+							File.separator+Integer.toString(id),
 							Commons.BIG_IMAGE);
 				}
 			}

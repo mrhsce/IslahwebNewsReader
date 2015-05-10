@@ -12,10 +12,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
+import android.text.Html;
 import android.util.Log;
 
 public class ArticleScraper {
@@ -78,7 +80,10 @@ public class ArticleScraper {
 		
 		String mainText = "";
 		try{
-			mainText = doc.select("div[class=inner] p").text();		
+			Elements elements = doc.select("div[class=inner] p");
+			for(Element element : elements){
+				mainText += Html.fromHtml(element.select("p").text())+"\n";
+			}	
 			db.articleHandler.secondInsert(id, mainText);
 			log("Secondary insert finished successfully");
 		}catch (IndexOutOfBoundsException e) {log("Problem in article Secondary insert");}	
