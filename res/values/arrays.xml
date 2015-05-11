@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fragment_maramnameh_array">
+        <item>مدخل</item>
+        <item>رسالت جماعت</item>
+        <item>مرام نامه</item>
+        <item>اساسنامه-کلیات</item>
+        <item>اساسنامه-ارکان</item>
+        <item>اساسنامه-عضویت</item>
+        <item>اساسنامه-مالی</item>
+        <item>اساسنامه-انحلال</item>
+    </string-array>
+    <string-array name="fragment_roykard_array">
+        <item>مدخل</item>
+        <item>معنویت</item>
+        <item>شورا</item>
+        <item>حقوق بشر</item>
+        <item>آزادی</item>
+        <item>عدالت</item>
+        <item>نوگرایی</item>
+        <item>همبستگی</item>
+        <item>پرهیز از خشونت</item>
+    </string-array> 
+    <string-array name="fragment_member_array">
+        <item>عبدالرحمن پیرانی</item>
+        <item>سعدالدین صدیقی</item>
+        <item>محمدعلی آریانژاد</item>
+        <item>ستار آینه‌پور</item>
+        <item>محمدرسول ابوالمحمدی</item>
+        <item>مصطفی اربابی</item>
+        <item>مقداد پیرصاحب</item>
+        <item>حسین تیباش</item>
+        <item>یوسف جمالی</item>
+         <item>کشف‌الدین محمدیان</item>
+        <item>داوود نارویی</item>
+    </string-array>
+    
+</resources>

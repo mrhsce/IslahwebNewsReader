@@ -2,7 +2,6 @@ package mrhs.jamaapp.inr.aboutj;
 
 import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
-import mrhs.jamaapp.inr.articles.ArticleTabPagerAdapter;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -10,17 +9,20 @@ import android.app.ActionBar.Tab;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 @SuppressWarnings("deprecation")
-public class AboutJamaatMainActivity extends FragmentActivity implements ActionBar.TabListener {
+public class AboutJamaatMainActivity extends FragmentActivity implements ActionBar.TabListener{
 
 	private static final boolean LOCAL_SHOW_LOG = true;
 
 	private ViewPager viewPager;
-    private ArticleTabPagerAdapter mAdapter;
-    private ActionBar actionBar;
+    private AboutJTabPagerAdaptor mAdapter;
+    public ActionBar actionBar;
+    public Menu optionMenu;
     // Tab titles
-    private String[] tabs = {"ما کیستیم","مرام نامه", "رویکردها","اعضای شورای مرکزی"};
+    private String[] tabs = {"ما کیستیم","اساس نامه", "رویکردها","اعضای شورای مرکزی"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class AboutJamaatMainActivity extends FragmentActivity implements ActionB
 		log("Started");
         viewPager = (ViewPager) findViewById(R.id.article_pager);
         setupActionBar();    
-        mAdapter = new ArticleTabPagerAdapter(getSupportFragmentManager());
+        mAdapter = new AboutJTabPagerAdaptor(getSupportFragmentManager());
         viewPager.setAdapter(mAdapter);       
        
         // Adding Tabs
@@ -64,7 +66,9 @@ public class AboutJamaatMainActivity extends FragmentActivity implements ActionB
 	private void setupActionBar(){
 
         actionBar = getActionBar(); 
-        actionBar.setHomeButtonEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
+        // Hide the action bar title
+        actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	}
 
@@ -84,6 +88,30 @@ public class AboutJamaatMainActivity extends FragmentActivity implements ActionB
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		log("onCreateOptionMenu");
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.about_jamaat_main, menu);
+		optionMenu = menu;
+		menu.findItem(R.id.menu_spinner).setVisible(false);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()){
+		
+		case android.R.id.home:
+			onBackPressed();
+			
+			break;
+		}
+		
+		return true;
 	}
 	
 	private void log(String message){

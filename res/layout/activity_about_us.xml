@@ -10,11 +10,36 @@
     tools:context=".AboutUsActivity" >
 
     <TextView
-        android:layout_centerInParent="true"
+       	android:layout_alignParentTop="true"
+       	android:layout_centerHorizontal="true"
         android:textSize="30sp"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="تهیه شده در معاونت دانشجویی\nجماعت دعوت و اصلاح ایران\nشهر تهران\n\nversion: 0.7.5" />
+        android:text="تهیه شده در معاونت دانشجویی\nجماعت دعوت و اصلاح ایران\nشهر تهران\n\nversion: 0.7.9" />    
+    <TextView 
+        android:id="@+id/mrhsTextView"
+        android:layout_alignParentBottom="true"
+        android:textSize="35sp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#5B4042"
+        android:text="   	         MrHsCE"/>
+    <TextView 
+        android:id="@+id/powerTxt"
+        android:layout_above="@id/mrhsTextView"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#EA6153"
+        android:text="Powered by..."/>
+    <ImageView 
+        android:layout_above="@id/powerTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/androtech"/>
 
 </RelativeLayout>

@@ -117,14 +117,12 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(MainActivity.this,AboutJamaatMainActivity.class);
-				startActivity(intent);
+				//Intent intent = new Intent(MainActivity.this,AboutJamaatMainActivity.class);
+				//startActivity(intent);
 				
 			}
-		});
+		});		
 		
-		aboutJButton.setEnabled(false);
-		contactButton.setEnabled(false);
 		
 		aboutUsButton = (Button) findViewById(R.id.about_us_button);
 		aboutUsButton.setOnClickListener(new View.OnClickListener() {

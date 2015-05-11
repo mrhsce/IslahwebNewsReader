@@ -43,7 +43,7 @@
             android:layout_below="@id/topView"
             android:layout_centerHorizontal="true"
             android:text="اخبار خوب برای اهل سنت ایران"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
         <ImageView 
@@ -60,7 +60,7 @@
             android:layout_below="@id/indexImgView"
             android:layout_centerHorizontal="true"
             android:text="سایت عقیده"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>  
             

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<members>
+    <member name="عبدالرحمن پیرانی">
+        <father>محمد</father>
+        <birthday>۱۳۳۳/۷/۳</birthday>
+        <birthplace>کرمانشاه-روانسر</birthplace>
+        <livingplace>تهران-تهران</livingplace>
+        <job>آزاد </job>
+        <education>دانشجوی دکترای تخصصی شریعت گرایش حقوق </education>
+        <registrationDate>۱۳۵۷ </registrationDate>
+        <previousPosts>
+            <post>عضو مؤسس جماعت دعوت و اصلاح</post>
+            <post>مسؤول شهر روانسر</post>
+            <post>عضو شورای مرکزی در دوره‌های پیشین</post>
+            <post>دبیرکل جماعت در دوره‌های پیشین</post>
+        </previousPosts>
+        <currentPosts>
+            <post>دبیرکل جماعت و عضو کمیسیون تربیتی و کمیسیون علمای شورای مرکزی</post>
+        </currentPosts>
+        <otherActivities>
+            <activity>عضو مؤسس اتحادیه NGOهای دنیای اسلام</activity>
+            <activity>عضو شورای مرکزی اتحاد جهانی علمای مسلمین</activity>
+            <activity>تألیف و پژوهش و نیز همکاری در ترجمه قرآن کریم به فارسی</activity>
+            <activity>ارائه مقالات و سخنرانی در سمینارهای بین‌المللی و داخلی</activity>
+        </otherActivities>
+        <email>Pirani.ir@gmail.com</email>
+        <picture>pirani.jpg</picture>
+    </member>
+    
+    <member name="سعدالدین صدیقی">
+        <father>عبدالهادی</father>
+        <birthday>۱۳۴۷/۱۱/۱۸</birthday>
+        <birthplace>فارس-روستای کاریان، شهرستان لار</birthplace>
+        <livingplace>فارس-شیراز</livingplace>
+        <job>معاونت آموزشی معهد عالی جنوب </job>
+        <education>کارشناسی ارشد در رشته فقه و اصول دیپلم عالی علوم سیاسی</education>
+        <registrationDate>۱۳۶۸</registrationDate>
+        <previousPosts>
+            <post>مسؤول کمیته‌ی تربیتی استان</post>
+            <post>عضو شورای مرکزی در دو دوره‌ی قبلی</post>
+        </previousPosts>
+        <currentPosts>
+            <post>قائم مقام دبیرکل و عضو کمیسیون تربیتی شورای مرکزی</post>
+        </currentPosts>
+        <otherActivities>
+            <activity>عضو اتحادیه جهانی علمای مسلمین</activity>
+            <activity>فعالیت‌های اجتماعی و دعوی</activity>
+            <activity>مدرس دوره‌های عالی در مدارس علوم دینی جنوب</activity>
+            <activity>پژوهش و تألیف مقاله</activity>
+        </otherActivities>
+        <email>sidighi77@yahoo.com</email>
+        <picture>seddiqi.jpg</picture>
+    </member>
+    
+    <member name="محمدعلی آریانژاد">
+        <father>نورمحمد</father>
+        <birthday>۱۳۳۸/۰۷/۲۸</birthday>
+        <birthplace>سیستان و بلوچستان-زاهدان</birthplace>
+        <livingplace>خراسان جنوبی-بیرجند</livingplace>
+        <job>آزاد - عمران و دامداری </job>
+        <education>کارشناسی فیزیک </education>
+        <registrationDate>۱۳۸۰</registrationDate>
+        <previousPosts>
+            <post>عضویت در کمیته‌ی تربیتی استان خراسان</post>
+            <post>عضویت در شورای مرکزی جماعت</post>
+        </previousPosts>
+        <currentPosts>
+            <post>عضو کمیسیون اجتماعی شورای مرکزی</post>
+        </currentPosts>
+        <otherActivities>
+            <activity>فعالیت‌های دینی و دعوی</activity>
+            <activity>ترجمه‌ی چند جلد کتاب از جمله فهم صحیح سنت، هجرت دو یار، مردی که خود را خرید، تحقیقی پیرامون اجتهاد ائمه و ...</activity>
+        </otherActivities>
+        <email>mo_al_ar@yahoo.com</email>
+        <picture>aryanejad.jpg</picture>
+    </member>
+    
+    <member name="ستار آینه‌پور">
+        <father>احمد</father>
+        <birthday>۱۳۵۳/۰۶/۲۰</birthday>
+        <birthplace>کرمانشاه-سرپل ذهاب</birthplace>
+        <livingplace>کرمانشاه-کرمانشاه</livingplace>
+        <job>معلم</job>
+        <education>دکترای تخصصی تاریخ و تمدن ملل اسلامی</education>
+        <registrationDate>۱۳۸۰</registrationDate>
+        <previousPosts>
+            <post>عضو کمیسیون برنامه‌ریزی و آموزش منهج تربیتی</post>
+            <post>مسؤول هیئت اجرایی شهر</post>
+            <post>عضو شورای مرکزی جماعت در دوره دوم</post>
+        </previousPosts>
+        <currentPosts>
+            <post>عضو کمیسیون تربیتی شورای مرکزی </post>
+        </currentPosts>
+        <otherActivities>
+            <activity>ترجمه‌ی جند کتاب از جمله روزنه‌ای به سوی روشنایی، زندگی امام غزالی و آثار و افکار او</activity>
+            <activity>فعالیت‌های تربیتی و دعوی</activity>
+        </otherActivities>
+        <email>ayenehpor@yahoo.com</email>
+        <picture>ayenepour.jpg</picture>
+    </member>
+    
+    <member name="محمدرسول ابوالمحمدی">
+        <father>کریم</father>
+        <birthday>۱۳۴۹/۰۴/۰۹</birthday>
+        <birthplace>کردستان-سقز</birthplace>
+        <livingplace>کردستان-سقز</livingplace>
+        <job>مدرس مدارس علوم دینی شهر، مدرس دانشگاه و خطیب </job>
+        <education>کارشناسی ارشد رشته فقه شافعی</education>
+        <registrationDate>۱۳۷۷</registrationDate>
+        <previousPosts>
+            <post>عضو کمیته مرکزی علماء و طلاب علوم دینی جماعت</post>
+            <post>مسؤول کمیته علمای شهر</post>
+            <post>عضو هیئت افتای استان کردستان، مسؤول کمیسیون افتاء و پژوهش استان</post>
+        </previousPosts>
+        <currentPosts>
+            <post>عضو کمیسیون اجتماعی شورای مرکزی جماعت</post>
+        </currentPosts>
+        <otherActivities>
+            <activity>مدرس مدرسه علوم دینی</activity>
+            <activity>مدرس دانشگاه</activity>
+            <activity>امام جماعت</activity>
+            <activity>خطیب</activity>
+            <activity>ارائه‌ی ۱۰ مقاله در کنگره‌ها و سمینارها</activity>
+        </otherActivities>
+        <email>rasoul.saqez@gmail.com</email>
+        <picture>abulmohammadi.jpg</picture>
+    </member>
+    
+    <member name="مصطفی اربابی">
+        <father>حسام‌الدین</father>
+        <birthday>۱۳۲۹/۰۷/۱۵</birthday>
+        <birthplace>خراسان رضوی-روستای سمیع‌آباد شهرستان تربت‌جام</birthplace>
+        <livingplace>خراسان رضوی-تربت‌جام</livingplace>
+        <job>سردفتر ازدواج</job>
+        <education>سطح ۲ حوزوی </education>
+        <registrationDate>۱۳۶۵</registrationDate>
+        <previousPosts>
+            <post>عضو شورای مرکزی جماعت در دوره‌های پیشین</post>
+        </previousPosts>
+        <currentPosts>
+            <post>عضو کمیسیون اداری شورای مرکزی جماعت</post>
+        </currentPosts>
+        <otherActivities>
+            <activity>سرپرستی دارالتحفیظ امام ابوحنیفه تربت‌جام</activity>
+            <activity>ایراد خطابه در نمازهای جمعه در منطقه</activity>
+            <activity>تألیفات و ترجمه‌های متعددی از جمله الرسول، زندگی امام حسن البنا، مجموعه رسایل امام حسن البنا، آمریکا از دیدگاه سیدقطب، سعادت دو جهان و ...</activity>
+       	</otherActivities>
+        <email>mostafa.arba@yahoo.com</email>
+        <picture>arbabi.jpg</picture>
+    </member>
+    
+    <member name="مقداد پیرصاحب">
+        <father>محمدسعید</father>
+        <birthday>۱۳۴۵/۰۹/۰۹</birthday>
+        <birthplace>کرمانشاه-پاوه</birthplace>
+        <livingplace>کرمانشاه-کرمانشاه</livingplace>
+        <job>استاد دانشگاه علوم پزشکی کرمانشاه</job>
+        <education>دکترای تخصصی بهداشت محیط </education>
+        <registrationDate>۱۳۶۴</registrationDate>
+        <previousPosts>
+            <post>مسؤولیت در بخش دانشجویی جماعت</post>
+            <post>مسؤول اداری جماعت در دوره‌های قبل</post>
+        </previousPosts>
+        <currentPosts>
+            <post>مسؤول اداری جماعت</post>
+        </currentPosts>
+        <otherActivities>
+            <activity>چاپ بیش از ۳۰ مقاله علمی</activity>
+            <activity>حضور در چندین کنفرانس و همایش ملی و بین‌المللی</activity>
+            <activity>تدریس در دانشگاه علوم پزشکی کرمانشاه</activity>
+            <activity>عضویت در چند انجمن علمی - تحقیقاتی</activity>
+        </otherActivities>
+        <email> mpirsaheb@yahoo.com</email>
+        <picture>pirsaheb.jpg</picture>
+    </member>
+    
+    <member name="حسین تیباش">
+        <father>ملاحسن</father>
+        <birthday>۱۳۴۶/۱۲/۲۰</birthday>
+        <birthplace>آذربایجان غربی-روستای سورکان شهر سیلوانه</birthplace>
+        <livingplace>آذربایجان غربی-ارومیه</livingplace>
+        <job> امام جمعه و سردفتر ازدواج و طلاق</job>
+        <education>دانشجوی کارشناسی ارشد الهیات گرایش فقه و مبانی حقوق</education>
+        <registrationDate>۱۳۶۸</registrationDate>
+        <previousPosts>
+            <post>مسؤول مالی و تربیتی شهر و استان</post>
+            <post>مسؤول هیئت اجرایی شهر ارومیه</post>
+        </previousPosts>
+        <currentPosts>
+            <post>عضو کمیسیون اجتماعی شورای مرکزی</post>
+        </currentPosts>
+        <otherActivities>
+            <activity>ترجمه چند جلد کتاب از جمله الإستیعاب، الإسلام والجنس و...</activity>
+            <activity>فعالیت‌های اجتماعی</activity>
+            <activity>تدریس در مدارس علوم دینی</activity>
+            <activity>امام جمعه مسجد خاتم النبیین خانقاه شهرک شهریار</activity>
+        </otherActivities>
+        <email>benar.ht46@yahoo.com</email>
+        <picture>tibash.jpg</picture>
+    </member>
+    
+    <member name="یوسف جمالی">
+        <father>احمد</father>
+        <birthday>۱۳۵۳/۵/۱</birthday>
+        <birthplace>هرمزگان-بندرعباس</birthplace>
+        <livingplace>هرمزگان-بندرعباس</livingplace>
+        <job>مدرس دوره عالی علوم دینی بندرعباس ،استاد دانشگاه پیام نور بندرعباس</job>
+        <education>کارشناسی ارشد فقه و اصول </education>
+        <registrationDate>۱۳۷۵</registrationDate>
+        <previousPosts>
+            <post>عضو هیئت اجرایی استان هرمزگان</post>
+            <post>عضو شورای مرکزی در دوره‌های قبل</post>
+        </previousPosts>
+        <currentPosts>
+            <post>عضو کمیسیون اجتماعی شورای مرکزی</post>
+        </currentPosts>
+        <otherActivities>
+            <activity>نماینده هیئت فتوای اهل سنت جنوب در بندرعباس</activity>
+            <activity>خطیب نماز جمعه</activity>
+            <activity>مدیر سایت هیئت فتوای اهل سنت جنوب</activity>
+            <activity>تألیف کتاب احکام شیرخوارگی در اسلام</activity>
+            <activity>تصحیح و تنظیم کتاب عقیده نسفی</activity>
+        </otherActivities>
+        <email> yjamaliq2010@yahoo.com</email>
+        <picture>jamali.jpg</picture>
+    </member>
+    
+    <member name="کشف‌الدین محمدیان">
+        <father>هلال</father>
+        <birthday>۱۳۳۹/۱۲/۰۱</birthday>
+        <birthplace>گیلان-تالش</birthplace>
+        <livingplace>گیلان-تالش</livingplace>
+        <job>مدرس حوزه، سردفتر ازدواج و طلاق </job>
+        <education>سطح ۳ حوزه در رشته فقه و اصول</education>
+        <registrationDate>۱۳۶۳</registrationDate>
+        <previousPosts>
+            <post>مسؤولیت کمیته‌ی مالی شهرستان</post>
+            <post>مسؤول کمیته علماء استان</post>
+            <post>مسؤول هیئت اجرایی استان گیلان - اردبیل</post>
+            <post>عضو هیئت مدیره مؤسسه خیریه محسنین تالش</post>
+            <post>عضو شورای مدیریت حوزه علمیه محمدیه تالش</post>
+        </previousPosts>
+        <currentPosts>
+            <post>عضو کمیسیون اجتماعی</post>
+        </currentPosts>
+        <otherActivities>
+            <activity>امام جماعت و خطیب نماز جمعه، مدرس حوزه علمیه محمدیه، سردفتر ازدواج و طلاق، امام جمعه مسجد فاروق اعظم (رض)، عضویت هیئت میدره مؤسسه خیریه محسنین تالش</activity>
+        </otherActivities>
+        <email> KashfaddinMohammadi@yahoo.com</email>
+        <picture>mohammadian.jpg</picture>
+    </member>
+    
+    <member name="داوود نارویی">
+        <father>گل بیک</father>
+        <birthday>۱۳۵۹/۰۵/۰۱</birthday>
+        <birthplace>سیستان و بلوچستان-زاهدان</birthplace>
+        <livingplace>تهران-تهران</livingplace>
+        <job>نویسنده و مترجم </job>
+        <education>سطح دو حوزه در رشته فقه و اصول</education>
+        <registrationDate>۱۳۷۵</registrationDate>
+        <previousPosts>
+            <post>مسؤول هیئت اجرایی شهر</post>
+            <post>عضو ستاد اداری</post>
+        </previousPosts>
+        <currentPosts>
+            <post>دبیر و عضو کمیسیون اجتماعی شورای مرکزی</post>
+        </currentPosts>
+        <otherActivities>
+            <activity>تألیف و ترجمه بیش از ۱۰ عنوان کتاب از جمله رسول خاتم، شرحی بر گزیده صحیح مسلم، نگرشی نو در فهم قرآن، نگرشی نو در فهم احادیث نبوی و ...</activity>
+            <activity>ویراستاری</activity>
+        </otherActivities>
+        <email>daoudnarouei@yahoo.com</email>
+        <picture>narooei.jpg</picture>
+    </member>
+    
+    
+    
+</members>
