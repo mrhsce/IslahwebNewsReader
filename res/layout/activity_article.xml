@@ -72,11 +72,25 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content">
             <Button android:id="@+id/pageLinkButton"
-                android:text="مشاهده این صفحه در وبسایت"
+                android:text="مشاهده در وبسایت"
 				android:layout_alignParentRight="true"
                 android:textSize="12sp"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
+                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:background="@drawable/button_background"/>
+            <Button 
+                android:id="@+id/shareButton"
+                android:layout_alignParentLeft="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/share_button"/>
+            <Button 
+                android:id="@+id/copyButton"
+				android:layout_toRightOf="@id/shareButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"            
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/copy_button"/>
             
         </RelativeLayout>
 

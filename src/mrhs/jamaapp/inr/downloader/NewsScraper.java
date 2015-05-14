@@ -5,25 +5,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.security.KeyStore;
 
-import javax.net.ssl.SSLSocketFactory;
 
 import mrhs.jamaapp.inr.Commons;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.PlainSocketFactory;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -69,7 +57,7 @@ public class NewsScraper {
 				
 				//log("The imgAddr is: "+imgAddress);
 				links.get(i).select("td a").get(indexList[type]).remove();
-				String source = links.get(i).select("td").get(indexList[type]).text();					
+				String source = links.get(i).select("td").get(indexList[type]).text().replace(")", "").replace("(", "");
 				//log("The source is: "+source);
 				db.newsHandler.initialInsert(title, jDate, indexImgAddr, imgAddress, source, typeList[type], pageLink);
 				log("News "+typeList[type]+" Initial insert finished successfully");

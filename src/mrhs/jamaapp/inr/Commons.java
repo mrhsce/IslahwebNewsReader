@@ -7,7 +7,7 @@ public interface Commons {
 	
 	// Related to the database
 	final String DATABASE_NAME = "islahwebdb";
-	final Integer DATABASE_VERSION = 29;	
+	final Integer DATABASE_VERSION = 31;	
 		
 	
 	// Related to sdcard

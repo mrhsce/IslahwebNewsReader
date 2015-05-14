@@ -1,8 +1,11 @@
 package mrhs.jamaapp.inr.articles;
 
+import java.io.UnsupportedEncodingException;
+
 import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.SdCardHandler;
+import mrhs.jamaapp.inr.TextManager;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,7 +13,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,13 +29,14 @@ public class ArticleActivity extends Activity {
 	
 	String title,jDate,writer,type,pageLink,text,indexImgAddr,bigImgAddr;
 	TextView dateView,writerView,titleView,mainTextView;
-	Button pageLinkButton;
+	Button pageLinkButton,ShareButton,copyButton;
 	ImageView indexImgView;
 	boolean archived;
 	Integer id;
 	
 	DatabaseHandler db;
 	SdCardHandler sdHandler;
+	TextManager txtMgr;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class ArticleActivity extends Activity {
 		
 		db = new DatabaseHandler(this).open();
 		sdHandler = new SdCardHandler();
+		txtMgr = new TextManager(this);
 		settingUpAttributes();
 		pageLinkButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -69,7 +73,35 @@ public class ArticleActivity extends Activity {
 				// TODO Auto-generated method stub
 				
 			}
-		});		
+		});	
+		
+		copyButton = (Button) findViewById(R.id.copyButton);
+		copyButton.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				try {
+					txtMgr.copyCompleteTextToClipboard("خبر",title,writer,jDate,pageLink,text);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		ShareButton = (Button) findViewById(R.id.shareButton);
+		ShareButton.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				try {
+					txtMgr.shareShortText("مقاله",title,writer,jDate,pageLink);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		
 	}
 	

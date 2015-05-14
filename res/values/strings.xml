@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">اصلاح خوان</string>
+    <string name="app_name">خبرخوان اصلاح وب</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_news_main">همه ی اخبار</string>
@@ -12,10 +12,10 @@
     <string name="title_activity_interview">مصاحبه</string>
     <string name="title_activity_announce_main">بیانیه های اخیر</string>
     <string name="title_activity_announce">بیانیه</string>
-    <string name="title_activity_about_us">درباره ما</string>
+    <string name="title_activity_about_us">درباره برنامه</string>
     <string name="title_activity_about_jamaat_main">درباره جماعت</string>
     <string name="title_activity_archive_main">آرشیو</string>
-    <string name="listview_empty_hint">آرشیو خالی است مطالب مورد علاقه خود را با لمس کردن آیکون ماه بالای صفحه به آرشیو بیافزایید</string>
+    <string name="listview_empty_hint">آرشیو خالی است مطالب مورد علاقه خود را با لمس کردن آیکون ستاره بالای صفحه به آرشیو بیافزایید</string>
 
     <string name="gcm_registered">From GCM: device successfully registered!</string>
     <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>

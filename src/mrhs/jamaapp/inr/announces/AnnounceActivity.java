@@ -1,7 +1,10 @@
 package mrhs.jamaapp.inr.announces;
 
+import java.io.UnsupportedEncodingException;
+
 import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
+import mrhs.jamaapp.inr.TextManager;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,11 +26,12 @@ public class AnnounceActivity extends Activity {
 	
 	String title,jDate,pageLink,text;
 	TextView dateView,titleView,mainTextView;
-	Button pageLinkButton;
+	Button pageLinkButton,ShareButton,copyButton;
 	boolean archived;
 	Integer id;
 	
 	DatabaseHandler db;
+	TextManager txtMgr;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class AnnounceActivity extends Activity {
 	    
 		settingUpAttributes();
 		db = new DatabaseHandler(this).open();
+		txtMgr = new TextManager(this);
 		pageLinkButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -52,6 +57,34 @@ public class AnnounceActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent browserIntent=new Intent(Intent.ACTION_VIEW,Uri.parse(pageLink));
 				startActivity(browserIntent);
+			}
+		});
+		
+		copyButton = (Button) findViewById(R.id.copyButton);
+		copyButton.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				try {
+					txtMgr.copyCompleteTextToClipboard("خبر",title,"خبرگزاری اصلاح",jDate,pageLink,text);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		ShareButton = (Button) findViewById(R.id.shareButton);
+		ShareButton.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				try {
+					txtMgr.shareShortText("بیانیه",title,"خبرگزاری اصلاح",jDate,pageLink);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 						

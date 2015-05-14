@@ -47,6 +47,7 @@
     android:fontFamily="bold"
     android:gravity="right"    
     android:textColor="#1b1b1b"
+    android:paddingRight="5dp"
     android:text="اتفاق خوب برای اهل سنت ایران"    
     android:textSize="17sp" />
 

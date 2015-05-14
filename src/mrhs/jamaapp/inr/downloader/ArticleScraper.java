@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Jsoup;
@@ -55,7 +53,7 @@ public class ArticleScraper {
 				String imgAddress = indexImgAddr.replace("200x200", "700x700");	
 				
 				links.get(i).select("td a").get(1).remove();
-				String writer = links.get(i).select("td").get(1).text();	
+				String writer = links.get(i).select("td").get(1).text().replace(")", "").replace("(", "");
 				//log("The writer is: "+writer);
 				String indexTxt = "";
 				if(j==0)

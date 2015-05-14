@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 	// Asyntask for GCM
 	 	AsyncTask<Void, Void, Void> mRegisterTask;
 	
-	Button newsButton,announceButton,interviewButton,articleButton,contactButton,aboutJButton,aboutUsButton;
+	Button newsButton,announceButton,interviewButton,articleButton,aboutJButton,aboutUsButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,20 +109,7 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 				
 			}
-		});
-		
-		contactButton = (Button) findViewById(R.id.contact_jamaat_button);
-		contactButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				//Intent intent = new Intent(MainActivity.this,AboutJamaatMainActivity.class);
-				//startActivity(intent);
-				
-			}
 		});		
-		
 		
 		aboutUsButton = (Button) findViewById(R.id.about_us_button);
 		aboutUsButton.setOnClickListener(new View.OnClickListener() {
@@ -137,22 +124,20 @@ public class MainActivity extends Activity {
 		});
 		//aboutUsButton.setEnabled(false);
 		
-		Typeface titrFont = Typeface.createFromAsset(getAssets(),"fonts/TitrBold.ttf");
-		newsButton.setTypeface(titrFont);
-		articleButton.setTypeface(titrFont);
-		announceButton.setTypeface(titrFont);
-		interviewButton.setTypeface(titrFont);
-		aboutJButton.setTypeface(titrFont);
-		contactButton.setTypeface(titrFont);
-		aboutUsButton.setTypeface(titrFont);
+		Typeface adobeFont = Typeface.createFromAsset(getAssets(),"fonts/adobe_arabic_bold.otf");
+		newsButton.setTypeface(adobeFont);
+		articleButton.setTypeface(adobeFont);
+		announceButton.setTypeface(adobeFont);
+		interviewButton.setTypeface(adobeFont);
+		aboutJButton.setTypeface(adobeFont);
+		aboutUsButton.setTypeface(adobeFont);
 		
-		newsButton.setTextSize(22);
-		articleButton.setTextSize(22);
-		announceButton.setTextSize(22);
-		interviewButton.setTextSize(22);
-		aboutJButton.setTextSize(22);
-		contactButton.setTextSize(22);
-		aboutUsButton.setTextSize(22);
+		newsButton.setTextSize(26);
+		articleButton.setTextSize(26);
+		announceButton.setTextSize(26);
+		interviewButton.setTextSize(26);
+		aboutJButton.setTextSize(26);
+		aboutUsButton.setTextSize(26);
 	}	
 	
 	public void setUpGCM(){

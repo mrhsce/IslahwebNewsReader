@@ -3,14 +3,21 @@ package mrhs.jamaapp.inr;
 import mrhs.jamaapp.inr.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.view.Menu;
+import android.widget.TextView;
 
 public class AboutUsActivity extends Activity {
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about_us);
+		Typeface titr = Typeface.createFromAsset(getAssets(),"fonts/TitrBold.ttf");
+		((TextView)findViewById(R.id.txtView1)).setTypeface(titr);
+		((TextView)findViewById(R.id.txtView2)).setTypeface(titr);
+		((TextView)findViewById(R.id.txtView3)).setTypeface(titr);
 	}	
 
 	@Override

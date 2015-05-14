@@ -1,8 +1,11 @@
 package mrhs.jamaapp.inr.news;
 
+import java.io.UnsupportedEncodingException;
+
 import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.SdCardHandler;
+import mrhs.jamaapp.inr.TextManager;
 import mrhs.jamaapp.inr.database.DatabaseHandler;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,13 +29,14 @@ public class NewsActivity extends Activity {
 
 	String title,jDate,source,type,pageLink,text,indexImgAddr,bigImgAddr;
 	TextView dateView,sourceView,titleView,mainTextView;
-	Button pageLinkButton;
+	Button pageLinkButton,ShareButton,copyButton;
 	ImageView indexImgView;
 	boolean archived;
 	Integer id;
 	
 	DatabaseHandler db;
 	SdCardHandler sdHandler;
+	TextManager txtMgr;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,7 @@ public class NewsActivity extends Activity {
 		
 		db = new DatabaseHandler(this).open();
 		sdHandler = new SdCardHandler();
+		txtMgr = new TextManager(this);
 		settingUpAttributes();
 		pageLinkButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -69,7 +74,35 @@ public class NewsActivity extends Activity {
 				// TODO Auto-generated method stub
 				
 			}
-		});			
+		});
+		
+		copyButton = (Button) findViewById(R.id.copyButton);
+		copyButton.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				try {
+					txtMgr.copyCompleteTextToClipboard("خبر",title,source,jDate,pageLink,text);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		ShareButton = (Button) findViewById(R.id.shareButton);
+		ShareButton.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				try {
+					txtMgr.shareShortText("خبر",title,source,jDate,pageLink);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}	
 	
 	private void settingUpAttributes(){		

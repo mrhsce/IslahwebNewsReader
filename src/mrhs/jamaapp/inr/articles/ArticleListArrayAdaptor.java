@@ -6,7 +6,6 @@ import mrhs.jamaapp.inr.Commons;
 import mrhs.jamaapp.inr.R;
 import mrhs.jamaapp.inr.SdCardHandler;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -170,7 +169,7 @@ private static final boolean LOCAL_SHOW_LOG = true;
 		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)linearLayout.getLayoutParams();		   
 		if(seenList.get(position)==0){
 			seenTag.setVisibility(View.VISIBLE);
-			params.setMargins(7, 7, 0, 0);
+			params.setMargins(10, 7, 0, 0);
 		}
 		else{
 			seenTag.setVisibility(View.GONE);

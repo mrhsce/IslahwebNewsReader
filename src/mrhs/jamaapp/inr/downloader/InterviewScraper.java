@@ -47,7 +47,7 @@ public class InterviewScraper {
 				log("The indexImgAddr is: "+indexImgAddr);
 				String imgAddress = indexImgAddr;	
 				
-				String writer = links.get(i).select("div[class=content clearfix] a").text();	
+				String writer = links.get(i).select("div[class=content clearfix] a").text().replace(")", "").replace("(", "");
 				//log("The writer is: "+writer);
 				String indexTxt = links.get(i).select("div[class=content clearfix] p").text();
 				//log("The indexTxt is: "+indexTxt);
