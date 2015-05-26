@@ -16,28 +16,19 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:src="@drawable/islah_logo"
-        android:layout_marginBottom="15dp"/>
-    <TextView
-        android:id="@+id/txtView1"
-        android:layout_below="@id/islahLogo"
-       	android:layout_centerHorizontal="true"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="تهیه شده در معاونت دانشجویی"
-        android:layout_marginBottom="15dp" /> 
+        android:layout_marginBottom="15dp"/> 
     
     <TextView
         android:id="@+id/versionTxtView"
-        android:layout_below="@id/txtView1"
-       	android:layout_centerHorizontal="true"
-        android:textSize="12sp"
-        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="version: 0.8.0"
-        android:layout_marginBottom="15dp" />  
+        android:layout_below="@id/islahLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="version: 0.8.2"
+        android:textSize="12sp" />
+  
     <TextView
         android:id="@+id/txtView2"
         android:layout_below="@id/versionTxtView"
@@ -62,8 +53,9 @@
         android:id="@+id/androtechLogo"
         android:layout_below="@id/txtView3"
         android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:src="@drawable/androtech"/>      
              

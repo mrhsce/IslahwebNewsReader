@@ -12,7 +12,7 @@ import android.database.Cursor;
 import android.util.Log;
 
 public class DbNewsHandler {
-	private static final boolean LOCAL_SHOW_LOG = true;
+	private static final boolean LOCAL_SHOW_LOG = false;
 	
 	private DatabaseHandler parent;
 	 	
@@ -23,7 +23,9 @@ public class DbNewsHandler {
 	
 	public boolean initialInsert(String title,String jDate,String indexImgAddr,String imgAddress,
 			String source,String type,String pageLink){
+		log("Start inserting");
 		while(reachesLimitation(type)){
+				log("one deletion");
 				deleteOldestNonArchived(type);
 			}
 			log("before gdate");
@@ -200,24 +202,33 @@ public class DbNewsHandler {
 	
 	public void deleteOldestNonArchived(String type){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS, new String[]{"id"},"archived = 0 and type='"+type+"'",null, null, null, "gdate asc");
-		if(cursor.moveToFirst())
+		if(cursor.moveToFirst()){
+			log("deleting "+cursor.getInt(0));
 			deleteEntry(cursor.getInt(0));
+		}
 	}
 	
 	public int deleteEntry(Integer id){
+		log("Delete entry started");
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS,
 				new String[]{"bigImg","indexImg"},"id ="+id,null, null, null, null);
-		parent.sdHandler.deleteImage(cursor.getString(0));
-		parent.sdHandler.deleteImage(cursor.getString(1));
-		
+		if(cursor.moveToFirst()){			
+			log("Deleting image at "+cursor.getString(0));
+			parent.sdHandler.deleteImage(cursor.getString(0));
+			log("Deleting image at "+cursor.getString(1));
+			parent.sdHandler.deleteImage(cursor.getString(1));
+			log("Images deleted");
+		}		
 		return parent.db.delete(DatabaseHandler.TABLE_NEWS, "id = "+id, null);
 	}
 	
 	public int deleteEntry(String title,String jdate){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_NEWS,
 				new String[]{"bigImg","indexImg"},"title='"+title+"' and jdate='"+jdate+"'",null, null, null, null);
-		parent.sdHandler.deleteImage(cursor.getString(0));
-		parent.sdHandler.deleteImage(cursor.getString(1));
+		if(cursor.moveToFirst()){	
+			parent.sdHandler.deleteImage(cursor.getString(0));
+			parent.sdHandler.deleteImage(cursor.getString(1));
+		}
 		return parent.db.delete(DatabaseHandler.TABLE_NEWS, "title='"+title+"' and jdate='"+jdate+"'", null);
 	}
 	

@@ -209,17 +209,20 @@ private static final boolean LOCAL_SHOW_LOG = true;
 	public int deleteEntry(Integer id){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE,
 				new String[]{"bigImg","indexImg"},"id ="+id,null, null, null, null);
-		parent.sdHandler.deleteImage(cursor.getString(0));
-		parent.sdHandler.deleteImage(cursor.getString(1));
-		
+		if(cursor.moveToFirst()){	
+			parent.sdHandler.deleteImage(cursor.getString(0));
+			parent.sdHandler.deleteImage(cursor.getString(1));
+		}
 		return parent.db.delete(DatabaseHandler.TABLE_ARTICLE, "id = "+id, null);
 	}
 	
 	public int deleteEntry(String title,String jdate){
 		Cursor cursor = parent.db.query(DatabaseHandler.TABLE_ARTICLE,
 				new String[]{"bigImg","indexImg"},"title='"+title+"' and jdate='"+jdate+"'",null, null, null, null);
-		parent.sdHandler.deleteImage(cursor.getString(0));
-		parent.sdHandler.deleteImage(cursor.getString(1));
+		if(cursor.moveToFirst()){	
+			parent.sdHandler.deleteImage(cursor.getString(0));
+			parent.sdHandler.deleteImage(cursor.getString(1));
+		}
 		return parent.db.delete(DatabaseHandler.TABLE_ARTICLE, "title='"+title+"' and jdate='"+jdate+"'", null);
 	}
 	

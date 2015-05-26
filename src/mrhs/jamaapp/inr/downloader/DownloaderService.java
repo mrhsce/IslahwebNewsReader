@@ -16,7 +16,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 public class DownloaderService extends Service {
-	private static final boolean LOCAL_SHOW_LOG = false;
+	private static final boolean LOCAL_SHOW_LOG = true;
 	
 	public boolean secondaryRemains = true;
 	public boolean imageRemains = true;

@@ -44,10 +44,10 @@ public class NewsScraper {
 				log("The jDate is: "+jDate);
 				if(db.newsHandler.exists(title, jDate)) break;
 				String pageLink = "http://m.islahweb.org"+links.get(i).select("td a").get(indexList[type]).attr("href");
-				//log("The page link is: "+pageLink);
+				log("The page link is: "+pageLink);
 				String indexImgAddr = links.get(i).select("img").get(0).attr("src").replace("/imagecache/"+imgDimList[type], "");
 				String imgAddress = indexImgAddr;
-				
+				//log("The img addr is: "+imgAddress);
 				// This is for handling the f$^&ng big image!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				if(indexImgAddr.equals("http://m.islahweb.org/sites/default/files/img_2686.jpg")){
 					indexImgAddr = "Fuck";
@@ -55,12 +55,11 @@ public class NewsScraper {
 				}	
 				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				
-				//log("The imgAddr is: "+imgAddress);
 				links.get(i).select("td a").get(indexList[type]).remove();
 				String source = links.get(i).select("td").get(indexList[type]).text().replace(")", "").replace("(", "");
 				//log("The source is: "+source);
 				db.newsHandler.initialInsert(title, jDate, indexImgAddr, imgAddress, source, typeList[type], pageLink);
-				log("News "+typeList[type]+" Initial insert finished successfully");
+				//log("News "+typeList[type]+" Initial insert finished successfully");
 				}
 			}catch (IndexOutOfBoundsException e) {log("Problem in News News "+typeList[type]+" initial insert");}
 			catch (NumberFormatException e) {log("Problem in news initial insert");}
