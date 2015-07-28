@@ -32,7 +32,7 @@
     <TextView
         android:id="@+id/txtView2"
         android:layout_below="@id/versionTxtView"
-       	android:layout_centerHorizontal="true"
+       	android:layout_alignRight="@id/islahLogo"
         android:textSize="13sp"
         android:gravity="center"
         android:layout_width="wrap_content"
@@ -42,13 +42,13 @@
      <TextView
         android:id="@+id/txtView3"
         android:layout_below="@id/txtView2"
-       	android:layout_centerHorizontal="true"
+        android:layout_alignRight="@id/islahLogo"
         android:textSize="13sp"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="محمدرضا حیدریان"         
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"/>     
      <ImageView 
         android:id="@+id/androtechLogo"
         android:layout_below="@id/txtView3"
@@ -57,7 +57,27 @@
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:src="@drawable/androtech"/>      
+        android:src="@drawable/androtech"/> 
+     <TextView
+        android:id="@+id/txtView4"       
+        android:layout_below="@id/versionTxtView"
+        android:layout_alignLeft="@id/islahLogo"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="گرافیست"         
+        android:layout_marginBottom="5dp"/> 
+     <TextView
+        android:id="@+id/txtView5"
+        android:layout_below="@id/txtView2"
+        android:layout_alignLeft="@id/islahLogo"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="مسعود رحیم زاده"         
+        android:layout_marginBottom="5dp"/>         
              
     
     

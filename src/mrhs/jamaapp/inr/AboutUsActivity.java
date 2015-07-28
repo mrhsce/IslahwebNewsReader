@@ -17,6 +17,9 @@ public class AboutUsActivity extends Activity {
 		Typeface titr = Typeface.createFromAsset(getAssets(),"fonts/TitrBold.ttf");
 		((TextView)findViewById(R.id.txtView2)).setTypeface(titr);
 		((TextView)findViewById(R.id.txtView3)).setTypeface(titr);
+		((TextView)findViewById(R.id.txtView4)).setTypeface(titr);
+		((TextView)findViewById(R.id.txtView5)).setTypeface(titr);
+		
 	}	
 
 	@Override
