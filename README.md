@@ -54,6 +54,12 @@ Things to do ->
 
 
 	Third phase(Polishing phase):
+	- Implement the images in the images in the Icon4:
+		a) see in the site  b) main page button on clicked
+	- Notification for all new posts
+	- A dialog showed when exit button in pressed
+	- the new tag should move left to be aligned with the border of the list item
+	- make a red filled circle with the number of the unread messages and put it on the main page items and news and articles tabs for showing how many items are not seen  just like telegram
 	- add necessary elements based on the activity to the action bar like back and refresh
 	- add network detector and give user related Toasts when the network is not available
 	- reform the downloader and add start/stop mechanism to it
